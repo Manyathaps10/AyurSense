@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Please Login - AyurSense</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <section class="d-flex flex-column align-items-center justify-content-center text-center py-5">
+    <h2 class="text-success fw-bold">Login Required</h2>
+    <p class="text-muted fs-5">
+      Please <b>login first</b> to access your 
+      <span class="text-success">personalized Ayurvedic recommendations</span> 🌿
+    </p>
+    <a href="{{ url_for('login') }}" class="btn btn-success btn-lg rounded-pill mt-3">
+      Login Now
+    </a>
+  </section>
+</body>
+</html>

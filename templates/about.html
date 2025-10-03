@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="about-section py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold text-success">About AyurSense</h2>
+      <p class="text-muted">
+        A modern approach to Ayurveda – blending ancient wisdom with today’s lifestyle.
+      </p>
+    </div>
+
+    <div class="row align-items-center mb-5">
+     <div class="col-md-6 text-center">
+  <img src="{{ url_for('static', filename='images/about.jpg') }}" 
+       alt="About Ayurveda" 
+       class="img-fluid rounded shadow about-img">
+</div>
+
+      <div class="col-md-6">
+       <h4 class="fw-semibold text-success">Our Story</h4>
+<p>
+  AyurSense was created with a simple vision: to make <b>Ayurveda and holistic living</b>  
+  practical, accessible, and relevant in modern times. Inspired by the timeless wisdom of Ayurveda,  
+  we wanted to bring this ancient science closer to today’s lifestyle — in a way that feels simple,  
+  modern, and easy to follow.  
+</p>
+<p>
+  We believe that <b>small daily rituals</b> and <b>natural remedies</b> can bring balance to the body, mind,  
+  and spirit. By combining age-old practices with today’s needs, AyurSense helps individuals rediscover  
+  harmony, improve well-being, and connect with a healthier way of living.  
+</p>
+      </div>
+    </div>
+
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm p-4">
+          <i class="fa-solid fa-seedling fa-2x text-success mb-3"></i>
+          <h5 class="fw-semibold">Our Mission</h5>
+          <p class="text-muted">
+            To empower people with simple Ayurvedic practices  
+            for everyday wellness and long-term vitality.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm p-4">
+          <i class="fa-solid fa-heart-pulse fa-2x text-danger mb-3"></i>
+          <h5 class="fw-semibold">Our Vision</h5>
+          <p class="text-muted">
+            To create awareness about Ayurveda as a natural,  
+            holistic way to achieve balance and health in today’s world.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 border-0 shadow-sm p-4">
+          <i class="fa-solid fa-users fa-2x text-primary mb-3"></i>
+          <h5 class="fw-semibold">Who We Are</h5>
+          <p class="text-muted">
+            A passionate team of learners and creators,  
+            bringing ancient knowledge in a digital, user-friendly format.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats with Circles -->
+<div class="stats-circle-section py-5">
+  <div class="container text-center">
+    <div class="row">
+      
+      <div class="col-md-4 mb-4">
+        <div class="stat-circle mx-auto mb-3 bg-success text-white">
+          <i class="fa-solid fa-leaf fa-2x"></i>
+        </div>
+        <h2 class="fw-bold text-success">200+</h2>
+        <p class="text-muted">Ayurvedic Tips Shared</p>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="stat-circle mx-auto mb-3 bg-danger text-white">
+          <i class="fa-solid fa-heart fa-2x"></i>
+        </div>
+        <h2 class="fw-bold text-danger">100%</h2>
+        <p class="text-muted">Commitment to Wellness</p>
+      </div>
+
+        <div class="col-md-4 mb-4">
+        <div class="stat-circle mx-auto mb-3 bg-primary text-white">
+          <i class="fa-solid fa-user-check fa-2x"></i>
+        </div>
+        <h2 class="fw-bold text-primary">500+</h2>
+        <p class="text-muted">Happy Learners</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Ayurveda Quote Section -->
+<section class="quote-section py-5">
+  <div class="container text-center">
+    <div class="quote-box mx-auto p-4">
+      <i class="fa-solid fa-quote-left fa-2x text-success mb-3"></i>
+      <p class="fst-italic fs-5 mb-3">
+        “When diet is wrong, medicine is of no use.  
+        When diet is correct, medicine is of no need.”
+      </p>
+      <footer class="blockquote-footer mt-2">
+        Ancient Ayurvedic Proverb
+      </footer>
+    </div>
+  </div>
+</section>
+
+
+</body>
+</html>
+
+{% endblock %}

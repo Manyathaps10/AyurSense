@@ -1,0 +1,491 @@
+{% extends "base.html" %} {% block content %}
+<!-- Carousel Section -->
+<div id="ayurCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img
+        src="{{ url_for('static', filename='images/carousel1.jpg') }}"
+        class="d-block w-100"
+        alt="Ayurveda 1"
+      />
+      <div class="carousel-caption d-none d-md-block">
+        <h5>
+          <a href="#" class="text-white text-decoration-none">
+            🌿 Daily Ayurvedic Tip
+          </a>
+        </h5>
+        <p>
+          <a href="#" class="text-white text-decoration-none">
+            Begin your morning with warm water and lemon – a simple ritual to
+            cleanse toxins and awaken digestion.
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img
+        src="{{ url_for('static', filename='images/carousel2.jpg') }}"
+        class="d-block w-100"
+        alt="Ayurveda 2"
+      />
+      <div class="carousel-caption d-none d-md-block">
+        <h5>
+          <a href="#" class="text-white text-decoration-none">
+            Yoga for Wellness
+          </a>
+        </h5>
+        <p>
+          <a href="#" class="text-white text-decoration-none">
+            Awaken your mornings with Surya Namaskar – a flow that energizes the
+            body and brings clarity to the mind.
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img
+        src="{{ url_for('static', filename='images/carousel3.jpg') }}"
+        class="d-block w-100"
+        alt="Ayurveda 3"
+      />
+      <div class="carousel-caption d-none d-md-block">
+        <h5>
+          <a href="#" class="text-white text-decoration-none">
+            Natural Healing with Food
+          </a>
+        </h5>
+        <p>
+          <a href="#" class="text-white text-decoration-none">
+            Nourish your body with fresh greens and herbs – a natural way to
+            boost immunity and vitality.
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img
+        src="{{ url_for('static', filename='images/carousel4.jpg') }}"
+        class="d-block w-100"
+        alt="Ayurveda 4"
+      />
+      <div class="carousel-caption d-none d-md-block">
+        <h5>
+          <a href="#" class="text-white text-decoration-none">
+            Natural Remedies & Ayurveda Lifestyle
+          </a>
+        </h5>
+        <p>
+          <a href="#" class="text-white text-decoration-none">
+            Emphasis on natural, organic living to nurture the body, mind, and
+            spirit for long-lasting health and overall well-being.
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Carousel Controls -->
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#ayurCarousel"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#ayurCarousel"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+<!-- Features Section -->
+<section class="features py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold text-success">Discover Your Wellness Journey</h2>
+      <p class="text-muted">Explore Ayurveda, Yoga, Diet, and personalized remedies for a healthier life.</p>
+    </div>
+
+    <div class="row text-center">
+      <div class="col-md-3 mb-4">
+        <div class="card feature-card shadow-lg border-0 h-100 p-4">
+          <div class="icon-circle bg-success bg-opacity-10 mb-3 mx-auto">
+            <i class="fa-solid fa-clipboard-question"></i>
+          </div>
+          <h4 class="fw-semibold">Personalized Quiz</h4>
+          <p class="text-muted">Answer a few simple questions to assess your health profile.</p>
+          <a href="#" class="btn btn-sm btn-light-green mt-3">Start Quiz</a>
+
+        </div>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <div class="card feature-card shadow-lg border-0 h-100 p-4">
+          <div class="icon-circle bg-warning bg-opacity-10 mb-3 mx-auto">
+            <i class="fa-solid fa-leaf"></i>
+          </div>
+          <h4 class="fw-semibold">Ayurvedic Remedies</h4>
+          <p class="text-muted">Get natural remedies and lifestyle tips based on your results.</p>
+          <a href="#" class="btn btn-sm btn-light-orange mt-3">View Remedies</a>
+
+        </div>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <div class="card feature-card shadow-lg border-0 h-100 p-4">
+          <div class="icon-circle bg-info bg-opacity-10 mb-3 mx-auto">
+            <i class="fa-solid fa-person-praying"></i>
+          </div>
+          <h4 class="fw-semibold">Yoga & Exercises</h4>
+          <p class="text-muted">Follow suggested yoga routines and exercises for wellness.</p>
+          <a href="#" class="btn btn-sm btn-light-blue mt-3">Explore Yoga</a>
+
+        </div>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <div class="card feature-card shadow-lg border-0 h-100 p-4">
+          <div class="icon-circle bg-danger bg-opacity-10 mb-3 mx-auto">
+            <i class="fa-solid fa-bowl-food"></i>
+          </div>
+          <h4 class="fw-semibold">Diet Suggestions</h4>
+          <p class="text-muted">Receive diet tips and meal plans tailored to your body type and lifestyle.</p>
+          <a href="#" class="btn btn-sm btn-light-red mt-3">Get Diet Plan</a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wellness-journey py-5">
+  <div class="container text-center">
+   <h2 class="fw-bold text-success">Your Wellness Journey</h2>
+      <p class="text-muted">Begin with self-discovery and move gracefully towards balance, healing, and vitality.</p>
+
+    <div class="journey-container">
+      <!-- Step 1 -->
+      <div class="journey-step">
+        <div class="journey-icon green"><i class="fa-solid fa-seedling"></i></div>
+        <h5>Self Discovery</h5>
+        <p>Understand your unique body type & lifestyle needs.</p>
+      </div>
+
+      <div class="journey-line">
+        <svg viewBox="0 0 200 100" preserveAspectRatio="none">
+          <path d="M 0 50 Q 100 0 200 50" stroke="#4CAF50" stroke-width="3" fill="transparent"/>
+        </svg>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="journey-step">
+        <div class="journey-icon orange"><i class="fa-solid fa-leaf"></i></div>
+        <h5>Natural Remedies</h5>
+        <p>Adopt Ayurvedic remedies to restore inner balance.</p>
+      </div>
+
+      <div class="journey-line">
+        <svg viewBox="0 0 200 100" preserveAspectRatio="none">
+          <path d="M 0 50 Q 100 100 200 50" stroke="#FF9800" stroke-width="3" fill="transparent"/>
+        </svg>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="journey-step">
+        <div class="journey-icon blue"><i class="fa-solid fa-spa"></i></div>
+        <h5>Yoga & Wellness</h5>
+        <p>Bring harmony with yoga, meditation & mindful practices.</p>
+      </div>
+
+      <div class="journey-line">
+        <svg viewBox="0 0 200 100" preserveAspectRatio="none">
+          <path d="M 0 50 Q 100 0 200 50" stroke="#2196F3" stroke-width="3" fill="transparent"/>
+        </svg>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="journey-step">
+        <div class="journey-icon red"><i class="fa-solid fa-heart-pulse"></i></div>
+        <h5>Healthy Living</h5>
+        <p>Maintain vitality with balanced diet & positive routine.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="problems-section py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold text-success">Common Wellness Problems</h2>
+      <p class="text-muted">Explore simple Ayurvedic suggestions for everyday issues.</p>
+    </div>
+
+    <div class="row align-items-center">
+      <!-- Left Video -->
+      <div class="col-md-6 mb-4">
+   <div class="video-wrapper">
+  <video width="100%" height="315" controls>
+    <source src="{{ url_for('static', filename='video.mp4') }}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+      </div>
+
+     <!-- Right Problems -->
+ <div class="col-md-6">
+
+  <div class="problem-card problem-digestion">
+    <h5>😟 Poor Digestion</h5>
+    <p>Do you often feel bloated or heavy after meals?</p>
+    <a href="#" class="btn btn-light-orange">Get Suggestions</a>
+  </div>
+
+  <div class="problem-card problem-headache">
+    <h5>🤕 Frequent Headaches</h5>
+    <p>Do you suffer from recurring headaches or migraines?</p>
+    <a href="#" class="btn btn-light-red">Get Suggestions</a>
+  </div>
+
+  <div class="problem-card problem-stress">
+    <h5>💨 Stress & Anxiety</h5>
+    <p>Do you feel stressed easily and find it hard to stay calm?</p>
+    <a href="#" class="btn btn-light-purple">Get Suggestions</a>
+  </div>
+
+  <!-- Bottom CTA -->
+  <div class="text-center mt-4">
+    <a href="#" class="btn btn-dark btn-lg">
+      Explore More Problems
+    </a>
+  </div>
+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blog-section py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">Latest from the Blog</h2>
+      <p class="section-subtitle">Simple tips and insights for better health and wellness.</p>
+    </div>
+
+    <div class="row">
+      <!-- Blog Post 1 -->
+      <div class="col-md-4 mb-4">
+        <div class="blog-card text-only">
+          <div class="blog-content p-3">
+            <h5>5 Herbs to Boost Your Immunity</h5>
+            <p>Discover natural herbs that strengthen your immune system and keep seasonal illnesses away.</p>
+            <a href="#" class="read-more">Read More →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Post 2 -->
+      <div class="col-md-4 mb-4">
+        <div class="blog-card text-only">
+          <div class="blog-content p-3">
+            <h5>Morning Yoga for Energy</h5>
+            <p>Start your day with simple yoga poses that energize the body and calm the mind.</p>
+            <a href="#" class="read-more">Read More →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Post 3 -->
+      <div class="col-md-4 mb-4">
+        <div class="blog-card text-only">
+          <div class="blog-content p-3">
+            <h5>Detox Your Body Naturally</h5>
+            <p>Simple Ayurvedic rituals to cleanse your body and boost your digestion effectively.</p>
+            <a href="#" class="read-more">Read More →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- View All Button -->
+    <div class="text-center mt-4">
+      <a href="#" class="btn btn-outline-dark btn-lg">View All Articles</a>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">What People Say</h2>
+      <p class="section-subtitle">Real experiences from people who embraced the wellness journey.</p>
+    </div>
+
+    <div class="row">
+      <!-- Testimonial 1 -->
+      <div class="col-md-4 mb-4">
+        <div class="testimonial-card p-4 h-100">
+          <p class="testimonial-text">
+            “I started following the daily Ayurvedic tips here, and I feel lighter, more energetic, and calm.”
+          </p>
+          <div class="d-flex align-items-center mt-3">
+            <img src="https://i.pravatar.cc/50?img=12" class="rounded-circle me-3" alt="User">
+            <div>
+              <h6 class="mb-0">Riya Sharma</h6>
+              <small>Software Engineer</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div class="col-md-4 mb-4">
+        <div class="testimonial-card p-4 h-100">
+          <p class="testimonial-text">
+            “The remedies and diet suggestions were simple yet effective. My digestion has improved a lot!”
+          </p>
+          <div class="d-flex align-items-center mt-3">
+            <img src="https://i.pravatar.cc/50?img=7" class="rounded-circle me-3" alt="User">
+            <div>
+              <h6 class="mb-0">Amit Verma</h6>
+              <small>Teacher</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div class="col-md-4 mb-4">
+        <div class="testimonial-card p-4 h-100">
+          <p class="testimonial-text">
+            “I never thought Ayurveda could be this easy to adopt in daily life. This site made it possible.”
+          </p>
+          <div class="d-flex align-items-center mt-3">
+            <img src="https://i.pravatar.cc/50?img=20" class="rounded-circle me-3" alt="User">
+            <div>
+              <h6 class="mb-0">Sneha Kapoor</h6>
+              <small>Designer</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slider Controls (optional if you want carousel) -->
+    <div class="text-center mt-4">
+      <a href="#" class="btn btn-outline-dark">Read More Testimonials</a>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-subtitle">Find quick answers to common queries about Ayurveda and wellness.</p>
+    </div>
+
+    <div class="accordion" id="faqAccordion">
+    <!-- Q1 -->
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="faqHeading1">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="false">
+        🌿 What is Ayurveda and how does it help?
+      </button>
+    </h2>
+    <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+      <div class="accordion-body">
+        Ayurveda is an ancient system of natural healing focusing on balance of body, mind, and spirit. 
+        It uses herbs, diet, and lifestyle practices to improve health naturally.
+      </div>
+    </div>
+  </div>
+
+      <!-- Q2 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="faqHeading2">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+            🍵 Are the remedies safe for everyone?
+          </button>
+        </h2>
+        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Yes, most remedies are natural and safe. However, for chronic conditions or medications, consult a qualified practitioner before following suggestions.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="faqHeading3">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+            🧘 How accurate are the lifestyle suggestions?
+          </button>
+        </h2>
+        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Suggestions are based on Ayurvedic principles and general wellness practices. They provide guidance for a healthier lifestyle but are not a medical prescription.
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="faqHeading4">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+            📱 Do I need to sign up for using the site?
+          </button>
+        </h2>
+        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            No, you can explore tips, blogs, and common problems freely. Signing up helps save your progress and personalized wellness journey.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- More Questions CTA -->
+<div class="text-center mt-5">
+  <h5 class="mb-3">Still have more questions?</h5>
+  <a href="#" class="btn btn-outline-success btn-lg">Explore More FAQs</a>
+  <p class="mt-2">
+    or <a href="#" class="contact-link">contact us directly</a>
+  </p>
+</div>
+
+</section>
+
+<section class="newsletter-section py-5">
+  <div class="container text-center">
+    <h2 class="section-title">Stay Connected</h2>
+    <p class="section-subtitle">
+      Get weekly wellness tips, Ayurvedic remedies, and lifestyle insights straight to your inbox.
+    </p>
+
+    <form class="newsletter-form d-flex justify-content-center mt-4">
+      <input 
+        type="email" 
+        class="form-control newsletter-input" 
+        placeholder="Enter your email address" 
+        required
+      >
+      <button type="submit" class="btn btn-success newsletter-btn">Subscribe</button>
+    </form>
+
+    <small class="text-muted d-block mt-3">
+      We respect your privacy. Unsubscribe anytime.
+    </small>
+  </div>
+</section>
+
+
+
+{% endblock %}

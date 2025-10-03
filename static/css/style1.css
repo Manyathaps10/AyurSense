@@ -1,0 +1,102 @@
+.about-img {
+  width: 100%;          /* full responsive width */
+  max-height: 450px;    /* screen ke hisaab se height limit */
+  object-fit: cover;    /* image ko crop karke fit karega */
+  border-radius: 10px;  /* thoda rounded look */
+}
+
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.stat-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quote-section {
+  background: linear-gradient(135deg, #f0fff4, #e6f9ec); /* soft green gradient */
+}
+
+.quote-box {
+  max-width: 700px;
+  background: #fff;
+  border-left: 6px solid #198754; /* green accent */
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  padding: 40px 30px;
+}
+
+.quote-box i {
+  color: #198754;
+}
+
+.quote-box p {
+  color: #333;
+  line-height: 1.6;
+}
+
+.blockquote-footer {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.login-section {
+  min-height: 80vh;
+  background: linear-gradient(135deg, #f0fff4, #e6f9ec);
+}
+
+.card {
+  border-radius: 20px;
+}
+
+.btn-success {
+  background-color: #198754;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #157347;
+}
+
+/* Social Login Buttons */
+.btn-google {
+  background-color: #db4437; /* Google Red */
+  color: #fff;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-facebook {
+  background-color: #1877f2; /* FB Blue */
+  color: #fff;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-google:hover { background-color: #c23321; }
+.btn-facebook:hover { background-color: #0d65d9; }
+
+#password-error {
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+

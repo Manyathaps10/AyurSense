@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">🌿 Your AyurSense Recommendations</h2>
+<div class="card p-4">
+  <h5>Condition: {{ condition }}</h5>
+  <p><strong>Remedy:</strong> {{ remedy }}</p>
+  <p><strong>Yoga Asana:</strong> {{ asana }}</p>
+  <p><strong>Herbal Medicine:</strong> {{ medicine }}</p>
+</div>
+<a href="{{ url_for('feedback.submit_feedback') }}" class="btn btn-outline-success mt-3">Give Feedback</a>
+{% endblock %}
