@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Replace with a strong secret key
+app.secret_key = os.environ.get("SECRET_KEY", "fallback_secret_key")  
 
 # Dummy user database (for testing)
 users = {}
