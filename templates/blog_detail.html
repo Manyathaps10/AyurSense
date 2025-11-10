@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container py-5" style="max-width:800px;">
+  <h2 class="text-success mb-3" id="blogTitle"></h2>
+  <p class="text-muted mb-4" id="blogAuthor"></p>
+  <img id="blogImage" src="" class="img-fluid rounded mb-4" alt="Blog image">
+  <p id="blogContent" style="line-height:1.6; font-size:1.1rem;"></p>
+</div>
+
+<script>
+const blogs = [
+  {
+    title: "5 Ayurvedic Tips for Healthy Digestion",
+    author: "Dr. Sharma",
+    date: "2025-10-22",
+    content: "Full blog content: Drink warm water, use ginger, eat light foods in evening...",
+    image: "/static/images/digestion.jpg"
+  },
+  {
+    title: "Daily Routine According to Ayurveda",
+    author: "Manya Thapliyal",
+    date: "2025-10-20",
+    content: "Full blog content: Wake up early, meditate, oil massage, yoga, eat seasonal foods...",
+    image: "/static/images/daily_routine.jpg"
+  },
+  {
+    title: "Herbs That Boost Immunity",
+    author: "Dr. Mehta",
+    date: "2025-10-18",
+    content: "Full blog content: Tulsi, Ashwagandha, Turmeric, etc...",
+    image: "/static/images/herbs.jpg"
+  }
+];
+
+// Get the blog slug from the URL
+const path = window.location.pathname;
+const slug = path.split("/").pop();
+
+const blog = blogs.find(b => b.title.replace(/\s+/g,'-').toLowerCase() === slug);
+
+if(blog){
+  document.getElementById("blogTitle").innerText = blog.title;
+  document.getElementById("blogAuthor").innerText = `By ${blog.author} | ${blog.date}`;
+  document.getElementById("blogContent").innerText = blog.content;
+  document.getElementById("blogImage").src = blog.image;
+} else {
+  document.getElementById("blogTitle").innerText = "Blog not found!";
+  document.getElementById("blogContent").innerText = "The blog you are looking for does not exist.";
+}
+</script>
+
+{% endblock %}

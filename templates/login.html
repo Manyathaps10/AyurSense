@@ -18,15 +18,15 @@
             <!-- Login Form -->
             <form method="POST" action="{{ url_for('login') }}">
               <div class="mb-3">
-                <label for="username" class="form-label fw-semibold"
-                  >Username</label
+                <label for="email" class="form-label fw-semibold"
+                  >Email</label
                 >
                 <input
                   type="text"
                   class="form-control rounded-pill"
-                  id="username"
-                  name="username"
-                  placeholder="Enter your username"
+                  id="email"
+                  name="email"
+                  placeholder="Enter your email address"
                   required
                 />
               </div>
@@ -50,11 +50,12 @@
               >
                 <div class="form-check">
                   <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="remember"
-                  />
+  class="form-check-input"
+  type="checkbox"
+  id="remember"
+  name="remember" 
+  value="1"
+/>
                   <label class="form-check-label" for="remember">
                     Remember Me
                   </label>
@@ -78,9 +79,6 @@
             <div class="d-flex justify-content-center gap-3 mb-3">
               <button class="btn btn-google">
                 <i class="fa-brands fa-google"></i>
-              </button>
-              <button class="btn btn-facebook">
-                <i class="fa-brands fa-facebook-f"></i>
               </button>
             </div>
 

@@ -1,20 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Please Login - AyurSense</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-  <section class="d-flex flex-column align-items-center justify-content-center text-center py-5">
-    <h2 class="text-success fw-bold">Login Required</h2>
-    <p class="text-muted fs-5">
-      Please <b>login first</b> to access your 
-      <span class="text-success">personalized Ayurvedic recommendations</span> 🌿
-    </p>
-    <a href="{{ url_for('login') }}" class="btn btn-success btn-lg rounded-pill mt-3">
-      Login Now
-    </a>
-  </section>
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex flex-column align-items-center justify-content-center text-center py-5" style="min-height: 80vh; background: linear-gradient(135deg, #e0f7e9, #d4f1e0); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <div class="login-card p-4 rounded-4 shadow-sm bg-white">
+        <h2 class="text-success fw-bold mb-3">Login Required</h2>
+        <p class="mb-4" style="font-size: 1.1rem; color: #555;">
+            Please <b>login first</b> to access your 
+            <span class="text-success">personalized Ayurvedic recommendations</span> 🌿<span class="emoji">✨</span>
+        </p>
+        <a href="{{ url_for('login') }}" class="btn btn-success rounded-pill px-4 py-2">
+            Login Now
+        </a>
+    </div>
+</div>
+{% endblock %}

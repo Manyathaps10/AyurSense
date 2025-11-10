@@ -1,4 +1,178 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!-- ✨ QUIZ PAGE POLISH -->
+<style>
+  :root{
+    --leaf:#1f8a5b; --leaf-2:#2fbf71; --ink:#0f1d1a; --muted:#6c7a73;
+    --panel:#ffffff; --soft:#f3f7f4; --ring:#dcebe3;
+  }
+  body{background:linear-gradient(180deg,#fff, #f8f6ef);}
+  .quiz-wrap{max-width:960px; margin-inline:auto;}
+  .brand{display:flex; align-items:center; gap:.6rem; font-weight:800; color:var(--leaf);}
+  .brand svg{width:26px;height:26px}
+  .hero{
+    background: radial-gradient(120% 120% at 0% 0%, #eafff3 0%, #fff 60%, #f6fff9 100%);
+    border:1px solid #e6f4ec; border-radius:28px; padding:2rem 1.5rem;
+    box-shadow:0 10px 30px rgba(20,60,40,.06);
+  }
+  .hero h2{margin:0; font-weight:800; letter-spacing:-.4px;
+    background:linear-gradient(90deg,var(--leaf),var(--leaf-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;}
+  .sub{color:var(--muted)}
+
+  /* Progress */
+  .progress-shell{position:sticky; top:0; z-index:3; backdrop-filter:saturate(140%) blur(4px);
+    background:linear-gradient(#ffffffcc,#ffffffcc); border-bottom:1px solid #eef5f1;}
+  .progress-bar{height:10px; background:#eaf4ee; border-radius:999px; overflow:hidden}
+  .progress-fill{height:100%; width:0%; background:linear-gradient(90deg,var(--leaf),var(--leaf-2));
+    border-radius:999px; transition:width .25s ease}
+
+  /* Question card */
+  .q-card{
+    background:var(--panel); border:1px solid var(--ring); border-radius:22px;
+    padding:1.25rem; box-shadow:0 12px 28px rgba(20,60,40,.06);
+  }
+  .q-title{font-weight:700; margin-bottom:.75rem}
+  .options{display:grid; gap:.75rem}
+  @media(min-width:720px){ .options{grid-template-columns:repeat(2,minmax(0,1fr));} }
+
+  /* Option card */
+  .opt{position:relative}
+  .opt input{position:absolute; opacity:0; inset:0; cursor:pointer}
+  .opt label{
+    display:block; padding:0.9rem 1rem; border-radius:16px; border:1.5px solid #e7efe9;
+    background:#fafdfb; transition:all .18s ease; font-weight:500; color:#24332c;
+  }
+  .opt:hover label{transform:translateY(-1px); box-shadow:0 8px 18px rgba(20,60,40,.07)}
+  .opt input:focus-visible + label{outline:3px solid #cdeee0; outline-offset:2px}
+  .opt input:checked + label{
+    border-color:var(--leaf); background:#f2fcf6;
+    box-shadow:inset 0 0 0 2px #e2f7ea;
+  }
+
+  /* Sticky submit */
+  .sticky-cta{
+    position:sticky; bottom:0; z-index:3; background:#ffffffee; backdrop-filter:blur(6px);
+    border-top:1px solid #e8f2ed; padding:1rem;
+  }
+  .btn-leaf{
+    background:linear-gradient(90deg,var(--leaf),var(--leaf-2)); border:none;
+    color:#fff; font-weight:700; padding:.9rem 1.25rem; border-radius:14px;
+    box-shadow:0 10px 24px rgba(31,138,91,.25);
+  }
+  .btn-leaf:hover{filter:brightness(.98)}
+  .req-note{font-size:.9rem; color:var(--muted)}
+</style>
+
+<div class="progress-shell">
+  <div class="quiz-wrap py-3 px-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div class="brand">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 14c5-1 7-6 8-10 1 4 3 9 8 10-4 1-6 5-8 8-2-3-4-7-8-8Z" stroke="#1f8a5b" stroke-width="1.5"/></svg>
+        AyurSense Quiz
+      </div>
+      <div id="progress-text" class="small text-muted">0 / {{ questions|length }}</div>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+</div>
+
+<div class="quiz-wrap px-3 py-4">
+  <div class="hero mb-4">
+    <h2>Wellness Assessment</h2>
+    <p class="sub mb-0">15 quick questions to understand your Vata–Pitta–Kapha balance. Select what feels most like you.</p>
+  </div>
+
+  <form method="POST" id="quiz-form" novalidate>
+    {% for q in questions %}
+      <section class="q-card mb-3" data-q>
+        <h5 class="q-title">{{ loop.index }}. {{ q[1] }}</h5>
+
+        <div class="options">
+          <div class="opt">
+            <input type="radio" id="q{{ q[0] }}A" name="{{ q[0] }}" value="A" required>
+            <label for="q{{ q[0] }}A">{{ q[2] }}</label>
+          </div>
+          <div class="opt">
+            <input type="radio" id="q{{ q[0] }}B" name="{{ q[0] }}" value="B">
+            <label for="q{{ q[0] }}B">{{ q[3] }}</label>
+          </div>
+          <div class="opt">
+            <input type="radio" id="q{{ q[0] }}C" name="{{ q[0] }}" value="C">
+            <label for="q{{ q[0] }}C">{{ q[4] }}</label>
+          </div>
+          <div class="opt">
+            <input type="radio" id="q{{ q[0] }}D" name="{{ q[0] }}" value="D">
+            <label for="q{{ q[0] }}D">{{ q[5] }}</label>
+          </div>
+        </div>
+      </section>
+    {% endfor %}
+
+    <div class="sticky-cta">
+      <div class="d-flex flex-column flex-md-row gap-2 align-items-md-center justify-content-between">
+        <span class="req-note">Answer all questions to unlock your personalized report.</span>
+        <button type="submit" class="btn-leaf w-100 w-md-auto">Get My Wellness Report</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  (function () {
+    const form = document.getElementById('quiz-form');
+    const blocks = [...form.querySelectorAll('[data-q]')];   // ordered list of questions
+    const total = blocks.length;
+    const fill = document.getElementById('progress-fill');
+    const ptxt = document.getElementById('progress-text');
+    const STICKY_OFFSET = 72;  // progress bar height ≈
+
+    function updateProgress() {
+      const answered = new Set(
+        [...form.querySelectorAll('input[type="radio"]:checked')].map(r => r.name)
+      );
+      const n = answered.size;
+      fill.style.width = Math.round((n/total)*100) + '%';
+      ptxt.textContent = n + ' / ' + total;
+    }
+
+    function scrollToWithOffset(el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - STICKY_OFFSET - 8;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+
+    form.addEventListener('change', (e) => {
+      if (!e.target.matches('input[type="radio"]')) return;
+
+      updateProgress();
+
+      // find index of current block and scroll to the *next index* reliably
+      const currentBlock = e.target.closest('[data-q]');
+      const idx = blocks.indexOf(currentBlock);
+      const nextBlock = blocks[idx + 1];
+      if (nextBlock) scrollToWithOffset(nextBlock);
+    });
+
+    form.addEventListener('submit', (e) => {
+      // guard: stop submit if any unanswered
+      const allAnswered = blocks.every(b =>
+        b.querySelector('input[type="radio"]:checked')
+      );
+      if (!allAnswered) {
+        e.preventDefault();
+        const firstMissing = blocks.find(b => !b.querySelector('input[type="radio"]:checked'));
+        scrollToWithOffset(firstMissing);
+        firstMissing.classList.add('ring');
+        setTimeout(()=>firstMissing.classList.remove('ring'), 1200);
+      }
+    });
+
+    updateProgress();
+  })();
+</script>
+
+
 {% endblock %}

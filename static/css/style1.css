@@ -81,22 +81,8 @@
   justify-content: center;
 }
 
-.btn-facebook {
-  background-color: #1877f2; /* FB Blue */
-  color: #fff;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 .btn-google:hover { background-color: #c23321; }
-.btn-facebook:hover { background-color: #0d65d9; }
 
-#password-error {
-  font-size: 0.9rem;
-  margin-top: 4px;
-}
+
 

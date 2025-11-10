@@ -1,11 +1,137 @@
 {% extends "base.html" %}
 {% block content %}
-<h2 class="mb-4">🌿 Your AyurSense Recommendations</h2>
-<div class="card p-4">
-  <h5>Condition: {{ condition }}</h5>
-  <p><strong>Remedy:</strong> {{ remedy }}</p>
-  <p><strong>Yoga Asana:</strong> {{ asana }}</p>
-  <p><strong>Herbal Medicine:</strong> {{ medicine }}</p>
+
+<div class="result-page container py-5" style="max-width: 980px;">
+  <style>
+    :root{ --leaf:#1f8a5b; --leaf2:#2fbf71; --ring:#e2efe7; --soft:#f6fbf8; --muted:#6c7a73; }
+    .shell{background:#fff; border:1px solid var(--ring); border-radius:24px; padding:2rem; box-shadow:0 14px 34px rgba(20,60,40,.08);}
+    .title-grad{font-weight:800; letter-spacing:-.3px; background:linear-gradient(90deg,var(--leaf),var(--leaf2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;}
+    .bar-row{display:flex; align-items:center; gap:12px; margin:.35rem 0;}
+    .bar-row .label{min-width:80px; font-weight:700;}
+    .bar-row .pct{min-width:58px; text-align:right; font-weight:600; color:#1c3027;}
+    .bar{flex:1; height:12px; background:#edf5ef; border-radius:999px; overflow:hidden}
+    .fill{height:100%; border-radius:999px; width:0}
+    .fill.vata{background:#31c3dd;} .fill.pitta{background:#ff7a6a;} .fill.kapha{background:#1f8a5b;}
+    .chip{display:inline-flex; align-items:center; gap:.5rem; font-weight:700; padding:.45rem .8rem; border-radius:999px; border:1px solid var(--ring); background:var(--soft);}
+    .sec{border-left:4px solid #cfe9da; padding-left:1rem; margin-top:1.4rem}
+    .ins-card{background:#fff; border:1px solid var(--ring); border-radius:18px; padding:1rem 1.1rem; box-shadow:0 10px 24px rgba(20,60,40,.06);}
+    .tag{font-size:.78rem; padding:.15rem .6rem; border-radius:999px; border:1px solid var(--ring)}
+    .tag.vata{background:#f1fdff} .tag.pitta{background:#fff6f2} .tag.kapha{background:#f2fff6} .tag.balanced{background:#f9f3ff}
+    pre.ai {white-space:pre-wrap; margin:0;}
+
+    /* 👉 Ensure page has height so footer stays at bottom */
+    .result-page{
+      min-height:80vh;
+      display:flex;
+      flex-direction:column;
+    }
+    /* 👉 Space before footer just on this page */
+    .ai-box{
+      margin-bottom:80px !important;
+    }
+  </style>
+
+  <h2 class="mb-2 text-center title-grad">🧘‍♀️ Your AyurSense Dosha Analysis</h2>
+
+  <div class="shell mt-3">
+    <h4 class="text-center mb-4">🌿 Dosha Balance Overview</h4>
+
+    <div class="mb-3">
+      <div class="bar-row">
+        <div class="label">Vata</div>
+        <div class="bar"><div class="fill vata" style="width: {{ vata_percent|default(0, true)|float }}%"></div></div>
+        <div class="pct">{{ vata_percent|default(0, true) }}%</div>
+      </div>
+      <div class="bar-row">
+        <div class="label">Pitta</div>
+        <div class="bar"><div class="fill pitta" style="width: {{ pitta_percent|default(0, true)|float }}%"></div></div>
+        <div class="pct">{{ pitta_percent|default(0, true) }}%</div>
+      </div>
+      <div class="bar-row">
+        <div class="label">Kapha</div>
+        <div class="bar"><div class="fill kapha" style="width: {{ kapha_percent|default(0, true)|float }}%"></div></div>
+        <div class="pct">{{ kapha_percent|default(0, true) }}%</div>
+      </div>
+    </div>
+
+    <div class="text-center my-3">
+      <span class="chip">✨ Your Dominant Dosha: <span class="ms-1">{{ dominant_dosha }}</span></span>
+    </div>
+
+    <div id="tips" class="row g-3 mt-1">
+      <div class="col-12">
+        <div class="sec alert alert-success mb-0">
+          <h5 class="fw-bold mb-1">🌿 Ayurvedic Remedies for {{ dominant_dosha }}</h5>
+          <p class="mb-0">{{ remedy }}</p>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="sec alert alert-warning mb-0">
+          <h5 class="fw-bold mb-1">🧘 Yoga Suggestions</h5>
+          <p class="mb-0">{{ yoga }}</p>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="sec alert alert-info mb-0">
+          <h5 class="fw-bold mb-1">🥗 Diet Recommendations</h5>
+          <p class="mb-0">{{ diet }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5">
+      <h4 class="text-success mb-2">💫 Personalized AyurSense Insights</h4>
+      <p class="text-muted mb-3">Each answer mapped to an ayurvedic cue with a tiny habit you can start today.</p>
+
+      <div class="row g-3">
+        {% for item in detailed_suggestions %}
+          <div class="col-12 col-lg-6">
+            <div class="ins-card h-100">
+              <div class="d-flex justify-content-between align-items-start mb-1">
+                <div class="fw-bold">Q{{ item.qnum }}. {{ item.question }}</div>
+                <span class="tag {{ item.category|lower }}">{{ item.icon }} {{ item.category|capitalize }}</span>
+              </div>
+              <p class="mb-1"><strong>Your Answer:</strong> {{ item.answer }}</p>
+              <p class="mb-0 text-success"><strong>{{ item.icon }} Suggestion:</strong> {{ item.suggestion }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- 🤖 AI PLAN -->
+    <div class="mt-5 ai-box">
+      <h4 class="text-success mb-2">🤖 Your AI-Generated 3-Day Wellness Plan</h4>
+      <p class="text-muted mb-3">Auto-crafted from your dosha balance. Short, practical, and easy to follow:</p>
+
+      <div class="ins-card" style="background:#f9fefb; border:1px solid #d5f2de; border-radius:18px; padding:1.8rem; box-shadow:0 8px 25px rgba(31,138,91,0.08);">
+        <div style="border-left:5px solid #2fbf71; padding-left:1rem;">
+          <pre class="ai" style="
+            white-space:pre-wrap;
+            font-family:'Inter', sans-serif;
+            font-size:0.95rem;
+            color:#1c3027;
+            line-height:1.7;
+            background:linear-gradient(145deg,#fafffa,#f0fdf4);
+            border-radius:12px;
+            padding:1.2rem;
+            border:1px solid #e2efe7;
+          ">{{ ai_plan|safe }}</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4 text-muted">
+      <p>🪷 Maintaining your dosha balance helps improve energy, mood, digestion, and overall wellbeing.
+        Follow these suggestions and recheck your balance every few weeks.</p>
+    </div>
+  </div>
+
+  <div class="mt-4 d-flex gap-2 justify-content-center">
+    <a href="{{ url_for('quiz') }}" class="btn btn-outline-success">🔁 Retake Quiz</a>
+    <a href="{{ url_for('index') }}" class="btn btn-success">🏠 Go Home</a>
+  </div>
 </div>
-<a href="{{ url_for('feedback.submit_feedback') }}" class="btn btn-outline-success mt-3">Give Feedback</a>
+
 {% endblock %}
