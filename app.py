@@ -376,7 +376,7 @@ def seed_quiz_questions():
 # Initialize DBs
 init_db()
 init_quiz_db()
-# seed_quiz_questions()   # uncomment once if needed
+seed_quiz_questions()   # uncomment once if needed
 
 
 # -------------------- HELPERS --------------------
