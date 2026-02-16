@@ -12,6 +12,8 @@ body {
     border-bottom: 3px solid #d4af37; /* Royal Golden border */
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     padding: 0.8rem 1.5rem;
+    margin-bottom: 0 !important;
+  
 }
 
 .navbar-brand img {
@@ -159,7 +161,7 @@ body {
 
 
 
-/* ===== Footer (optional) ===== */
+/* ===== Footer ===== */
 footer {
     background: #E6F4EA;
     text-align: center;
@@ -506,6 +508,38 @@ footer {
   margin: 20px 0;
 }
 
+/* Footer social section alignment fix */
+.site-footer .col-md-4.mb-4:last-child {
+  text-align: center; /* icons and heading center align */
+}
+
+.site-footer .col-md-4.mb-4:last-child h5 {
+  margin-bottom: 12px; /* reduce gap above icons */
+}
+
+.site-footer .social-icons {
+  display: flex;
+  justify-content: center; /* center horizontally */
+  align-items: center; /* vertically aligned */
+  gap: 15px; /* even spacing */
+  margin-top: 10px;
+}
+
+.site-footer .social-icons a {
+  color: #bbb;
+  font-size: 22px;
+  transition: all 0.3s ease;
+}
+
+.site-footer .social-icons a:hover {
+  transform: translateY(-3px);
+}
+
+/* individual hover colors  */
+.site-footer .social-icons .fa-facebook-f:hover { color: #1877F2; }
+.site-footer .social-icons .fa-instagram:hover { color: #E4405F; }
+.site-footer .social-icons .fa-youtube:hover { color: #FF0000; }
+.site-footer .social-icons .fa-linkedin-in:hover { color: #0A66C2; }
 
 
 

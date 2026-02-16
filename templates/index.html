@@ -122,7 +122,7 @@
           </div>
           <h4 class="fw-semibold">Personalized Quiz</h4>
           <p class="text-muted">Answer a few simple questions to assess your health profile.</p>
-          <a href="#" class="btn btn-sm btn-light-green mt-3">Start Quiz</a>
+          <a href="/quiz" class="btn btn-sm btn-light-green mt-3">Start Quiz</a>
 
         </div>
       </div>
@@ -134,7 +134,7 @@
           </div>
           <h4 class="fw-semibold">Ayurvedic Remedies</h4>
           <p class="text-muted">Get natural remedies and lifestyle tips based on your results.</p>
-          <a href="#" class="btn btn-sm btn-light-orange mt-3">View Remedies</a>
+          <a href="/remedies" class="btn btn-sm btn-light-orange mt-3">View Remedies</a>
 
         </div>
       </div>
@@ -146,7 +146,7 @@
           </div>
           <h4 class="fw-semibold">Yoga & Exercises</h4>
           <p class="text-muted">Follow suggested yoga routines and exercises for wellness.</p>
-          <a href="#" class="btn btn-sm btn-light-blue mt-3">Explore Yoga</a>
+          <a href="/yoga_exercises" class="btn btn-sm btn-light-blue mt-3">Explore Yoga</a>
 
         </div>
       </div>
@@ -158,7 +158,7 @@
           </div>
           <h4 class="fw-semibold">Diet Suggestions</h4>
           <p class="text-muted">Receive diet tips and meal plans tailored to your body type and lifestyle.</p>
-          <a href="#" class="btn btn-sm btn-light-red mt-3">Get Diet Plan</a>
+          <a href="/diet-suggestions" class="btn btn-sm btn-light-red mt-3">Get Diet Plan</a>
 
         </div>
       </div>
@@ -246,19 +246,19 @@
   <div class="problem-card problem-digestion">
     <h5>😟 Poor Digestion</h5>
     <p>Do you often feel bloated or heavy after meals?</p>
-    <a href="#" class="btn btn-light-orange">Get Suggestions</a>
+    <a href="{{ url_for('condition_article', name='digestion') }}" class="btn btn-light-orange">Get Suggestions</a>
   </div>
 
   <div class="problem-card problem-headache">
     <h5>🤕 Frequent Headaches</h5>
     <p>Do you suffer from recurring headaches or migraines?</p>
-    <a href="#" class="btn btn-light-red">Get Suggestions</a>
+    <a href="/wellness/headache" class="btn btn-light-red">Get Suggestions</a>
   </div>
 
   <div class="problem-card problem-stress">
     <h5>💨 Stress & Anxiety</h5>
     <p>Do you feel stressed easily and find it hard to stay calm?</p>
-    <a href="#" class="btn btn-light-purple">Get Suggestions</a>
+    <a href="/wellness/stress" class="btn btn-light-purple">Get Suggestions</a>
   </div>
 
   <!-- Bottom CTA -->

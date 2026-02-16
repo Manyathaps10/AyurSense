@@ -1,9 +1,8 @@
 import os
 from textwrap import dedent
 import google.generativeai as genai
+import json
 
-
-# ---- Load .env once (project root me .env rakho) ----
 try:
     from dotenv import load_dotenv
     load_dotenv()
@@ -22,7 +21,6 @@ import secrets
 _LAST_AI_ERROR = None  # optional debug flag
 
 def _offline_plan(dosha: str) -> str:
-    # -- same offline plans you already have; keep as-is --
     d = (dosha or "Balanced").strip().lower()
     if d == "vata":
         return dedent("""Day 1
@@ -109,151 +107,140 @@ Day 3
 • Evening: 4-7-8 breath, early lights-out""").strip()
 
 def _call_ai(prompt: str) -> str | None:
-    """
-    Gemini call with adaptive model selection:
-    - tries env override GEMINI_MODEL
-    - tries common candidates
-    - on 404, auto-discovers available models that support generateContent
-    """
     import google.generativeai as genai
-    from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
     global _LAST_AI_ERROR
     _LAST_AI_ERROR = None
 
     api_key = os.getenv("GEMINI_API_KEY")
     print("🔎 GEMINI_API_KEY present:", bool(api_key))
+
     if not api_key:
         _LAST_AI_ERROR = "missing_gemini_key"
         return None
 
     genai.configure(api_key=api_key)
 
-    # Let user override via .env if they want
-    env_model = (os.getenv("GEMINI_MODEL") or "").strip()
+    MODEL = "gemini-2.5-pro"
 
-    # Good defaults that exist on current SDKs
-    MODEL_CANDIDATES = [
-        env_model,                      # if set
-        "gemini-1.5-flash-latest",
-        "gemini-1.5-flash",
-        "gemini-1.5-pro-latest",
-        "gemini-1.5-pro",
-        "gemini-2.0-flash-exp",         # some regions/accounts have this
-        "gemini-2.0-flash-lite-preview-02-05",  # fallback experimental
-    ]
-    MODEL_CANDIDATES = [m for m in MODEL_CANDIDATES if m]  # drop blanks
 
-    gen_cfg = {
-        "temperature": 0.7,
-        "max_output_tokens": 700,
-    }
-    safety = {
-        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    }
-
-    def try_model(model_name: str):
-        print(f"ℹ️ Gemini try → {model_name}")
-        model = genai.GenerativeModel(model_name)
-        resp = model.generate_content(
-            prompt,
-            generation_config=gen_cfg,
-            safety_settings=safety,
-        )
-        # Prefer resp.text if present
-        text = getattr(resp, "text", None)
-        if text and text.strip():
-            print("✅ Gemini plan generated")
-            return text.strip()
-        # Try candidates structure (older/edge cases)
-        if getattr(resp, "candidates", None):
-            for c in resp.candidates:
-                if getattr(c, "content", None) and getattr(c.content, "parts", None):
-                    parts_text = "".join(getattr(p, "text", "") for p in c.content.parts)
-                    if parts_text.strip():
-                        print("✅ Gemini plan generated (candidates)")
-                        return parts_text.strip()
-        raise RuntimeError("empty_response")
-
-    # 1) Try the candidates
-    last_err = None
-    for m in MODEL_CANDIDATES:
-        try:
-            return try_model(m)
-        except Exception as e:
-            last_err = e
-            msg = str(e)
-            # If it's a 404 "model not found" → we will list models next
-            if "404" in msg or "not found" in msg.lower():
-                print(f"↪️ Model not found: {m} → will try discovery")
-                break
-            print(f"↪️ Gemini error on {m}: {e}")
-
-    # 2) Auto-discover: pick any model that supports generateContent
     try:
-        print("🔍 Listing Gemini models for generateContent support…")
-        avail = genai.list_models()
-        # Prefer flash/pro models that have generateContent in supported methods
-        ranked = []
-        for md in avail:
-            name = getattr(md, "name", "")
-            methods = set(getattr(md, "supported_generation_methods", []) or [])
-            # older SDKs: sometimes 'generateContent' or 'generate_content'
-            if "generateContent" in methods or "generate_content" in methods:
-                ranked.append(name)
+        print("🚀 Calling Gemini Model:", MODEL)
 
-        # Prefer 'flash' first, then 'pro'
-        ranked = sorted(
-            ranked,
-            key=lambda n: (
-                0 if "flash" in n else (1 if "pro" in n else 2),
-                len(n)
-            )
+        model = genai.GenerativeModel(MODEL)
+
+        response = model.generate_content(
+            prompt,
+            generation_config={
+                "temperature": 0.9,
+                "max_output_tokens": 900
+            }
         )
 
-        for full_name in ranked:
-            # names can be like "models/gemini-1.5-flash-latest"
-            model_id = full_name.split("/")[-1]
-            try:
-                return try_model(model_id)
-            except Exception as e:
-                print(f"↪️ Discovery try failed for {model_id}: {e}")
-    except Exception as e:
-        print("⛔ Model discovery failed:", e)
-        last_err = e
+        text = ""
 
-    _LAST_AI_ERROR = f"gemini_error: {last_err}"
-    print("⛔ Gemini final error:", last_err)
-    return None
+        if hasattr(response, "text") and response.text:
+            text += response.text
+
+        if getattr(response, "candidates", None):
+            for c in response.candidates:
+                if getattr(c, "content", None):
+                    for p in getattr(c.content, "parts", []):
+                        if hasattr(p, "text"):
+                            text += p.text
+
+        text = text.strip()
+
+        if text:
+            print("✅ Gemini Response Success")
+            return text
+
+        raise Exception("Empty AI response")
+
+    except Exception as e:
+        print("❌ Gemini Error:", e)
+        _LAST_AI_ERROR = str(e)
+        return None
+
 
 
 def generate_ai_plan(dosha: str, vata: float, pitta: float, kapha: float) -> str:
     """
     Try Gemini first; if any error/missing key/quota → always return solid offline plan (NO placeholder).
     """
+
     prompt = dedent(f"""
-    Create a friendly, practical 3-day wellness plan for this user:
+You are a senior Ayurvedic doctor, nutritionist, and holistic lifestyle coach.
 
-    Dosha split -> Vata: {vata}%, Pitta: {pitta}%, Kapha: {kapha}%
-    Dominant Dosha: {dosha}
+You are creating a PREMIUM personalized wellness plan for a real user.
 
-    For each of Day 1, Day 2, Day 3, include:
-    - Morning routine (yoga/breathwork)
-    - Breakfast, Lunch, Dinner (Indian, easy-to-find foods)
-    - Evening wind-down tip
+USER AYURVEDIC PROFILE:
+Dominant Dosha: {dosha}
+Dosha Breakdown:
+Vata: {vata}%
+Pitta: {pitta}%
+Kapha: {kapha}%
 
-    Keep within ~200-250 words total. Use bullets, short lines, no medical claims.
-    Tone: supportive, simple, actionable.
-    """).strip()
+GOAL:
+Create a plan that feels deeply personalized, practical, and realistic for Indian daily life.
+
+OUTPUT STRUCTURE (FOLLOW EXACTLY):
+
+🌿 DAY 1 – Reset & Balance
+Morning Routine:
+- Yoga poses
+- Breathing practice
+- One lifestyle habit
+
+Breakfast:
+- Real Indian meal suggestion
+- Why it helps this dosha
+
+Lunch:
+- Balanced Ayurvedic meal
+- Dosha reasoning
+
+Dinner:
+- Light digestible dinner
+- Digestion support logic
+
+Evening Self-Care:
+- Mental or emotional wellness habit
+
+🌿 DAY 2 – Strength & Stability
+(Same structure but DIFFERENT meals + yoga)
+
+🌿 DAY 3 – Recovery & Long-Term Balance
+(Same structure but DIFFERENT meals + yoga)
+
+CONTENT RULES:
+- Use realistic Indian foods (dal, khichdi, roti, sabzi, etc.)
+- Do NOT repeat same meals daily
+- Add Ayurvedic reasoning naturally
+- Include lifestyle + food + mind wellness mix
+- Make plan feel warm and human, not robotic
+- Avoid medical claims
+- Avoid generic advice like "eat healthy"
+- Write 300–450 words
+- Do NOT give summary
+- Do NOT stop early
+- Complete ALL 3 days
+
+TONE:
+Supportive, calming, premium wellness app style.
+
+Make it feel like a real Ayurvedic expert wrote it personally for the user.
+"""
+).strip()
 
     text = _call_ai(prompt)
+
     if text:
         return text
+
     print(f"💡 Offline fallback used. Reason: {_LAST_AI_ERROR}")
     return _offline_plan(dosha)
+
 # ---------- end AI helper ----------
 
 app = Flask(__name__)
@@ -545,13 +532,13 @@ def login():
 @app.route('/quiz', methods=['GET', 'POST'])
 def quiz():
     if 'user' not in session:
-        flash("Please login first to take the quiz.", "warning")
-        return redirect(url_for('login'))
+        # custom "please login" page instead of redirect
+        return render_template("please_login.html"), 401
 
     user_id = get_user_id(session['user'])
     if not user_id:
-        flash("Session expired. Please login again.", "danger")
-        return redirect(url_for('login'))
+        # session corrupt/expired → also show plz.html
+        return render_template("please_login.html"), 401
 
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
@@ -591,12 +578,11 @@ def quiz():
 @app.route('/result')
 def result():
     if 'user' not in session:
-        return redirect(url_for('login'))
+        return render_template("please_login.html"), 401
 
     user_id = get_user_id(session['user'])
     if not user_id:
-        flash("Session expired. Please login again.", "danger")
-        return redirect(url_for('login'))
+        return render_template("please_login.html"), 401
 
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
@@ -715,7 +701,7 @@ def result():
             "suggestion": tip
         })
 
-    # Percentages (exclude 'balanced' from denominator)
+    
     total = category_count["vata"] + category_count["pitta"] + category_count["kapha"]
     if total > 0:
         vata_percent = round((category_count["vata"] / total) * 100, 1)
@@ -780,10 +766,12 @@ def logout():
     if token:
         revoke_token(token)
     session.pop('user', None)
+
     resp = make_response(redirect(url_for('index')))
-    resp.set_cookie('remember_token', '', expires=0)
+    resp.delete_cookie('remember_token', path='/', samesite='Lax', secure=False)
     flash('Logged out successfully.', 'info')
     return resp
+
 
 
 @app.route("/contact", methods=["GET", "POST"])
@@ -809,6 +797,214 @@ def envcheck():
         "python": sys.version,
         "sdk": "gemini",
     }
+
+@app.route("/listmodels")
+def listmodels():
+    import google.generativeai as genai
+    genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
+    models = []
+    for m in genai.list_models():
+        models.append({
+            "name": m.name,
+            "methods": m.supported_generation_methods
+        })
+
+    return {"models": models}
+
+@app.route("/remedies")
+def remedies():
+    return render_template("remedies.html")
+
+@app.route("/dosha/<dosha>")
+def dosha_article(dosha):
+
+    data = {
+        "vata": {
+            "title": "Vata Dosha Complete Guide",
+            "content": "Vata controls movement, breathing, nervous system. Imbalance causes anxiety, dryness and insomnia. Balance Vata with warm food, oil massage and routine."
+        },
+        "pitta": {
+            "title": "Pitta Dosha Complete Guide",
+            "content": "Pitta controls digestion and metabolism. Imbalance causes acidity, anger and inflammation. Balance Pitta with cooling food, coconut water and meditation."
+        },
+        "kapha": {
+            "title": "Kapha Dosha Complete Guide",
+            "content": "Kapha controls body structure and immunity. Imbalance causes weight gain and low energy. Balance Kapha with exercise, light food and spices."
+        }
+    }
+
+    article = data.get(dosha.lower())
+
+    return render_template("article.html", article=article)
+    
+@app.route("/disease/<disease>")
+def disease_article(disease):
+
+    data = {
+        "stress": {
+            "title": "Stress & Anxiety Natural Healing",
+            "content": """
+Stress Ayurvedic View:
+Stress increases Vata and Pitta dosha.
+
+Natural Remedies:
+• Ashwagandha powder with milk at night
+• Brahmi tea for brain calmness
+• Daily meditation 10 min
+• Warm oil head massage weekly
+
+Lifestyle Tips:
+• Avoid late night screen
+• Sleep before 11 PM
+• Practice deep breathing
+"""
+        },
+
+        "digestion": {
+            "title": "Digestive Healing Ayurveda",
+            "content": """
+Digestive Problems come from weak Agni (digestive fire).
+
+Natural Remedies:
+• Jeera water morning
+• Ginger + black salt before meals
+• Triphala at night
+
+Lifestyle Tips:
+• Eat warm fresh food
+• Avoid cold drinks
+• Fixed meal timing
+"""
+        },
+
+        "sleep": {
+            "title": "Sleep Recovery Ayurveda",
+            "content": """
+Sleep imbalance happens due to Vata disturbance.
+
+Natural Remedies:
+• Nutmeg milk before sleep
+• Chamomile tea
+• Foot oil massage
+
+Lifestyle Tips:
+• No phone 1 hour before sleep
+• Meditation before bed
+"""
+        },
+
+        "immunity": {
+            "title": "Immunity Boost Ayurveda",
+            "content": """
+Weak immunity linked to Kapha imbalance.
+
+Natural Remedies:
+• Turmeric milk daily
+• Tulsi tea
+• Amla juice morning
+
+Lifestyle Tips:
+• Morning sunlight
+• Daily yoga
+"""
+        }
+    }
+
+    article = data.get(disease.lower())
+
+    return render_template("article.html", article=article)
+
+@app.route("/yoga_exercises")
+def yoga_exercises():
+    return render_template("yoga_exercises.html")
+
+@app.route("/yoga/<type>")
+def yoga_article(type):
+    return f"Yoga Article Page: {type}"
+
+@app.route("/exercise/<type>")
+def exercise_article(type):
+    return f"Exercise Article Page: {type}"
+
+@app.route("/get-yoga-plan", methods=["POST"])
+def get_yoga_plan():
+
+    mood = request.form.get("mood")
+    energy = request.form.get("energy")
+    time = request.form.get("time")
+
+    plan = []
+
+    # ---------------- MOOD BASE ----------------
+    if mood == "stress":
+        base = [
+            "Deep breathing",
+            "Child Pose",
+            "Forward Fold"
+        ]
+    elif mood == "tired":
+        base = [
+            "Gentle stretching",
+            "Legs up the wall",
+            "Relaxed breathing"
+        ]
+    else:  # normal
+        base = [
+            "Sun Salutation",
+            "Standing stretch",
+            "Balance pose"
+        ]
+
+    # ---------------- ENERGY MODIFIER ----------------
+    if energy == "low":
+        base.append("Slow neck & shoulder release")
+    elif energy == "medium":
+        base.append("Moderate flow yoga")
+    else:  # high
+        base.append("Power yoga sequence")
+
+    # ---------------- TIME MODIFIER (IMPORTANT) ----------------
+    if time == "short":
+        plan = base[:3]  # sirf 3 steps
+        plan.append("1–2 min calm breathing")
+
+    elif time == "medium":
+        plan = base
+        plan.append("5 min mindful breathing")
+
+    else:  # long
+        plan = base + [
+            "Extended flexibility practice",
+            "10 min guided meditation"
+        ]
+
+    return {"plan": plan}
+
+@app.route("/diet-suggestions")
+def diet_suggestions():
+    return render_template("diet_suggestions.html")
+
+@app.route("/diet/<condition>")
+def diet_article(condition):
+
+    return render_template("diet_article.html", condition=condition)
+
+@app.route("/condition/<name>")
+def condition_article(name):
+
+    file_path = os.path.join("data", f"{name}.json")
+
+    if not os.path.exists(file_path):
+        abort(404)
+
+    with open(file_path, "r", encoding="utf-8") as file:
+        article = json.load(file)
+
+    return render_template(
+        "wellness_article.html",
+        article=article
+    )
 
 
 

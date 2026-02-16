@@ -1,0 +1,281 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+
+body{
+background: linear-gradient(to bottom,#f3fbf7,#ffffff);
+}
+
+/* TITLE */
+.page-title{
+text-align:center;
+font-weight:900;
+color:#145a3b;
+font-size:42px;
+margin-top:30px;
+}
+
+/* HERO TEXT */
+.hero-text{
+text-align:center;
+max-width:700px;
+margin:15px auto 40px;
+color:#5f6f65;
+}
+
+/* TAB BUTTONS */
+.tab-container{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:15px;
+margin-bottom:35px;
+}
+
+.tab-btn{
+padding:14px 30px;
+border-radius:40px;
+border:none;
+background:#e9f6f0;
+font-weight:600;
+color:#145a3b;
+transition:0.3s;
+}
+
+.tab-btn:hover{
+background:#d7efe6;
+}
+
+.tab-btn.active{
+background:#145a3b;
+color:white;
+}
+
+/* CONTENT BOX */
+.content-box{
+background:white;
+border-radius:25px;
+padding:40px;
+box-shadow:0 15px 35px rgba(0,0,0,0.05);
+max-width:900px;
+margin:auto;
+}
+
+.pose-list li{
+margin-bottom:10px;
+}
+
+.planner-result{
+background:#f3fbf7;
+padding:20px;
+border-radius:15px;
+border-left:4px solid #145a3b;
+font-size:15px;
+}
+
+
+
+
+</style>
+
+<div class="container py-4">
+
+<h1 class="page-title">Yoga & Exercise Healing Guide</h1>
+
+<p class="hero-text">
+Discover yoga routines designed according to Ayurvedic body types and daily fitness needs.
+</p>
+
+<!-- TABS -->
+<div class="tab-container">
+
+<button class="tab-btn active" onclick="showTab('vata',this)">🌿 Vata Yoga</button>
+<button class="tab-btn" onclick="showTab('pitta',this)">🔥 Pitta Yoga</button>
+<button class="tab-btn" onclick="showTab('kapha',this)">💧 Kapha Yoga</button>
+<button class="tab-btn" onclick="showTab('general',this)">🧘 General Fitness</button>
+
+</div>
+
+<!-- CONTENT -->
+
+<div id="vata" class="content-box tab-content">
+<h3>🌿 Vata Balancing Yoga</h3>
+<p>Focuses on grounding, calming nervous system and improving sleep.</p>
+
+<ul class="pose-list">
+<li>Child Pose</li>
+<li>Forward Fold</li>
+<li>Cat Cow Stretch</li>
+<li>Slow Surya Namaskar</li>
+</ul>
+
+<a href="{{ url_for('yoga_article', type='vata') }}">
+<button class="tab-btn active">Read Full Guide</button>
+</a>
+</div>
+
+
+<div id="pitta" class="content-box tab-content" style="display:none;">
+<h3>🔥 Pitta Cooling Yoga</h3>
+<p>Helps reduce body heat, stress and inflammation.</p>
+
+<ul class="pose-list">
+<li>Moon Salutation</li>
+<li>Seated Twist</li>
+<li>Sheetali Breathing</li>
+<li>Legs Up Wall Pose</li>
+</ul>
+
+<a href="{{ url_for('yoga_article', type='pitta') }}">
+<button class="tab-btn active">Read Full Guide</button>
+</a>
+</div>
+
+
+<div id="kapha" class="content-box tab-content" style="display:none;">
+<h3>💧 Kapha Energizing Yoga</h3>
+<p>Boosts metabolism and removes body heaviness.</p>
+
+<ul class="pose-list">
+<li>Surya Namaskar Fast</li>
+<li>Warrior Pose</li>
+<li>Chair Pose</li>
+<li>Back Bends</li>
+</ul>
+
+<a href="{{ url_for('yoga_article', type='kapha') }}">
+<button class="tab-btn active">Read Full Guide</button>
+</a>
+</div>
+
+
+<div id="general" class="content-box tab-content" style="display:none;">
+<h3>🧘 Daily Fitness Yoga</h3>
+<p>General flexibility, strength and posture improvement.</p>
+
+<ul class="pose-list">
+<li>Mountain Pose</li>
+<li>Plank</li>
+<li>Cobra Pose</li>
+<li>Bridge Pose</li>
+</ul>
+
+<a href="{{ url_for('yoga_article', type='general') }}">
+<button class="tab-btn active">Read Full Guide</button>
+</a>
+</div>
+
+</div>
+
+<!-- ⭐ SMART DAILY YOGA PLANNER -->
+<div class="content-box mt-5">
+
+<h4>⭐ Smart Daily Yoga Planner</h4>
+<p class="text-muted">Select your condition and get instant yoga suggestion.</p>
+
+<div class="row mt-3">
+
+<div class="col-md-4">
+<label>Mood</label>
+<select id="mood" class="form-control" onchange="getPlan()">
+<option value="">Select Mood</option>
+<option value="stress">Stressed</option>
+<option value="tired">Tired</option>
+<option value="normal">Balanced</option>
+</select>
+</div>
+
+<div class="col-md-4">
+<label>Energy Level</label>
+<select id="energy" class="form-control" onchange="getPlan()">
+<option value="">Select Energy</option>
+<option value="low">Low</option>
+<option value="medium">Medium</option>
+<option value="high">High</option>
+</select>
+</div>
+
+<div class="col-md-4">
+<label>Time Available</label>
+<select id="time" class="form-control" onchange="getPlan()">
+<option value="">Select Time</option>
+<option value="short">5–10 Min</option>
+<option value="medium">15–20 Min</option>
+<option value="long">30+ Min</option>
+</select>
+</div>
+
+</div>
+
+<div id="planResult" class="planner-result mt-4">
+Please select all options to see your yoga plan.
+</div>
+
+</div>
+
+
+
+
+
+<script>
+function showTab(tab,btn){
+
+var contents=document.querySelectorAll(".tab-content");
+contents.forEach(c=>c.style.display="none");
+
+document.getElementById(tab).style.display="block";
+
+var buttons=document.querySelectorAll(".tab-btn");
+buttons.forEach(b=>b.classList.remove("active"));
+
+btn.classList.add("active");
+}
+</script>
+
+<script>
+
+function getPlan(){
+
+let mood = document.getElementById("mood").value;
+let energy = document.getElementById("energy").value;
+let time = document.getElementById("time").value;
+
+// Validation
+if(!mood || !energy || !time){
+document.getElementById("planResult").innerHTML =
+"⚠ Please select Mood, Energy and Time to generate plan.";
+return;
+}
+
+// API Call
+fetch("/get-yoga-plan", {
+method: "POST",
+headers: {
+"Content-Type": "application/x-www-form-urlencoded"
+},
+body: "mood="+mood+"&energy="+energy+"&time="+time
+})
+.then(res=>res.json())
+.then(data=>{
+
+let html="<b>Your Yoga Plan Today:</b><ul>";
+
+data.plan.forEach(p=>{
+html+="<li>"+p+"</li>";
+});
+
+html+="</ul>";
+
+document.getElementById("planResult").innerHTML=html;
+
+});
+
+}
+
+</script>
+
+
+
+
+{% endblock %}
