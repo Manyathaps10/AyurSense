@@ -5,6 +5,37 @@ import json
 import joblib
 
 DB_NAME = "ayursense.db"
+import os
+
+quiz_model = None
+model = None
+vectorizer = None
+df = None
+
+try:
+    quiz_model = joblib.load("quiz_model.pkl")
+    print("quiz_model loaded ✅")
+except Exception as e:
+    print("quiz_model error ❌", e)
+
+try:
+    model = pickle.load(open("model.pkl", "rb"))
+    print("model loaded ✅")
+except Exception as e:
+    print("model error ❌", e)
+
+try:
+    vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
+    print("vectorizer loaded ✅")
+except Exception as e:
+    print("vectorizer error ❌", e)
+
+try:
+    import pandas as pd
+    df = pd.read_excel("AyurGenixAI_Dataset.xlsx")
+    print("dataset loaded ✅")
+except Exception as e:
+    print("dataset error ❌", e)
 
 quiz_model = joblib.load("quiz_model.pkl")
 
