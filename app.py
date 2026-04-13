@@ -3,6 +3,7 @@ from textwrap import dedent
 import google.generativeai as genai
 import json
 import joblib
+import pickle
 
 DB_NAME = "ayursense.db"
 import os
@@ -37,7 +38,6 @@ try:
 except Exception as e:
     print("dataset error ❌", e)
 
-quiz_model = joblib.load("quiz_model.pkl")
 
 try:
     from dotenv import load_dotenv
