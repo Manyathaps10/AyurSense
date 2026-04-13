@@ -13,30 +13,53 @@ model = None
 vectorizer = None
 df = None
 
-try:
-    quiz_model = joblib.load("quiz_model.pkl")
-    print("quiz_model loaded ✅")
-except Exception as e:
-    print("quiz_model error ❌", e)
+def get_quiz_model():
+    global quiz_model
+    if quiz_model is None:
+        try:
+            quiz_model = joblib.load("quiz_model.pkl")
+            print("quiz_model loaded ✅")
+        except Exception as e:
+            print("quiz_model error ❌", e)
+            return None
+    return quiz_model
 
-try:
-    model = pickle.load(open("model.pkl", "rb"))
-    print("model loaded ✅")
-except Exception as e:
-    print("model error ❌", e)
 
-try:
-    vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
-    print("vectorizer loaded ✅")
-except Exception as e:
-    print("vectorizer error ❌", e)
+def get_model():
+    global model
+    if model is None:
+        try:
+            model = pickle.load(open("model.pkl", "rb"))
+            print("model loaded ✅")
+        except Exception as e:
+            print("model error ❌", e)
+            return None
+    return model
 
-try:
-    import pandas as pd
-    df = pd.read_excel("AyurGenixAI_Dataset.xlsx")
-    print("dataset loaded ✅")
-except Exception as e:
-    print("dataset error ❌", e)
+
+def get_vectorizer():
+    global vectorizer
+    if vectorizer is None:
+        try:
+            vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
+            print("vectorizer loaded ✅")
+        except Exception as e:
+            print("vectorizer error ❌", e)
+            return None
+    return vectorizer
+
+
+def get_df():
+    global df
+    if df is None:
+        try:
+            import pandas as pd
+            df = pd.read_excel("AyurGenixAI_Dataset.xlsx")
+            print("dataset loaded ✅")
+        except Exception as e:
+            print("dataset error ❌", e)
+            return None
+    return df
 
 
 try:
@@ -50,20 +73,16 @@ from flask import (
     Flask, render_template, request, redirect, url_for,
     session, flash, make_response, g,jsonify
 )
-import pickle
-
-model = pickle.load(open("model.pkl", "rb"))
-vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
-import pandas as pd
-
-df = pd.read_excel("AyurGenixAI_Dataset.xlsx")
 
 # 🔥 Extract all symptoms from dataset
 all_symptoms = set()
 
-for s in df["Symptoms"].dropna():
-    for item in s.split(","):
-        all_symptoms.add(item.strip().lower())
+df_local = get_df()
+
+if df_local is not None:
+    for s in df_local["Symptoms"].dropna():
+        for item in s.split(","):
+            all_symptoms.add(item.strip().lower())
 
 all_symptoms = sorted(all_symptoms)
 
@@ -593,6 +612,7 @@ def login_required(f):
     return decorated_function
 
 def get_disease_info(name):
+    df = get_df()
 
     result = df[
         (df["Disease"].str.lower() == name.lower()) |
@@ -610,6 +630,12 @@ def predict_disease(data):
         data.get("diet","") + " " +
         data.get("activity","")
     )
+
+    model = get_model()
+    vectorizer = get_vectorizer()
+
+    if model is None or vectorizer is None:
+       return "Model not available"
 
     vec = vectorizer.transform([text])
     return model.predict(vec)[0]
@@ -658,6 +684,7 @@ def smart_diagnose(data):
     sleep = data.get("sleep","").lower()
 
     scores = {}
+    df = get_df()
 
     for _, row in df.iterrows():
 
@@ -812,6 +839,11 @@ def quiz():
                 inputs.append(3)
 
         # 👉 ML prediction
+        quiz_model = get_quiz_model()
+
+        if quiz_model is None:
+            return "Quiz model not available", 500
+
         prediction = quiz_model.predict([inputs])[0]
 
         # 👉 Percent
@@ -1068,6 +1100,7 @@ def get_yoga_plan():
 @app.route("/diet_suggestions")
 @login_required
 def condition():
+    df = get_df()
 
     diseases = sorted(set(df["Disease"].dropna()))
 
