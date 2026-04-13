@@ -2,6 +2,11 @@ import os
 from textwrap import dedent
 import google.generativeai as genai
 import json
+import joblib
+
+DB_NAME = "ayursense.db"
+
+quiz_model = joblib.load("quiz_model.pkl")
 
 try:
     from dotenv import load_dotenv
@@ -12,13 +17,30 @@ except Exception:
 import sqlite3
 from flask import (
     Flask, render_template, request, redirect, url_for,
-    session, flash, make_response, g
+    session, flash, make_response, g,jsonify
 )
+import pickle
+
+model = pickle.load(open("model.pkl", "rb"))
+vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
+import pandas as pd
+
+df = pd.read_excel("AyurGenixAI_Dataset.xlsx")
+
+# 🔥 Extract all symptoms from dataset
+all_symptoms = set()
+
+for s in df["Symptoms"].dropna():
+    for item in s.split(","):
+        all_symptoms.add(item.strip().lower())
+
+all_symptoms = sorted(all_symptoms)
+
 from flask_bcrypt import Bcrypt
 from datetime import datetime, timedelta
 import secrets
 
-_LAST_AI_ERROR = None  # optional debug flag
+_LAST_AI_ERROR = None  
 
 def _offline_plan(dosha: str) -> str:
     d = (dosha or "Balanced").strip().lower()
@@ -247,139 +269,233 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "fallback_secret_key")
 
 bcrypt = Bcrypt(app)
-DB_NAME = "users.db"
+questions = [
+        (1, "How would you describe your body structure?",
+         "Thin, light, difficulty gaining weight",
+         "Moderate, muscular, well-proportioned",
+         "Broad, heavy, gains weight easily",
+         "Balanced and average"),
 
-# -------------------- DATABASE SETUP --------------------
+        (2, "How does your skin usually feel?",
+         "Dry, rough, or cracked",
+         "Warm, sensitive, prone to redness",
+         "Oily, smooth, thick",
+         "Normal and clear"),
+
+        (3, "How is your sleep pattern?",
+         "Light sleeper, easily disturbed",
+         "Moderate and refreshing",
+         "Deep and long sleep",
+         "Balanced and consistent"),
+
+        (4, "How do you react to stress?",
+         "Anxiety, worry, overthinking",
+         "Anger, frustration, irritation",
+         "Withdrawal, low motivation",
+         "Calm and composed"),
+
+        (5, "How is your digestion?",
+         "Irregular",
+         "Strong digestion",
+         "Slow digestion",
+         "Balanced digestion"),
+
+        (6, "Your energy levels are:",
+         "Fluctuating",
+         "High and intense",
+         "Low but steady",
+         "Balanced"),
+
+        (7, "Your mood tends to:",
+         "Change quickly",
+         "Intense",
+         "Calm",
+         "Balanced"),
+
+        (8, "Your memory is:",
+         "Forget easily",
+         "Sharp",
+         "Long retention",
+         "Balanced"),
+
+        (9, "Which weather do you prefer?",
+         "Warm",
+         "Cool",
+         "Dry",
+         "All"),
+
+        (10, "Your appetite is:",
+         "Irregular",
+         "Very strong",
+         "Slow",
+         "Balanced"),
+
+        (11, "In social situations you are:",
+         "Talkative",
+         "Leader",
+         "Quiet",
+         "Balanced"),
+
+        (12, "Your emotional tendency is:",
+         "Anxious",
+         "Angry",
+         "Lazy",
+         "Stable"),
+
+        (13, "Your food preference is:",
+         "Warm food",
+         "Cool food",
+         "Light food",
+         "Anything"),
+
+        (14, "Your working style is:",
+         "Fast",
+         "Focused",
+         "Slow",
+         "Balanced"),
+
+        (15, "How do you feel in the morning?",
+         "Anxious",
+         "Active",
+         "Lazy",
+         "Fresh")
+    ]
+question_tips = {
+    1: {
+        "vata": "Your lean body suggests Vata dominance — focus on strength and warm meals.",
+        "pitta": "Your athletic build reflects Pitta — maintain balance with cooling foods.",
+        "kapha": "Your sturdy build reflects Kapha — stay active to maintain balance.",
+        "balanced": "Your body is naturally balanced — maintain your lifestyle."
+    },
+    2: {
+        "vata": "Dry skin indicates Vata — hydration and oils will help.",
+        "pitta": "Sensitive skin shows Pitta — avoid heat and spicy food.",
+        "kapha": "Oily skin reflects Kapha — keep diet light.",
+        "balanced": "Your skin is well balanced."
+    },
+    3: {
+        "vata": "Light sleep shows Vata imbalance — improve routine.",
+        "pitta": "Moderate sleep is healthy for Pitta.",
+        "kapha": "Deep sleep reflects Kapha dominance.",
+        "balanced": "Balanced sleep pattern."
+    },
+    4: {
+        "vata": "Stress causes anxiety — typical Vata trait.",
+        "pitta": "Stress leads to anger — Pitta trait.",
+        "kapha": "Stress causes withdrawal — Kapha trait.",
+        "balanced": "You handle stress well."
+    },
+    5: {
+        "vata": "Irregular digestion = Vata imbalance.",
+        "pitta": "Strong digestion = Pitta dominance.",
+        "kapha": "Slow digestion = Kapha trait.",
+        "balanced": "Healthy digestion."
+    },
+    6: {
+        "vata": "Energy fluctuations = Vata.",
+        "pitta": "High energy = Pitta.",
+        "kapha": "Low steady energy = Kapha.",
+        "balanced": "Stable energy."
+    },
+    7: {
+        "vata": "Mood swings = Vata.",
+        "pitta": "Intense mood = Pitta.",
+        "kapha": "Calm mood = Kapha.",
+        "balanced": "Balanced mood."
+    },
+    8: {
+        "vata": "Quick learning but forgetful = Vata.",
+        "pitta": "Sharp memory = Pitta.",
+        "kapha": "Long memory = Kapha.",
+        "balanced": "Balanced memory."
+    },
+    9: {
+        "vata": "Prefers warmth = Vata.",
+        "pitta": "Prefers cool = Pitta.",
+        "kapha": "Prefers dry = Kapha.",
+        "balanced": "Adaptable."
+    },
+    10: {
+        "vata": "Irregular appetite = Vata.",
+        "pitta": "Strong appetite = Pitta.",
+        "kapha": "Slow appetite = Kapha.",
+        "balanced": "Balanced appetite."
+    },
+    11: {
+        "vata": "Talkative = Vata.",
+        "pitta": "Leader = Pitta.",
+        "kapha": "Quiet = Kapha.",
+        "balanced": "Adaptable."
+    },
+    12: {
+        "vata": "Anxiety = Vata.",
+        "pitta": "Anger = Pitta.",
+        "kapha": "Laziness = Kapha.",
+        "balanced": "Stable emotions."
+    },
+    13: {
+        "vata": "Prefers warm food = Vata.",
+        "pitta": "Prefers cool food = Pitta.",
+        "kapha": "Prefers light food = Kapha.",
+        "balanced": "Balanced diet."
+    },
+    14: {
+        "vata": "Fast but inconsistent = Vata.",
+        "pitta": "Focused = Pitta.",
+        "kapha": "Slow steady = Kapha.",
+        "balanced": "Balanced work style."
+    },
+    15: {
+        "vata": "Anxious mornings = Vata.",
+        "pitta": "Active mornings = Pitta.",
+        "kapha": "Lazy mornings = Kapha.",
+        "balanced": "Fresh mornings."
+    }
+}
+
+# -------------------- HELPERS --------------------
 def init_db():
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
+
+    # USERS TABLE
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            email TEXT NOT NULL UNIQUE,
-            password TEXT NOT NULL
-        )
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        email TEXT UNIQUE,
+        password TEXT
+    )
     """)
+
+    # REMEMBER TOKEN TABLE (important for login)
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS remember_tokens (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
-            token TEXT NOT NULL UNIQUE,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            expires_at TIMESTAMP,
-            device_info TEXT,
-            revoked INTEGER DEFAULT 0,
-            FOREIGN KEY(user_id) REFERENCES users(id)
-        )
+    CREATE TABLE IF NOT EXISTS remember_tokens (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
+        token TEXT,
+        expires_at TEXT,
+        device_info TEXT,
+        revoked INTEGER DEFAULT 0
+    )
     """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS history (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
+        vata INTEGER,
+        pitta INTEGER,
+        kapha INTEGER,
+        dominant TEXT,
+        date TEXT
+    ) 
+    """)
+
     conn.commit()
     conn.close()
 
-
-def init_quiz_db():
-    conn = sqlite3.connect(DB_NAME)
-    cursor = conn.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS quiz_questions (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            question TEXT NOT NULL,
-            option_a TEXT NOT NULL,
-            option_b TEXT NOT NULL,
-            option_c TEXT NOT NULL,
-            option_d TEXT NOT NULL,
-            category_a TEXT NOT NULL,
-            category_b TEXT NOT NULL,
-            category_c TEXT NOT NULL,
-            category_d TEXT NOT NULL
-        )
-    """)
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS quiz_answers (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
-            question_id INTEGER NOT NULL,
-            selected_option TEXT NOT NULL,
-            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY(user_id) REFERENCES users(id),
-            FOREIGN KEY(question_id) REFERENCES quiz_questions(id)
-        )
-    """)
-    conn.commit()
-    conn.close()
-
-
-def seed_quiz_questions():
-    """Run once to seed questions."""
-    conn = sqlite3.connect(DB_NAME)
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM quiz_questions")
-    questions = [
-        ("How would you describe your body type?",
-         "Lean and slender", "Medium build, athletic", "Sturdy and broad", "Well-balanced mix",
-         "vata", "pitta", "kapha", "balanced"),
-        ("Your skin usually feels —",
-         "Dry or rough", "Warm, sometimes red or sensitive", "Oily and smooth", "Normal and clear",
-         "vata", "pitta", "kapha", "balanced"),
-        ("Your sleep pattern —",
-         "Light and easily disturbed", "Moderate and refreshing", "Deep and long", "Balanced and regular",
-         "vata", "pitta", "kapha", "balanced"),
-        ("How do you respond to stress?",
-         "Anxious or overthinking", "Irritable or angry", "Withdrawn or sluggish", "Stay calm",
-         "vata", "pitta", "kapha", "balanced"),
-        ("Your digestion feels —",
-         "Irregular or variable", "Strong and quick", "Slow and heavy", "Consistent and normal",
-         "vata", "pitta", "kapha", "balanced"),
-        ("What best describes your energy levels?",
-         "Comes in bursts, inconsistent", "High and intense", "Slow but steady", "Even and stable",
-         "vata", "pitta", "kapha", "balanced"),
-        ("Your mood changes —",
-         "Quickly and unpredictably", "Based on control and goals", "Rarely, generally calm", "Balanced and centered",
-         "vata", "pitta", "kapha", "balanced"),
-        ("Your memory is —",
-         "Quick to learn but forgets easily", "Sharp and precise", "Slow to grasp but retains long", "Consistent recall",
-         "vata", "pitta", "kapha", "balanced"),
-        ("Which weather suits you best?",
-         "Warm and humid", "Cool and dry", "Dry and warm", "All seasons equally",
-         "vata", "pitta", "kapha", "balanced"),
-        ("Your appetite —",
-         "Irregular — sometimes strong, sometimes none", "Strong, can’t skip meals", "Slow or heavy", "Steady and mild",
-         "vata", "pitta", "kapha", "balanced"),
-        ("In a group setting, you are —",
-         "Talkative and creative", "Confident and assertive", "Calm and peaceful", "Adaptable and balanced",
-         "vata", "pitta", "kapha", "balanced"),
-        ("Your usual emotional tendency —",
-         "Worry or nervousness", "Anger or frustration", "Attachment or laziness", "Composed and forgiving",
-         "vata", "pitta", "kapha", "balanced"),
-        ("Preferred food texture —",
-         "Warm and moist meals", "Cool and less spicy food", "Light and dry food", "Any seasonal food",
-         "vata", "pitta", "kapha", "balanced"),
-        ("Your pace of working —",
-         "Fast but inconsistent", "Driven and focused", "Slow and steady", "Consistent and smooth",
-         "vata", "pitta", "kapha", "balanced"),
-        ("How do you usually feel in the morning?",
-         "Energetic but anxious", "Focused and ready", "Lazy or heavy", "Fresh and balanced",
-         "vata", "pitta", "kapha", "balanced"),
-    ]
-    for q in questions:
-        cursor.execute("""
-            INSERT INTO quiz_questions (
-                question, option_a, option_b, option_c, option_d,
-                category_a, category_b, category_c, category_d
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """, q)
-    conn.commit()
-    conn.close()
-    print("✅ AyurSense quiz questions seeded successfully!")
-
-
-# Initialize DBs
-init_db()
-init_quiz_db()
-seed_quiz_questions()   # uncomment once if needed
-
-
-# -------------------- HELPERS --------------------
+    print("✅ Database & Tables Ready")
 def verify_password(hashed_pw, password_input):
     return bcrypt.check_password_hash(hashed_pw, password_input)
 
@@ -433,6 +549,118 @@ def get_user_id(username):
     row = cursor.fetchone()
     conn.close()
     return row[0] if row else None
+
+from functools import wraps
+from flask import redirect, url_for, session
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user' not in session:
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+def get_disease_info(name):
+
+    result = df[
+        (df["Disease"].str.lower() == name.lower()) |
+        (df["Hindi Name"] == name)
+    ]
+
+    return result
+
+def predict_disease(data):
+
+    text = (
+        data.get("symptoms","") + " " +
+        data.get("stress","") + " " +
+        data.get("sleep","") + " " +
+        data.get("diet","") + " " +
+        data.get("activity","")
+    )
+
+    vec = vectorizer.transform([text])
+    return model.predict(vec)[0]
+
+def get_full_details(disease):
+
+    row = df[df["Disease"] == disease].iloc[0]
+
+    return {
+        "Disease": row["Disease"],
+        "Symptoms": row["Symptoms"],
+        "Tests": row["Diagnosis & Tests"],
+        "Severity": row["Symptom Severity"],
+        "Duration": row["Duration of Treatment"],
+        "Risk": row["Risk Factors"],
+        "Environmental": row["Environmental Factors"],
+        "Herbs": row["Ayurvedic Herbs"],
+        "Remedies": row["Herbal/Alternative Remedies"],
+        "Formulation": row["Formulation"],
+        "Diet": row["Diet and Lifestyle Recommendations"],
+        "Prevention": row["Prevention"],
+        "Prognosis": row["Prognosis"],
+        "Complications": row["Complications"],
+        "Patient": row["Patient Recommendations"]
+    }
+
+def handle_user(disease=None, data=None):
+
+    # Case 1: disease diya
+    if disease:
+        result = get_disease_info(disease)
+        if not result.empty:
+            return get_full_details(result.iloc[0]["Disease"])
+
+    # Case 2: multi-feature prediction
+    if data:
+        predicted = predict_disease(data)
+        return get_full_details(predicted)
+
+    return {"message": "Please provide input"}
+
+def smart_diagnose(data):
+
+    symptoms = [s.strip().lower() for s in data.get("symptoms","").split(",")]
+    stress = data.get("stress","").lower()
+    sleep = data.get("sleep","").lower()
+
+    scores = {}
+
+    for _, row in df.iterrows():
+
+        score = 0
+        row_symptoms = row["Symptoms"].lower()
+
+        # 🔥 better symptom matching
+        for s in symptoms:
+            if s and any(word in row_symptoms for word in s.split()):
+                score += 2
+
+        # stress
+        if stress and stress in row["Stress Levels"].lower():
+            score += 1
+
+        # sleep
+        if sleep and sleep in row["Sleep Patterns"].lower():
+            score += 1
+
+        scores[row["Disease"]] = score
+
+    # 🔥 remove zero score diseases
+    filtered = {k:v for k,v in scores.items() if v > 0}
+
+    sorted_scores = sorted(filtered.items(), key=lambda x: x[1], reverse=True)
+
+    return sorted_scores[:3]
+def get_confidence(score):
+    if score >= 6:
+        return "High"
+    elif score >= 3:
+        return "Medium"
+    else:
+        return "Low"
 
 
 # -------------------- LOAD USER BEFORE EACH REQUEST --------------------
@@ -532,230 +760,152 @@ def login():
 @app.route('/quiz', methods=['GET', 'POST'])
 def quiz():
     if 'user' not in session:
-        # custom "please login" page instead of redirect
         return render_template("please_login.html"), 401
 
-    user_id = get_user_id(session['user'])
-    if not user_id:
-        # session corrupt/expired → also show plz.html
-        return render_template("please_login.html"), 401
-
-    conn = sqlite3.connect(DB_NAME)
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM quiz_questions")
-    questions = cursor.fetchall()
-    conn.close()
 
     if request.method == 'POST':
-        answers = {}
-        for key, val in request.form.items():
-            if not key.isdigit():
-                continue
-            qid = int(key)
-            selected_option = val.strip().upper()
-            if selected_option in ('A', 'B', 'C', 'D'):
-                answers[qid] = selected_option
 
-        if not answers:
-            flash("No answers submitted. Please answer the questions.", "warning")
-            return redirect(url_for('quiz'))
+        inputs = []
 
-        conn = sqlite3.connect(DB_NAME)
-        cursor = conn.cursor()
-        cursor.execute("DELETE FROM quiz_answers WHERE user_id = ?", (user_id,))
-        for qid, option in answers.items():
-            cursor.execute("""
-                INSERT INTO quiz_answers (user_id, question_id, selected_option)
-                VALUES (?, ?, ?)
-            """, (user_id, qid, option))
-        conn.commit()
-        conn.close()
+        for i in range(1, 16):
+            val = request.form.get(str(i))
+            session[f"q{i}"] = request.form.get(str(i))
+
+            if val == "A":
+                inputs.append(0)
+            elif val == "B":
+                inputs.append(1)
+            elif val == "C":
+                inputs.append(2)
+            elif val == "D":
+                inputs.append(3)
+
+        # 👉 ML prediction
+        prediction = quiz_model.predict([inputs])[0]
+
+        # 👉 Percent
+        vata_percent = round((inputs.count(0) / 15) * 100)
+        pitta_percent = round((inputs.count(1) / 15) * 100)
+        kapha_percent = round((inputs.count(2) / 15) * 100)
+
+        session["vata_percent"] = vata_percent
+        session["pitta_percent"] = pitta_percent
+        session["kapha_percent"] = kapha_percent
+
+        session["ml_result"] = prediction
+
         return redirect(url_for('result'))
-
     return render_template('quiz.html', questions=questions)
-
 
 @app.route('/result')
 def result():
     if 'user' not in session:
         return render_template("please_login.html"), 401
 
+    # 👉 ML result
+    ml_prediction = session.get("ml_result", "Balanced")
+    print("ML RESULT:", ml_prediction)
+
+    dominant_dosha = ml_prediction.capitalize()
+
+    # 👉 percentages
+    vata_percent = session.get("vata_percent", 0)
+    pitta_percent = session.get("pitta_percent", 0)
+    kapha_percent = session.get("kapha_percent", 0)
+    detailed_suggestions = []
+
+
+    for i in range(1, 16):
+        val = session.get(f"q{i}")
+
+        if val == "A":
+            category = "vata"
+            answer = "Option A"
+        elif val == "B":
+            category = "pitta"
+            answer = "Option B"
+        elif val == "C":
+            category = "kapha"
+            answer = "Option C"
+        elif val == "D":
+            category = "balanced"
+            answer = "Option D"
+        else:
+            category = "balanced"
+            answer = "Not answered"
+
+        tip = question_tips.get(i, {}).get(category, "No suggestion available")
+
+        detailed_suggestions.append({
+            "qnum": i,
+            "question": questions[i-1][1],
+            "answer": answer,
+            "suggestion": tip,
+            "category": category,
+            "icon": "🌿"
+        })
+
+# ✅ loop ke bahar
+    print("TOTAL ITEMS:", len(detailed_suggestions))
+    print("FULL LIST:", detailed_suggestions)
+
+
+# 👉 Suggestions
+    remedies = {
+        "Vata": "Ground yourself with warm meals, sesame oil massages, and a consistent routine.",
+        "Pitta": "Stay cool with calming practices and avoid spicy foods.",
+        "Kapha": "Energize with light food and regular exercise.",
+        "Balanced": "Maintain a balanced lifestyle."
+    }
+
+    yoga_suggestions = {
+        "Vata": "Gentle yoga like Child Pose, Forward Fold.",
+        "Pitta": "Cooling yoga like Moon Salutations.",
+        "Kapha": "Active yoga like Surya Namaskar.",
+        "Balanced": "Mixed yoga routine."
+    }
+
+    diet_suggestions = {
+        "Vata": "Warm, moist foods.",
+        "Pitta": "Cooling foods.",
+        "Kapha": "Light, dry foods.",
+        "Balanced": "Seasonal balanced diet."
+   }
+    
     user_id = get_user_id(session['user'])
-    if not user_id:
-        return render_template("please_login.html"), 401
 
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
+
     cursor.execute("""
-        SELECT q.id, q.question, q.option_a, q.option_b, q.option_c, q.option_d,
-               q.category_a, q.category_b, q.category_c, q.category_d, a.selected_option
-        FROM quiz_answers a
-        JOIN quiz_questions q ON a.question_id = q.id
-        WHERE a.user_id = ?
-        ORDER BY q.id ASC
-    """, (user_id,))
-    rows = cursor.fetchall()
+    INSERT INTO history (user_id, vata, pitta, kapha, dominant, date)
+    VALUES (?, ?, ?, ?, ?, datetime('now'))
+    """, (user_id, vata_percent, pitta_percent, kapha_percent, dominant_dosha))
+
+    conn.commit()
     conn.close()
 
-    # Counts & insights
-    detailed_suggestions = []
-    category_count = {"vata": 0, "pitta": 0, "kapha": 0, "balanced": 0}
-
-    cat_icon = {"vata": "🌿", "pitta": "🔥", "kapha": "💧", "balanced": "🌸"}
-
-    question_tips = {
-        1: {"vata":"Lean build points to Vata — add grounding: warm meals, strength work, regular sleep.",
-            "pitta":"Athletic frame shows Pitta — cool it with cucumbers, mint, and evening wind-downs.",
-            "kapha":"Broader build leans Kapha — prioritise daily movement and lighter dinners.",
-            "balanced":"Well-balanced frame — maintain mixed workouts and seasonal food."},
-        2: {"vata":"Dry/rough skin → hydrate inside-out: ghee, sesame oil abhyanga, and warm water.",
-            "pitta":"Warm/red skin → avoid chilies; add aloe/coriander; practise cooling breath (Sheetali).",
-            "kapha":"Oily skin → favour steamed veg + spices (turmeric/black pepper); skip heavy dairy.",
-            "balanced":"Normal/clear — keep simple skincare and steady hydration."},
-        3: {"vata":"Light/disturbed sleep → no screens post-9pm, warm milk with nutmeg, gentle stretches.",
-            "pitta":"Moderate sleep — keep room cool; finish dinner 3 hrs before bed.",
-            "kapha":"Very deep sleep — earlier wake time + brisk morning walk for spark.",
-            "balanced":"Regular sleep — keep consistent lights-out and wake windows."},
-        4: {"vata":"Anxious/overthinking → journal 5 mins + 4-7-8 breath; stabilise mealtimes.",
-            "pitta":"Irritable/angry → pause rule: sip water, 10 cool breaths, step out for air.",
-            "kapha":"Withdrawn/sluggish — rhythm reset with 15-min sunlight walk after meals.",
-            "balanced":"Stay-calm response — keep micro-mindfulness breaks."},
-        5: {"vata":"Irregular digestion → ginger-lime pinch before meals; eat at fixed hours.",
-            "pitta":"Strong/quick → smaller, frequent cooling meals; avoid acidic foods.",
-            "kapha":"Slow/heavy → cumin-fennel-ginger tea; prefer dry/roasted textures.",
-            "balanced":"Steady digestion — continue fibre + water balance."},
-        6: {"vata":"Burst energy → plan buffer breaks; avoid caffeine spikes late evening.",
-            "pitta":"High/intense → schedule wind-down blocks; protect lunch hour.",
-            "kapha":"Slow/steady → morning cardio + upbeat music to lift momentum.",
-            "balanced":"Even energy — protein at breakfast, light dinners."},
-        7: {"vata":"Mood swings fast → 5 mindful breaths before reacting; warm comfort meals help.",
-            "pitta":"Goal-driven emotions → add empathy check-ins; avoid late-night competition.",
-            "kapha":"Generally calm — add stimulating tasks to stay enthusiastic.",
-            "balanced":"Centered — keep gratitude journaling nightly."},
-        8: {"vata":"Quick to learn/forget → spaced repetition + sesame oil head massage support memory.",
-            "pitta":"Sharp/precise — protect from burnout: screen breaks + evening leisure.",
-            "kapha":"Slow to grasp/long retention — learn by teaching + short movement breaks.",
-            "balanced":"Consistent recall — continue mixed study styles."},
-        9: {"vata":"Warm & humid suits you — guard against cold/dry with scarves and soups.",
-            "pitta":"Cool & dry suits you — avoid noon heat; hydrate with coconut water.",
-            "kapha":"Dry & warm suits you — keep air light; morning sun salutations boost.",
-            "balanced":"All seasons okay — follow seasonal produce."},
-        10: {"vata":"Irregular appetite — don’t skip breakfast; add stewed fruits or porridge.",
-             "pitta":"Strong appetite — structured mealtimes; include cooling raita/salads.",
-             "kapha":"Slow appetite — warm water with lemon; avoid late-night snacking.",
-             "balanced":"Steady appetite — maintain portion awareness."},
-        11: {"vata":"Talkative/creative — anchor with to-do lists; single-tasking helps.",
-             "pitta":"Confident/assertive — add empathy pauses in meetings to soften edge.",
-             "kapha":"Calm/peaceful — take initiative slots to keep pace lively.",
-             "balanced":"Adaptable — continue balanced roles in groups."},
-        12: {"vata":"Worry/nervousness — limit doom-scrolling; evening chamomile helps.",
-             "pitta":"Anger/frustration — cooling pranayama + evening stretches.",
-             "kapha":"Attachment/laziness — 20-min rule: start small, momentum follows.",
-             "balanced":"Composed/forgiving — keep reflection habit."},
-        13: {"vata":"Warm & moist meals suit — keep soups/stews as staples.",
-             "pitta":"Cool/less spicy — add mint/coriander chutneys.",
-             "kapha":"Light/dry foods — prefer roasting/air-frying over deep-fry.",
-             "balanced":"Seasonal foods — rotate grains/veggies monthly."},
-        14: {"vata":"Fast but inconsistent — time-box tasks + 5-min wrap-ups to close loops.",
-             "pitta":"Driven/focused — schedule recovery blocks; delegate perfection.",
-             "kapha":"Slow/steady — set mini-deadlines and accountability check-ins.",
-             "balanced":"Consistent/smooth — keep weekly review ritual."},
-        15: {"vata":"Energetic yet anxious — start with grounding breath + warm breakfast.",
-             "pitta":"Focused/ready — plan first, then execute; avoid email first thing.",
-             "kapha":"Lazy/heavy — sunlight + upbeat walk before screens.",
-             "balanced":"Fresh/balanced — maintain gentle AM routine."},
-    }
-
-    for idx, row in enumerate(rows, start=1):
-        (qid, question, a, b, c, d,
-         cat_a, cat_b, cat_c, cat_d, selected) = row
-
-        selected = selected.upper()
-        if selected == "A":
-            category, answer_text = cat_a.lower(), a
-        elif selected == "B":
-            category, answer_text = cat_b.lower(), b
-        elif selected == "C":
-            category, answer_text = cat_c.lower(), c
-        else:
-            category, answer_text = cat_d.lower(), d
-
-        category_count[category] += 1
-
-        tip = question_tips.get(idx, {}).get(category)
-        if not tip:
-            generic = {
-                "vata": "Balance Vata with warmth, routine, and oils.",
-                "pitta": "Calm Pitta with cooling foods and pauses.",
-                "kapha": "Lighten Kapha with movement and light meals.",
-                "balanced": "You’re balanced — maintain mindful habits."
-            }
-            tip = generic.get(category, "")
-
-        detailed_suggestions.append({
-            "qnum": idx,
-            "question": question,
-            "answer": answer_text,
-            "category": category,
-            "icon": cat_icon.get(category, "✨"),
-            "suggestion": tip
-        })
-
-    
-    total = category_count["vata"] + category_count["pitta"] + category_count["kapha"]
-    if total > 0:
-        vata_percent = round((category_count["vata"] / total) * 100, 1)
-        pitta_percent = round((category_count["pitta"] / total) * 100, 1)
-        kapha_percent = round((category_count["kapha"] / total) * 100, 1)
-    else:
-        vata_percent = pitta_percent = kapha_percent = 0.0
-
-    # Dominant dosha
-    dosha_map = {'Vata': vata_percent, 'Pitta': pitta_percent, 'Kapha': kapha_percent}
-    dominant_dosha = max(dosha_map, key=dosha_map.get)
-    if (abs(vata_percent - pitta_percent) < 10 and
-        abs(pitta_percent - kapha_percent) < 10 and
-        abs(vata_percent - kapha_percent) < 10):
-        dominant_dosha = "Balanced"
-
-    remedies = {
-        "Vata": "Ground yourself with warm meals, sesame oil massages, and a consistent routine. Avoid cold and dry foods.",
-        "Pitta": "Stay cool with calming practices, coconut water, and avoid spicy or oily foods.",
-        "Kapha": "Energize with light, dry foods, regular movement, and avoid heavy dairy or sweets.",
-        "Balanced": "Maintain mindfulness, regular sleep, and balanced meals to stay aligned."
-    }
-    yoga_suggestions = {
-        "Vata": "Do gentle grounding yoga — Hatha or Yin Yoga. Try Child’s Pose, Mountain Pose, and Forward Fold.",
-        "Pitta": "Choose cooling yoga — Moon Salutations, Pranayama (Sheetali breath), and restorative poses.",
-        "Kapha": "Go for energizing yoga — Surya Namaskar, Warrior series, and backbends to boost vitality.",
-        "Balanced": "Maintain a mixed practice of strength, flexibility, and relaxation."
-    }
-    diet_suggestions = {
-        "Vata": "Prefer warm, moist foods — soups, stews, ghee, cooked grains, and herbal teas. Avoid cold salads or dry snacks.",
-        "Pitta": "Favor cooling foods — cucumbers, melons, mint, rice, and milk. Avoid spicy, fried, or acidic items.",
-        "Kapha": "Choose light, warm meals — steamed veggies, lentils, and herbal teas with ginger or pepper. Avoid sweets and excess oil.",
-        "Balanced": "Eat seasonal, fresh foods in moderation and stay hydrated mindfully."
-    }
-
-    # ===== AI PLAN =====
+# ===== AI PLAN =====
     ai_plan = generate_ai_plan(dominant_dosha, vata_percent, pitta_percent, kapha_percent)
 
     return render_template(
         "result.html",
-        vata_percent=vata_percent,
-        pitta_percent=pitta_percent,
-        kapha_percent=kapha_percent,
+         vata_percent=vata_percent,
+         pitta_percent=pitta_percent,
+         kapha_percent=kapha_percent,
         dominant_dosha=dominant_dosha,
         remedy=remedies[dominant_dosha],
         yoga=yoga_suggestions[dominant_dosha],
         diet=diet_suggestions[dominant_dosha],
         detailed_suggestions=detailed_suggestions,
-        ai_plan=ai_plan,     # << pass to template
-    )
+        ai_plan=ai_plan,
+        ml_prediction=ml_prediction
+   )
 
 
 # -------------------- OTHER ROUTES --------------------
 @app.route('/blog')
+@login_required
 def blog():
     return render_template("blog.html")
 
@@ -813,109 +963,12 @@ def listmodels():
     return {"models": models}
 
 @app.route("/remedies")
+@login_required
 def remedies():
     return render_template("remedies.html")
 
-@app.route("/dosha/<dosha>")
-def dosha_article(dosha):
-
-    data = {
-        "vata": {
-            "title": "Vata Dosha Complete Guide",
-            "content": "Vata controls movement, breathing, nervous system. Imbalance causes anxiety, dryness and insomnia. Balance Vata with warm food, oil massage and routine."
-        },
-        "pitta": {
-            "title": "Pitta Dosha Complete Guide",
-            "content": "Pitta controls digestion and metabolism. Imbalance causes acidity, anger and inflammation. Balance Pitta with cooling food, coconut water and meditation."
-        },
-        "kapha": {
-            "title": "Kapha Dosha Complete Guide",
-            "content": "Kapha controls body structure and immunity. Imbalance causes weight gain and low energy. Balance Kapha with exercise, light food and spices."
-        }
-    }
-
-    article = data.get(dosha.lower())
-
-    return render_template("article.html", article=article)
-    
-@app.route("/disease/<disease>")
-def disease_article(disease):
-
-    data = {
-        "stress": {
-            "title": "Stress & Anxiety Natural Healing",
-            "content": """
-Stress Ayurvedic View:
-Stress increases Vata and Pitta dosha.
-
-Natural Remedies:
-• Ashwagandha powder with milk at night
-• Brahmi tea for brain calmness
-• Daily meditation 10 min
-• Warm oil head massage weekly
-
-Lifestyle Tips:
-• Avoid late night screen
-• Sleep before 11 PM
-• Practice deep breathing
-"""
-        },
-
-        "digestion": {
-            "title": "Digestive Healing Ayurveda",
-            "content": """
-Digestive Problems come from weak Agni (digestive fire).
-
-Natural Remedies:
-• Jeera water morning
-• Ginger + black salt before meals
-• Triphala at night
-
-Lifestyle Tips:
-• Eat warm fresh food
-• Avoid cold drinks
-• Fixed meal timing
-"""
-        },
-
-        "sleep": {
-            "title": "Sleep Recovery Ayurveda",
-            "content": """
-Sleep imbalance happens due to Vata disturbance.
-
-Natural Remedies:
-• Nutmeg milk before sleep
-• Chamomile tea
-• Foot oil massage
-
-Lifestyle Tips:
-• No phone 1 hour before sleep
-• Meditation before bed
-"""
-        },
-
-        "immunity": {
-            "title": "Immunity Boost Ayurveda",
-            "content": """
-Weak immunity linked to Kapha imbalance.
-
-Natural Remedies:
-• Turmeric milk daily
-• Tulsi tea
-• Amla juice morning
-
-Lifestyle Tips:
-• Morning sunlight
-• Daily yoga
-"""
-        }
-    }
-
-    article = data.get(disease.lower())
-
-    return render_template("article.html", article=article)
-
 @app.route("/yoga_exercises")
+@login_required
 def yoga_exercises():
     return render_template("yoga_exercises.html")
 
@@ -981,9 +1034,17 @@ def get_yoga_plan():
 
     return {"plan": plan}
 
-@app.route("/diet-suggestions")
-def diet_suggestions():
-    return render_template("diet_suggestions.html")
+@app.route("/diet_suggestions")
+@login_required
+def condition():
+
+    diseases = sorted(set(df["Disease"].dropna()))
+
+    return render_template(
+        "diet_suggestions.html",
+        diseases=diseases,
+        symptoms=all_symptoms   
+    )
 
 @app.route("/diet/<condition>")
 def diet_article(condition):
@@ -991,6 +1052,7 @@ def diet_article(condition):
     return render_template("diet_article.html", condition=condition)
 
 @app.route("/condition/<name>")
+@login_required
 def condition_article(name):
 
     file_path = os.path.join("data", f"{name}.json")
@@ -1006,7 +1068,400 @@ def condition_article(name):
         article=article
     )
 
+@app.route("/dosha-detail/<name>")
+def dosha_detail(name):
+
+    file_path = os.path.join("data", f"{name}.json")
+
+    with open(file_path, "r", encoding="utf-8") as f:
+        article = json.load(f)
+
+    return render_template("article.html", article=article,name=name, type='dosha')
+
+@app.route("/disease/<name>")
+def disease_article(name):
+    import json
+
+    try:
+        with open(f"data/{name}.json") as f:
+            article = json.load(f)
+    except FileNotFoundError:
+        return "Disease article not found"
+
+    return render_template("article.html", article=article,name=name, type='disease')
+
+@app.route("/generate-ai-plan")
+def generate_ai_plan_route():
+    if 'user' not in session:
+        return {"plan": "Please login first."}
+
+    dominant_dosha = session.get("ml_result", "Balanced").capitalize()
+
+    vata = session.get("vata_percent", 0)
+    pitta = session.get("pitta_percent", 0)
+    kapha = session.get("kapha_percent", 0)
+
+    # 🔥 TRY AI
+    try:
+        ai_plan = generate_ai_plan(dominant_dosha, vata, pitta, kapha)
+
+        if not ai_plan or "error" in ai_plan.lower():
+            raise Exception("AI failed")
+
+    except:
+        print("⚠️ AI failed → fallback used")
+        ai_plan = _offline_plan(dominant_dosha)
+
+    return {"plan": ai_plan}
+
+diet_data = {
+    "Vata": """
+• Focus on warm, freshly cooked meals.
+• Include ghee, soups, khichdi, and root vegetables.
+• Avoid cold drinks, dry snacks, and skipping meals.
+• Eat at fixed times to stabilize digestion.
+""",
+
+    "Pitta": """
+• Prefer cooling foods like cucumber, coconut water, and leafy greens.
+• Avoid spicy, fried, and overly salty foods.
+• Include dairy like milk and ghee in moderation.
+• Stay hydrated throughout the day.
+""",
+
+    "Kapha": """
+• Eat light and warm foods like soups, millets, and steamed vegetables.
+• Avoid oily, heavy, and sugary foods.
+• Include spices like ginger, black pepper to boost metabolism.
+• Avoid overeating and late-night meals.
+""",
+
+    "Balanced": """
+• Maintain a seasonal and balanced diet.
+• Include variety of grains, vegetables, and proteins.
+• Avoid excess of any one taste.
+• Follow regular meal timing.
+"""
+}
+
+yoga_data = {
+    "Vata": """
+• Gentle yoga like Child Pose and Forward Fold.
+• Slow Surya Namaskar to build stability.
+• Focus on breathing exercises like Anulom Vilom.
+• Practice grounding meditation daily.
+""",
+
+    "Pitta": """
+• Cooling yoga like Moon Salutations.
+• Avoid overheating and intense workouts.
+• Practice Sheetali and deep breathing.
+• Include meditation for emotional balance.
+""",
+
+    "Kapha": """
+• Active yoga like Surya Namaskar.
+• Include cardio-based movements.
+• Practice Kapalbhati and energizing breathing.
+• Stay physically active daily.
+""",
+
+    "Balanced": """
+• Mix of strength, flexibility, and breathing yoga.
+• Maintain consistency in routine.
+• Include meditation and relaxation.
+"""
+}
+
+def simple_plan(dosha):
+    if dosha == "Vata":
+        return [
+            "Day 1: Warm meals + gentle yoga + early sleep",
+            "Day 2: Oil massage + khichdi + breathing",
+            "Day 3: Light stretching + routine consistency"
+        ]
+    elif dosha == "Pitta":
+        return [
+            "Day 1: Cooling foods + meditation",
+            "Day 2: Light yoga + hydration",
+            "Day 3: Calm routine + avoid heat"
+        ]
+    elif dosha == "Kapha":
+        return [
+            "Day 1: Exercise + light food",
+            "Day 2: Active yoga + detox meals",
+            "Day 3: Stay active + avoid laziness"
+        ]
+    else:
+        return ["Maintain balanced lifestyle with routine"]
+    
+@app.route("/download-report")
+def download_report():
+
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib import colors
+    from reportlab.graphics.shapes import Drawing
+    from reportlab.graphics.charts.barcharts import VerticalBarChart
+    from datetime import datetime
+    from flask import send_file
+    import os
+
+    # ================= SETUP =================
+    file_path = f"AyurSense_Report_{datetime.now().strftime('%d-%m-%Y')}.pdf"
+    doc = SimpleDocTemplate(file_path)
+    styles = getSampleStyleSheet()
+
+    bullet = ParagraphStyle(
+        "bullet",
+        parent=styles["Normal"],
+        spaceAfter=8
+    )
+
+    content = []
+
+    # ================= HEADER =================
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    logo_path = os.path.join(base_dir, "static", "images", "logo.png")
+
+    if os.path.exists(logo_path):
+        logo = Image(logo_path, width=55, height=55)
+    else:
+        logo = Paragraph("", styles["Normal"])
+
+    title = Paragraph(
+        "<b><font size=20 color='#2fbf71'>AyurSense Wellness Report</font></b><br/>"
+        "<font size=10 color='grey'>Your personalized Ayurvedic health analysis</font>",
+        styles["Normal"]
+    )
+
+    header = Table([[logo, title]], colWidths=[65, 420])
+
+    header.setStyle(TableStyle([
+        ("VALIGN", (0,0), (-1,-1), "MIDDLE"),
+        ("LEFTPADDING", (0,0), (-1,-1), 0),
+        ("RIGHTPADDING", (0,0), (-1,-1), 0),
+        ("TOPPADDING", (0,0), (-1,-1), 0),
+        ("BOTTOMPADDING", (0,0), (-1,-1), 0),
+    ]))
+
+    content.append(header)
+    content.append(Spacer(1, 25))
+
+    # ================= USER =================
+    user = session.get("user", "User")
+    date = datetime.now().strftime("%d %B %Y")
+
+    content.append(Paragraph(f"<b>User:</b> {user}", styles["Normal"]))
+    content.append(Paragraph(f"<b>Date:</b> {date}", styles["Normal"]))
+    content.append(Spacer(1, 16))
+
+    # ================= DOSHA =================
+    dominant = session.get("ml_result", "Balanced").capitalize()
+    vata = session.get("vata_percent", 0)
+    pitta = session.get("pitta_percent", 0)
+    kapha = session.get("kapha_percent", 0)
+
+    content.append(Paragraph(
+        f"<b>Dominant Dosha:</b> <font color='#2fbf71'>{dominant}</font>",
+        styles["Heading2"]
+    ))
+    content.append(Spacer(1, 10))
+
+    # ================= SCORE =================
+    score = max(vata, pitta, kapha)
+
+    content.append(Paragraph("📈 <b>Your Balance Score</b>", styles["Heading3"]))
+    content.append(Paragraph(f"{score}/100 (higher = more dominant)", styles["Normal"]))
+    content.append(Spacer(1, 14))
+
+    # ================= TABLE =================
+    table = Table([
+        ["Dosha", "Percentage"],
+        ["Vata", f"{vata}%"],
+        ["Pitta", f"{pitta}%"],
+        ["Kapha", f"{kapha}%"]
+    ])
+
+    table.setStyle(TableStyle([
+        ("BACKGROUND", (0,0), (-1,0), colors.HexColor("#2fbf71")),
+        ("TEXTCOLOR", (0,0), (-1,0), colors.white),
+        ("GRID", (0,0), (-1,-1), 0.5, colors.grey),
+        ("ALIGN", (0,0), (-1,-1), "CENTER")
+    ]))
+
+    content.append(table)
+    content.append(Spacer(1, 18))
+
+    # ================= TODAY PLAN =================
+    content.append(Paragraph("🌅 <b>What You Should Do Today</b>", styles["Heading3"]))
+
+    today_plan = {
+        "Vata": ["Drink warm water", "Follow fixed routine", "Eat warm meals"],
+        "Pitta": ["Avoid spicy food", "Stay cool", "Practice breathing"],
+        "Kapha": ["Exercise daily", "Eat light food", "Stay active"],
+        "Balanced": ["Maintain routine", "Eat balanced meals"]
+    }
+
+    for item in today_plan[dominant]:
+        content.append(Paragraph(f"• {item}", bullet))
+
+    content.append(Spacer(1, 16))
+
+    # ================= MISTAKES =================
+    content.append(Paragraph("⚠️ <b>Possible Imbalance Causes</b>", styles["Heading3"]))
+
+    mistakes = {
+        "Vata": ["Irregular routine", "Skipping meals", "Overthinking"],
+        "Pitta": ["Spicy food", "Stress", "Overworking"],
+        "Kapha": ["Lack of activity", "Overeating", "Oversleeping"],
+        "Balanced": ["Minor imbalance"]
+    }
+
+    for m in mistakes[dominant]:
+        content.append(Paragraph(f"• {m}", bullet))
+
+    content.append(Spacer(1, 16))
+
+    # ================= INSIGHTS =================
+    content.append(Paragraph("🧠 <b>Personalized Insights</b>", styles["Heading3"]))
+
+    for i in range(1, 16):
+        val = session.get(f"q{i}")
+
+        if val == "A":
+            category = "vata"
+        elif val == "B":
+            category = "pitta"
+        elif val == "C":
+            category = "kapha"
+        else:
+            category = "balanced"
+
+        tip = question_tips.get(i, {}).get(category)
+
+        if tip:
+            content.append(Paragraph(f"• {tip}", bullet))
+
+    content.append(Spacer(1, 16))
+
+    # ================= DIET =================
+    content.append(Paragraph("🍽 <b>Diet Recommendation</b>", styles["Heading3"]))
+
+    for line in diet_data[dominant].split("\n"):
+        if line.strip():
+            content.append(Paragraph(f"• {line.strip()}", bullet))
+
+    content.append(Spacer(1, 16))
+
+    # ================= YOGA =================
+    content.append(Paragraph("🧘 <b>Yoga Suggestions</b>", styles["Heading3"]))
+
+    for line in yoga_data[dominant].split("\n"):
+        if line.strip():
+            content.append(Paragraph(f"• {line.strip()}", bullet))
+
+    content.append(Spacer(1, 16))
+
+    # ================= PLAN =================
+    content.append(Paragraph("📅 <b>3-Day Wellness Plan</b>", styles["Heading3"]))
+
+    for step in simple_plan(dominant):
+        content.append(Paragraph(f"• {step}", bullet))
+
+    content.append(Spacer(1, 16))
+
+    # ================= WHY =================
+    content.append(Paragraph("💡 <b>Why this result?</b>", styles["Heading3"]))
+    content.append(Paragraph(
+        f"Your responses indicate higher {dominant} characteristics based on your lifestyle and habits.",
+        styles["Normal"]
+    ))
+
+    content.append(Spacer(1, 20))
+
+    # ================= FOOTER =================
+    content.append(Paragraph(
+        "<font color='grey'>Follow consistently and retake after 7 days.</font>",
+        styles["Italic"]
+    ))
+
+    # ================= BUILD =================
+    doc.build(content)
+
+    return send_file(file_path, as_attachment=True)
+
+@app.route("/history")
+def history():
+
+    if 'user' not in session:
+        return render_template("please_login.html"), 401
+
+    user_id = get_user_id(session['user'])
+
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    SELECT vata, pitta, kapha, dominant, date
+    FROM history
+    WHERE user_id = ?
+    ORDER BY date DESC
+    """, (user_id,))
+
+    data = cursor.fetchall()
+    conn.close()
+
+    return render_template("history.html", data=data)
+
+@app.route("/analyze", methods=["POST"])
+def analyze():
+
+    data = request.get_json()
+
+    disease = data.get("disease")
+
+    # 🔥 known disease (same as before)
+    if disease:
+        return jsonify(get_full_details(disease))
+
+    # 🔥 diagnose mode
+    top3 = smart_diagnose(data)
+
+    result = []
+
+    for d, score in top3:
+       details = get_full_details(d)
+       details["confidence"] = get_confidence(score)
+       result.append(details)
+
+    return jsonify({"predictions": result})
+
+@app.route("/pose-detail/<pose>")
+def pose_detail(pose):
+    import json, os
+
+    path = os.path.join("data/yoga", pose + ".json")
+
+    with open(path) as f:
+        pose_data = json.load(f)
+
+    return render_template(
+        "pose_detail.html",
+        pose=pose_data,
+        name=pose   
+    )
+
+@app.route("/data/yoga/<pose>.json")
+def get_pose_data(pose):
+    file_path = os.path.join("data/yoga", pose + ".json")
+    
+    with open(file_path) as f:
+        data = json.load(f)
+    
+    return data
 
 
 if __name__ == '__main__':
+    init_db()   
     app.run(debug=True)

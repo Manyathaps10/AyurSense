@@ -1,0 +1,49 @@
+{
+  "name": "Immunity",
+  "symptom_type": "weak",
+  "title": "Immunity Support Guide",
+
+  "introduction": "Immunity is the body's natural defense system that protects against infections, diseases, and harmful microorganisms. A strong immune system helps the body fight off illnesses, recover faster, and maintain overall health. When immunity is balanced, the body feels energetic, resilient, and healthy. When weakened, it can lead to frequent infections, fatigue, and slow healing.",
+
+  "description": "Immunity is the body's natural ability to protect itself from harmful substances such as bacteria, viruses, fungi, and toxins. It acts like a powerful defense system that continuously works to keep the body safe and healthy.The immune system is made up of various components including white blood cells, antibodies, the lymphatic system, and organs like the spleen and bone marrow. These parts work together to identify harmful invaders (germs) and destroy them before they can cause illness.\nWhen a harmful microorganism enters the body, the immune system recognizes it as a threat and immediately activates a response. White blood cells attack and destroy the germs, while antibodies help remember these invaders so that the body can respond faster in the future.\n\nThere are two main types of immunity. Innate immunity is the first line of defense that we are born with and provides immediate protection. Adaptive immunity develops over time as the body is exposed to different infections and builds memory to fight them more efficiently in the future.\nA strong immune system helps prevent frequent illnesses, improves recovery speed, and keeps the body energetic and active. On the other hand, weak immunity can lead to frequent infections, fatigue, slow healing, and overall poor health.\nIn simple terms, immunity acts like a protective shield that defends the body from harmful germs and keeps it functioning smoothly.",
+
+  "symptoms": [
+    "Frequent cold and infections",
+    "Constant fatigue and weakness",
+    "Slow healing of wounds",
+    "Digestive issues",
+    "Low energy levels",
+    "Allergies and sensitivities",
+    "Brain fog and lack of focus"
+  ],
+
+  "remedies": [
+    "Eat a balanced and nutritious diet",
+    "Get adequate sleep (7-8 hours daily)",
+    "Exercise regularly to boost circulation",
+    "Manage stress through meditation or yoga",
+    "Stay hydrated throughout the day",
+    "Include herbs like turmeric, ginger, and tulsi",
+    "Maintain proper hygiene",
+    "Spend time outdoors and get sunlight"
+  ],
+
+  "foods_to_eat": [
+    "Citrus fruits like oranges and lemons",
+    "Green leafy vegetables",
+    "Garlic and ginger",
+    "Turmeric milk",
+    "Yogurt and probiotics",
+    "Nuts and seeds",
+    "Whole grains"
+  ],
+
+  "foods_to_avoid": [
+    "Processed and junk food",
+    "Excess sugar and sweets",
+    "Cold and sugary drinks",
+    "Excess caffeine",
+    "Deep fried foods",
+    "Alcohol and smoking"
+  ]
+}

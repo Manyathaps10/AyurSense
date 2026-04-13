@@ -1,0 +1,543 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+
+/* ===== HERO SECTION ===== */
+
+.article-header {
+  text-align: center;
+  margin: 40px auto 30px;
+  padding: 30px 20px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #e6f4f1, #f0f7ff);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+/* TITLE */
+.article-header h1 {
+  font-size: 40px;
+  font-weight: 800;
+  color: #2b6cb0;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+/* SUBTEXT */
+.article-header p {
+  font-size: 17px;
+  color: #555;
+  max-width: 700px;
+  margin: auto;
+  line-height: 1.8;
+}
+
+/* small highlight line */
+.article-header::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #2b6cb0;
+  margin: 15px auto 0;
+  border-radius: 10px;
+}
+
+.accordion-item {
+  margin-bottom: 18px;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+/* HEADER */
+.accordion-header {
+  cursor: pointer;
+  padding: 16px 20px;
+  background: white;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #2b6cb0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  transition: 0.3s;
+}
+
+/* hover effect */
+.accordion-header:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+/* arrow icon */
+.accordion-header::after {
+  content: "➕";
+  font-size: 14px;
+}
+
+/* active arrow */
+.accordion-header.active::after {
+  content: "➖";
+}
+
+/* CONTENT */
+.accordion-content {
+  display: none;
+  padding: 15px 20px;
+  background: #f8fafc;
+  border-radius: 0 0 12px 12px;
+  animation: fadeIn 0.3s ease;
+}
+
+/* active */
+.accordion-content.open {
+  display: block;
+}
+
+/* smooth animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* list style */
+.accordion-content ul {
+  padding-left: 20px;
+}
+
+.accordion-content li {
+  margin-bottom: 8px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.hero-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.hero-content {
+  flex: 2;
+  text-align: center;
+}
+
+.hero-img {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-img img {
+  width: 370px;
+  height: 270px;
+  object-fit: cover;
+  border-radius: 20px;
+  opacity: 0.9;
+  transition: 0.3s;
+}
+
+.hero-img img:hover {
+  transform: scale(1.1);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .hero-img {
+    display: none;
+  }
+}
+.symptoms-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+/* LEFT TEXT */
+.symptoms-text {
+  flex: 1;
+}
+
+/* RIGHT SIDE */
+.symptoms-images {
+  flex: 1;
+  position: relative;
+  width: 200px;
+  height: 150px;
+  margin-left: auto;
+}
+
+/* ALL IMAGES FIXED SIZE */
+.symptoms-images img {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  transition: 0.3s;
+}
+
+.symptoms-images img:nth-child(1) {
+  top: 10px;
+  left: -500px;
+  transform: rotate(-10deg);
+}
+
+.symptoms-images img:nth-child(2) {
+  top: 50px;
+  left: -300px;
+  transform: rotate(6deg);
+}
+
+/* CENTER TOP */
+.symptoms-images img:nth-child(3) {
+  width: 350px;;
+  height: 200px;
+  top: 20px;
+  left: -70px;
+  transform: rotate(-8deg);
+}
+
+.symptoms-images img:nth-child(4) {
+  top: 50px;
+  right:380px;
+  transform: rotate(10deg);
+}
+
+/* RIGHT CENTER */
+.symptoms-images img:nth-child(5) {
+  top: 20px;
+  right: 200px;
+  transform: rotate(-10deg);
+}
+.symptoms-images img:nth-child(6) {
+  top: 20px;
+  right: 20px;
+  transform: rotate(7deg);
+}
+.symptoms-images img:hover {
+  transform: scale(1.1) rotate(0deg);
+  z-index: 10;
+}
+
+.balance-layout {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.balance-text {
+  flex: 1.5;
+}
+
+.balance-video {
+  flex: 1;
+  margin-right: 400px; 
+}
+
+/* 🔥 MOST IMPORTANT */
+.balance-video video {
+  width: 500px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+.food-layout {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.food-text {
+  flex: 1.5;
+}
+
+.food-images {
+  flex: 1;
+  position: relative;
+  width: 700px;
+  height: 200px;
+  margin-left: auto;
+}
+
+/* IMAGE STYLE */
+.food-images img {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+/* LEFT TOP */
+.food-images img:nth-child(1) {
+  top: 0px;
+  left: -600px;
+}
+
+/* LEFT CENTER */
+.food-images img:nth-child(2) {
+  top: 100px;
+  left: -400px;
+}
+
+/* CENTER */
+.food-images img:nth-child(3) {
+  top: 0px;
+  left: -200px;
+}
+
+/* MID RIGHT */
+.food-images img:nth-child(4) {
+  top: 100px;
+  right: 400px;
+}
+
+/* RIGHT TOP */
+.food-images img:nth-child(5) {
+  top: 0px;
+  right: 200px;
+}
+
+/* RIGHT BOTTOM */
+.food-images img:nth-child(6) {
+  top: 100px;
+  right: 0px;
+}
+
+.avoid-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.avoid-text {
+  flex: 1.5;
+}
+
+/* FIXED */
+.avoid-images {
+  position: relative;
+  width: 500px;
+  height: 200px;
+}
+
+/* IMAGE */
+.avoid-images img {
+  position: absolute;
+  width: 400px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+/* LEFT IMAGE */
+.avoid-images img:nth-child(1) {
+  top: 0px;
+  left: -600px;  
+}
+
+/* RIGHT IMAGE */
+.avoid-images img:nth-child(2) {
+  top: 0px;
+  right: 100px;
+}
+</style>
+
+<div class="article-container">
+
+<div class="article-header">
+
+  <div class="hero-flex">
+
+    <!-- LEFT IMAGE -->
+    <div class="hero-img">
+      <img src="{{ url_for('static', filename='images/' + name + '1.jpg') }}">
+    </div>
+
+    <!-- CENTER CONTENT -->
+    <div class="hero-content">
+      <h1>{{ article.title }}</h1>
+      <p>{{ article.introduction }}</p>
+    </div>
+
+    <!-- RIGHT IMAGE -->
+    <div class="hero-img">
+      <img src="{{ url_for('static', filename='images/' + name + '2.jpg') }}">
+    </div>
+
+  </div>
+
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+{% if type == 'dosha' %}
+🌿 What is {{ name|capitalize }} Dosha?
+{% else %}
+🩺 What is {{ article.name }}?
+{% endif %}
+</div>
+<div class="accordion-content">
+<p style="white-space: pre-line;">
+ {% if type == 'dosha' %}
+  {{ article['what_is_' + name] }}
+{% else %}
+  {{ article.description }}
+{% endif %}
+</p>
+</div>
+</div>
+<!-- ACCORDION -->
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+{% if type == 'dosha' %}
+⚠ What are the symptoms of {{ name|capitalize }} imbalance?
+{% else %}
+⚠ What are the symptoms of {{ article.symptom_type }} {{ article.name }}?
+{% endif %}
+</div>
+<div class="accordion-content">
+
+  <div class="symptoms-layout">
+
+    <!-- LEFT TEXT -->
+    <div class="symptoms-text">
+      <ul>
+        {% for item in article.symptoms %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- RIGHT COLLAGE -->
+    <div class="symptoms-images">
+      <img src="{{ url_for('static', filename='images/' + name + '3.jpg') }}">
+      <img src="{{ url_for('static', filename='images/' + name + '4.jpg') }}">
+      <img src="{{ url_for('static', filename='images/' + name + '5.jpg') }}">
+      <img src="{{ url_for('static', filename='images/' + name + '6.jpg') }}">
+      <img src="{{ url_for('static', filename='images/' + name + '7.jpg') }}">
+      <img src="{{ url_for('static', filename='images/' + name + '8.jpg') }}">
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+{% if type == 'dosha' %}
+💊 How can you balance {{ name|capitalize }}?
+{% else %}
+💊 How can you treat/manage {{ article.name }}?
+{% endif %}
+</div>
+<div class="accordion-content">
+
+  <div class="balance-layout">
+
+    <!-- LEFT TEXT -->
+    <div class="balance-text">
+      <ul>
+        {% for item in article.remedies %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- RIGHT VIDEO -->
+    <div class="balance-video">
+      <video autoplay muted loop playsinline>
+        <source src="{{ url_for('static', filename='videos/' + name + '.mp4') }}">
+      </video>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+🥗 What should you eat?
+</div>
+<div class="accordion-content">
+<div class="food-layout">
+
+  <!-- LEFT TEXT -->
+  <div class="food-text">
+    <ul>
+      {% for item in article.foods_to_eat %}
+      <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- RIGHT IMAGES -->
+  <div class="food-images">
+    <img src="{{ url_for('static', filename='images/' + name + '17.jpg') }}">
+    <img src="{{ url_for('static', filename='images/' + name + '18.jpg') }}">
+    <img src="{{ url_for('static', filename='images/' + name + '19.jpg') }}">
+    <img src="{{ url_for('static', filename='images/' + name + '20.jpg') }}">
+    <img src="{{ url_for('static', filename='images/' + name + '21.jpg') }}">
+    <img src="{{ url_for('static', filename='images/' + name + '22.jpg') }}">
+  </div>
+
+</div>
+</div>
+</div>
+
+<div class="accordion-item">
+<div class="accordion-header" onclick="toggleAccordion(this)">
+🚫 What should you avoid?
+</div>
+<div class="accordion-content">
+
+  <div class="avoid-layout">
+
+    <!-- LEFT TEXT -->
+    <div class="avoid-text">
+      <ul>
+        {% for item in article.foods_to_avoid %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- RIGHT IMAGES -->
+    <div class="avoid-images">
+      <img src="{{ url_for('static', filename='images/' + name + '23.jpg') }}">
+      <img src="{{ url_for('static', filename='images/' + name + '24.jpg') }}">
+    </div>
+
+  </div>
+
+</div>
+</div>
+</div>
+
+<script>
+function toggleAccordion(el) {
+  const content = el.nextElementSibling;
+
+  el.classList.toggle("active");
+  content.classList.toggle("open");
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{
+  "name": "Mountain Pose",
+  "sanskrit": "Tadasana",
+
+  "intro": "Mountain Pose (Tadasana) is a foundational standing posture in yoga that forms the base for many other poses. Though it may appear simple, it requires active engagement and awareness of the entire body. In this pose, the body is aligned upright with a strong and stable stance, resembling a mountain - steady, grounded, and balanced.\n\nTadasana helps improve posture by aligning the spine, shoulders, and hips properly. It strengthens the legs, engages the core, and enhances body awareness. Practicing this pose regularly can correct postural imbalances caused by long hours of sitting or improper standing habits.\n\nThis pose also encourages deep, mindful breathing and promotes mental clarity. By focusing on stillness and balance, it helps calm the mind and reduce stress. Tadasana is suitable for beginners and is often used as a starting or resting position during yoga sessions. Despite its simplicity, it plays a crucial role in building strength, stability, and mindfulness in yoga practice.",
+
+  "steps": [
+    {
+      "text": "Stand straight with your feet together or slightly apart."
+    },
+    {
+      "text": "Distribute your body weight evenly on both feet."
+    },
+    {
+      "text": "Engage your thighs, lift your kneecaps, and keep your legs strong."
+    },
+    {
+      "text": "Keep your spine straight and shoulders relaxed."
+    },
+    {
+      "text": "Let your arms rest beside your body with palms facing forward."
+    },
+    {
+      "text": "Keep your head aligned with your spine and gaze forward."
+    },
+    {
+      "text": "Take slow, deep breaths and hold the posture."
+    }
+  ],
+
+  "benefits": [
+    "Improves posture and body alignment",
+    "Strengthens legs, thighs, and ankles",
+    "Enhances balance and stability",
+    "Increases body awareness and focus",
+    "Helps in reducing back pain caused by poor posture",
+    "Encourages deep breathing and relaxation",
+    "Improves circulation and energy flow in the body",
+    "Builds a strong foundation for other yoga poses",
+    "Promotes mental clarity and calmness",
+    "Helps in improving overall body coordination"
+  ],
+
+  "avoid": [
+    "You have severe balance issues or dizziness",
+    "You suffer from low blood pressure (consult a doctor before practice)",
+    "You have recent leg, ankle, or foot injuries",
+    "You feel discomfort while standing for long periods",
+    "You are recovering from surgery affecting the lower body"
+  ],
+
+  "video": "https://www.youtube.com/embed/2HTvZp5rPrg"
+}

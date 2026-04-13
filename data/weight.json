@@ -1,0 +1,49 @@
+{
+  "name": "Weight Management",
+  "symptom_type": "imbalance",
+  "title": "Weight Management Guide",
+
+  "introduction": "Weight management refers to maintaining a healthy body weight through balanced nutrition, regular physical activity, and a healthy lifestyle. When weight is balanced, the body feels active, strong, and energetic. When imbalanced, it can lead to weight gain or loss, fatigue, and various health issues.",
+
+  "description": "Weight management is the process of maintaining a healthy balance between calorie intake and energy expenditure. It involves proper diet, regular exercise, metabolism, and lifestyle habits that together help regulate body weight.\nThe body gains weight when calorie intake is higher than the calories burned, and loses weight when the opposite happens. Factors like metabolism, hormones, sleep, stress, and physical activity all play an important role in managing weight.\nThere are two main aspects of weight management: preventing excessive weight gain and avoiding unhealthy weight loss. A balanced approach focuses on sustainable habits rather than quick fixes.\n\nHealthy weight management improves energy levels, supports heart health, enhances mobility, and reduces the risk of chronic diseases. On the other hand, poor weight management can lead to obesity, weakness, hormonal imbalance, and other health complications.\nIn simple terms, weight management is about maintaining a healthy lifestyle that keeps your body fit, active, and in proper balance.",
+
+  "symptoms": [
+    "Sudden weight gain or weight loss",
+    "Low energy and fatigue",
+    "Increased belly fat",
+    "Weakness or muscle loss",
+    "Irregular eating habits",
+    "Lack of physical stamina",
+    "Breathlessness during small activity"
+  ],
+
+  "remedies": [
+    "Follow a balanced and portion-controlled diet",
+    "Exercise regularly (cardio + strength training)",
+    "Maintain a consistent daily routine",
+    "Stay hydrated throughout the day",
+    "Get proper sleep (7-8 hours)",
+    "Avoid stress and emotional eating",
+    "Track your meals and activity",
+    "Stay active (walking, stretching, movement)"
+  ],
+
+  "foods_to_eat": [
+    "Fruits and vegetables",
+    "Whole grains like oats and brown rice",
+    "Lean protein (eggs, pulses, chicken)",
+    "Nuts and seeds",
+    "Low-fat dairy products",
+    "Healthy fats like olive oil",
+    "High-fiber foods"
+  ],
+
+  "foods_to_avoid": [
+    "Junk and processed food",
+    "Sugary drinks and excess sweets",
+    "Deep fried and oily food",
+    "Refined carbs (white bread, pastries)",
+    "Excess alcohol",
+    "Late-night heavy meals"
+  ]
+}

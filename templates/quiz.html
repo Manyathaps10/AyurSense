@@ -92,23 +92,28 @@
         <h5 class="q-title">{{ loop.index }}. {{ q[1] }}</h5>
 
         <div class="options">
-          <div class="opt">
-            <input type="radio" id="q{{ q[0] }}A" name="{{ q[0] }}" value="A" required>
-            <label for="q{{ q[0] }}A">{{ q[2] }}</label>
-          </div>
-          <div class="opt">
-            <input type="radio" id="q{{ q[0] }}B" name="{{ q[0] }}" value="B">
-            <label for="q{{ q[0] }}B">{{ q[3] }}</label>
-          </div>
-          <div class="opt">
-            <input type="radio" id="q{{ q[0] }}C" name="{{ q[0] }}" value="C">
-            <label for="q{{ q[0] }}C">{{ q[4] }}</label>
-          </div>
-          <div class="opt">
-            <input type="radio" id="q{{ q[0] }}D" name="{{ q[0] }}" value="D">
-            <label for="q{{ q[0] }}D">{{ q[5] }}</label>
-          </div>
-        </div>
+
+  <div class="opt">
+    <input type="radio" id="q{{ loop.index }}A" name="{{ loop.index }}" value="A" required>
+    <label for="q{{ loop.index }}A">{{ q[2] }}</label>
+  </div>
+
+  <div class="opt">
+    <input type="radio" id="q{{ loop.index }}B" name="{{ loop.index }}" value="B">
+    <label for="q{{ loop.index }}B">{{ q[3] }}</label>
+  </div>
+
+  <div class="opt">
+    <input type="radio" id="q{{ loop.index }}C" name="{{ loop.index }}" value="C">
+    <label for="q{{ loop.index }}C">{{ q[4] }}</label>
+  </div>
+
+  <div class="opt">
+    <input type="radio" id="q{{ loop.index }}D" name="{{ loop.index }}" value="D">
+    <label for="q{{ loop.index }}D">{{ q[5] }}</label>
+  </div>
+
+</div>
       </section>
     {% endfor %}
 

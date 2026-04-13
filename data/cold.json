@@ -1,0 +1,49 @@
+{
+  "name": "Cold and Cough",
+  "title": "Cold & Cough Relief Guide",
+
+  "introduction": "Cold and cough are common respiratory conditions that affect the nose, throat, and airways. They are usually caused by viral infections and can lead to discomfort, congestion, and irritation. When the body is balanced, the immune system fights infections effectively, but when weakened, it becomes easier to catch a cold or develop a persistent cough.",
+
+  "description": "Cold and cough are among the most common health issues experienced by people of all ages. They are usually caused by viruses that spread through air droplets, direct contact, or contaminated surfaces. Changes in weather, low immunity, and exposure to cold environments can also trigger these conditions.A common cold mainly affects the upper respiratory tract, leading to symptoms like runny nose, sneezing, and throat irritation. Cough can be dry or productive (with mucus) and often occurs as the body tries to clear irritants or infections from the airways.\n\nA strong immune system plays a vital role in preventing and recovering from cold and cough. Factors such as poor nutrition, lack of sleep, stress, and dehydration can weaken immunity and increase susceptibility to infections.\nProper care and rest are essential for recovery. Staying warm, drinking fluids, and avoiding cold exposure help the body heal faster. Steam inhalation and warm beverages can soothe the throat and relieve congestion.Maintaining hygiene, such as washing hands regularly and avoiding close contact with infected individuals, helps prevent the spread of infection.\nIn simple terms, managing cold and cough involves strengthening immunity, staying hydrated, resting well, and following healthy habits to recover quickly and prevent recurrence.",
+
+  "symptoms": [
+    "Runny or blocked nose",
+    "Sneezing",
+    "Sore throat",
+    "Dry or productive cough",
+    "Mild fever",
+    "Body ache or fatigue",
+    "Headache",
+    "Watery eyes"
+  ],
+
+  "remedies": [
+    "Drink warm fluids like herbal tea and soup",
+    "Do steam inhalation to relieve congestion",
+    "Gargle with warm salt water",
+    "Get plenty of rest and sleep",
+    "Stay hydrated",
+    "Use honey and ginger for soothing throat",
+    "Keep yourself warm",
+    "Avoid exposure to cold air and dust"
+  ],
+
+  "foods_to_eat": [
+    "Warm soups and broths",
+    "Herbal teas (ginger, tulsi)",
+    "Citrus fruits rich in Vitamin C",
+    "Honey",
+    "Garlic and ginger",
+    "Light and easily digestible food",
+    "Warm water"
+  ],
+
+  "foods_to_avoid": [
+    "Cold drinks and ice creams",
+    "Fried and oily food",
+    "Processed and junk food",
+    "Excess sugar",
+    "Dairy (if it increases mucus)",
+    "Spicy and heavy food"
+  ]
+}

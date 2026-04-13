@@ -1,0 +1,61 @@
+{
+  "name": "Moon Salutation",
+  "sanskrit": "Chandra Namaskar",
+
+  "intro": "Moon Salutation (Chandra Namaskar) is a calming and cooling sequence of yoga poses designed to relax the body and mind. Unlike Sun Salutation, which energizes the body, Chandra Namaskar focuses on slowing down, promoting inner peace, and reducing stress. It is often practiced in the evening or at night to unwind after a long day.\n\nThis sequence involves gentle stretches, side bends, and flowing movements that help release tension from the spine, hips, and shoulders. It encourages deep, rhythmic breathing, which helps balance the nervous system and creates a sense of emotional stability.\n\nMoon Salutation is especially beneficial for those dealing with anxiety, fatigue, or restlessness. The soothing nature of this practice helps cool down the body, making it ideal for improving sleep quality and mental relaxation. Regular practice enhances flexibility, improves body awareness, and supports overall well-being.",
+
+  "steps": [
+    {
+      "text": "Stand straight in prayer position (Pranamasana) and focus on your breath."
+    },
+    {
+      "text": "Inhale and raise your arms overhead, gently bending sideways."
+    },
+    {
+      "text": "Exhale and bend forward, bringing your hands towards the floor."
+    },
+    {
+      "text": "Step one leg back into a low lunge position."
+    },
+    {
+      "text": "Move into a wide-legged stance and perform a side stretch (Goddess pose variation)."
+    },
+    {
+      "text": "Shift your body to the other side, maintaining a smooth flow."
+    },
+    {
+      "text": "Return to the center and step forward into a forward bend."
+    },
+    {
+      "text": "Inhale and slowly rise up with arms overhead."
+    },
+    {
+      "text": "Exhale and bring your hands back to prayer position."
+    }
+  ],
+
+  "benefits": [
+    "Calms the mind and reduces stress and anxiety",
+    "Balances the nervous system and promotes relaxation",
+    "Improves flexibility in the spine, hips, and legs",
+    "Encourages deep breathing and mindfulness",
+    "Helps in reducing fatigue and mental exhaustion",
+    "Supports better sleep and relaxation",
+    "Enhances body coordination and awareness",
+    "Promotes emotional balance and inner peace",
+    "Gently stretches and tones the entire body",
+    "Cools down the body, making it ideal for evening practice"
+  ],
+
+  "avoid": [
+    "You have severe knee or ankle injuries",
+    "You are suffering from chronic back pain or spinal disorders",
+    "You feel dizziness or imbalance during the sequence",
+    "You have recently undergone surgery",
+    "You have high blood pressure (consult a doctor before practice)",
+    "You experience pain during stretching or bending movements",
+    "You have severe joint issues affecting mobility"
+  ],
+
+  "video": "https://www.youtube.com/embed/oROcJnaw0NU"
+}

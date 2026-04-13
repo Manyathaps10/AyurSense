@@ -1,0 +1,45 @@
+{
+  "name": "Stress & Anxiety",
+  "title": "Stress & Anxiety Relief Guide",
+  "introduction": "Stress and anxiety are common mental health concerns that affect emotional balance, focus and overall well-being. In Ayurveda, they are often linked to Vata imbalance. When managed properly, a calm mind and balanced lifestyle can improve clarity, relaxation and inner peace.",
+
+ "description": "Stress and anxiety are conditions where the mind becomes overwhelmed due to continuous pressure, fear, uncertainty or emotional imbalance. In Ayurveda, these issues are primarily linked to an aggravated Vata dosha, which disturbs the nervous system and leads to restlessness, instability and excessive thinking.\nIn today's fast-paced lifestyle, factors such as irregular routine, lack of sleep, excessive screen time, unhealthy diet, work pressure and emotional stress play a major role in triggering these conditions. When the mind is constantly active without proper rest, it creates an imbalance that affects both mental clarity and physical health.\n\nStress and anxiety not only impact thoughts and emotions but also influence the body. They can weaken digestion, disturb sleep patterns, reduce energy levels and create a feeling of constant uneasiness. Over time, if ignored, they may lead to chronic fatigue, mood disorders and reduced immunity.\nAyurveda focuses on restoring balance through natural and holistic methods. By following a stable daily routine, practicing mindfulness, using calming herbs like Ashwagandha and Brahmi, and maintaining a nourishing diet, the mind can return to a state of calmness and clarity. Proper rest, grounding activities and reducing overstimulation are key to managing stress effectively.\nWhen the mind is balanced, it enhances focus, emotional strength and overall well-being, allowing a person to handle challenges with calmness and confidence.",
+  "symptoms": [
+    "Constant worrying and overthinking",
+    "Restlessness and irritability",
+    "Difficulty in sleeping (insomnia)",
+    "Fatigue and low energy",
+    "Lack of focus and concentration",
+    "Rapid heartbeat or nervousness",
+    "Mood swings"
+  ],
+
+  "remedies": [
+    "Practice daily meditation and deep breathing (Pranayama)",
+    "Drink calming herbal teas like Brahmi or Chamomile",
+    "Use Ashwagandha to reduce stress levels",
+    "Follow a regular sleep schedule",
+    "Do daily oil massage (Abhyanga) to relax the nervous system",
+    "Reduce screen time and digital overload",
+    "Spend time in nature and sunlight",
+    "Engage in light yoga and stretching exercises"
+  ],
+
+  "foods_to_eat": [
+    "Warm and nourishing meals",
+    "Milk with nutmeg or turmeric",
+    "Whole grains like oats and rice",
+    "Fresh fruits like bananas and berries",
+    "Nuts like almonds and walnuts",
+    "Herbal teas (Tulsi, Chamomile)"
+  ],
+
+  "foods_to_avoid": [
+    "Excess caffeine (coffee, tea)",
+    "Cold and processed food",
+    "Sugary snacks and junk food",
+    "Alcohol and smoking",
+    "Skipping meals or irregular eating",
+    "Overeating spicy and fried food"
+  ]
+}

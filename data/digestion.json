@@ -110,13 +110,42 @@
 
   "natural_remedies": "Ayurveda provides powerful natural methods to improve digestion. Drinking warm water throughout the day helps activate digestive fire. Ginger is one of the best natural digestive stimulants and can be consumed before meals. Jeera (cumin) water improves digestion and reduces bloating. Eating freshly cooked warm food is easier to digest than cold or processed food. Avoiding junk food and maintaining regular meal timings helps restore digestive rhythm. Light exercise like walking after meals improves digestion naturally.",
 
+  "natural_remedies_link": "digestion",
   "diet_recommendation": "Diet plays a crucial role in improving digestion. Warm, freshly cooked food should be preferred over cold and processed food. Foods like khichdi, vegetable soups and cooked vegetables are easy to digest. Ginger, cumin, coriander and fennel improve digestion naturally. Avoid heavy fried food, excess sugar and cold drinks. Eating at the same time daily trains the digestive system and improves digestive strength.",
+  "diet_link": "digestion",
+"yoga_and_lifestyle": {
+  "intro": "Yoga and lifestyle changes are very effective for improving digestion. Certain yoga poses gently stimulate digestive organs, improve gut movement, and reduce gas or bloating.",
 
-  "yoga_and_lifestyle": "Yoga and lifestyle changes are very effective for improving digestion. Vajrasana is the best yoga pose for digestion and should be practiced after meals. Pawanmuktasana helps release gas and improves intestinal movement. Cat-cow pose improves digestive organ function. Regular walking improves metabolism. Managing stress through meditation is important because stress weakens digestion. Proper sleep is also essential for digestive health.",
+  "poses": [
+    {
+      "name": "Vajrasana",
+      "image": "/static/images/vajra.png",
+      "desc": "This is one of the best yoga poses for digestion and can even be practiced after meals. It improves blood flow to the digestive organs and helps the stomach process food more efficiently."
+    },
+    {
+      "name": "Pawanmuktasana",
+      "image": "/static/images/pawan.png",
+      "desc": "This pose helps release trapped gas in the digestive tract. It gently massages the intestines and improves bowel movement."
+    },
+    {
+      "name": "Cat–Cow Pose",
+      "image": "/static/images/cat_cow.png",
+      "desc": "Cat–Cow movement stimulates abdominal organs and improves digestion. It also reduces stomach tension and improves spinal flexibility."
+    }
+  ],
+
+  "lifestyle": [
+    "Walk for 10–15 minutes after meals to improve digestion.",
+    "Practice daily meditation to reduce stress, as stress weakens digestion.",
+    "Maintain proper sleep routine because digestion is linked with circadian rhythm.",
+    "Avoid lying down immediately after meals."
+  ],
+
+  "yoga_link": "yoga_exercises"
+},
 
   "recovery_time": "With proper diet, lifestyle and Ayurvedic practices, digestion can improve within a few weeks. Consistency is the key. Regular eating habits, stress control, exercise and proper sleep help restore digestive fire. Once digestion improves, energy levels increase, immunity becomes stronger and overall health improves significantly.",
 
-  "conclusion": "Digestion is the foundation of health in Ayurveda. Improving digestion naturally can prevent many diseases and restore energy and wellness. By following Ayurvedic diet, lifestyle and natural remedies, digestive fire can be strengthened and overall health can be transformed naturally.",
+  "conclusion": "Digestion is the foundation of health in Ayurveda. Improving digestion naturally can prevent many diseases and restore energy and wellness. By following Ayurvedic diet, lifestyle and natural remedies, digestive fire can be strengthened and overall health can be transformed naturally."
 
-  "video": "https://www.youtube.com/embed/3PrmD3xQh8M"
 }

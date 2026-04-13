@@ -70,27 +70,39 @@
       </div>
     </div>
 
-    <!-- 🤖 AI PLAN -->
-    <div class="mt-5 ai-box">
-      <h4 class="text-success mb-2">🤖 Your AI-Generated 3-Day Wellness Plan</h4>
-      <p class="text-muted mb-3">Auto-crafted from your dosha balance. Short, practical, and easy to follow:</p>
+ <!-- 🤖 BUTTON -->
+<div class="text-center mb-3">
+  <button onclick="loadAIPlan()" class="btn btn-outline-success px-4 py-2 rounded-pill">
+    🤖 Generate 3-Day Wellness Plan
+  </button>
+</div>
 
-      <div class="ins-card" style="background:#f9fefb; border:1px solid #d5f2de; border-radius:18px; padding:1.8rem; box-shadow:0 8px 25px rgba(31,138,91,0.08);">
-        <div style="border-left:5px solid #2fbf71; padding-left:1rem;">
-          <pre class="ai" style="
-            white-space:pre-wrap;
-            font-family:'Inter', sans-serif;
-            font-size:0.95rem;
-            color:#1c3027;
-            line-height:1.7;
-            background:linear-gradient(145deg,#fafffa,#f0fdf4);
-            border-radius:12px;
-            padding:1.2rem;
-            border:1px solid #e2efe7;
-          ">{{ ai_plan|safe }}</pre>
-        </div>
-      </div>
+<!-- 🤖 AI PLAN (HIDDEN BY DEFAULT) -->
+<div id="ai-section" style="display: none;" class="mt-5 ai-box">
+  <h4 class="text-success mb-2">🤖 Your AI-Generated 3-Day Wellness Plan</h4>
+  <p class="text-muted mb-3">
+    Auto-crafted from your dosha balance. Short, practical, and easy to follow:
+  </p>
+
+  <div class="ins-card" style="background:#f9fefb; border:1px solid #d5f2de; border-radius:18px; padding:1.8rem; box-shadow:0 8px 25px rgba(31,138,91,0.08);">
+    <div style="border-left:5px solid #2fbf71; padding-left:1rem;">
+      
+      <!-- 🔥 IMPORTANT ID -->
+      <pre id="ai-content" class="ai" style="
+        white-space:pre-wrap;
+        font-family:'Inter', sans-serif;
+        font-size:0.95rem;
+        color:#1c3027;
+        line-height:1.7;
+        background:linear-gradient(145deg,#fafffa,#f0fdf4);
+        border-radius:12px;
+        padding:1.2rem;
+        border:1px solid #e2efe7;
+      "></pre>
+
     </div>
+  </div>
+</div>
 
     <div class="mt-4 text-muted">
       <p>🪷 Maintaining your dosha balance helps improve energy, mood, digestion, and overall wellbeing.
@@ -101,7 +113,40 @@
   <div class="mt-4 d-flex gap-2 justify-content-center">
     <a href="{{ url_for('quiz') }}" class="btn btn-outline-success">🔁 Retake Quiz</a>
     <a href="{{ url_for('index') }}" class="btn btn-success">🏠 Go Home</a>
+     <a href="/download-report" class="btn btn-outline-dark">
+    📄 Download Report
+  </a>
+  <a href="{{ url_for('history') }}" class="btn btn-outline-dark">
+    📊 View History
+  </a>
+
   </div>
 </div>
 
+<script>
+function loadAIPlan() {
+  const btn = event.target;
+  btn.innerText = "⏳ Generating...";
+  btn.disabled = true;
+
+  fetch("/generate-ai-plan")
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("ai-content").innerText = data.plan;
+
+      // 🔥 SHOW BLOCK
+      document.getElementById("ai-section").style.display = "block";
+
+      btn.innerText = "✨ Generated";
+    })
+    .catch(() => {
+      document.getElementById("ai-content").innerText =
+        "⚠️ Could not generate AI plan. Showing default plan.";
+
+      document.getElementById("ai-section").style.display = "block";
+
+      btn.innerText = "Try Again";
+    });
+}
+</script>
 {% endblock %}

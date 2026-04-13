@@ -1,0 +1,48 @@
+{
+  "name": "Skin Health",
+  "symptom_type": "imbalance",
+  "title": "Skin Health Guide",
+
+  "introduction": "Skin health refers to maintaining clear, hydrated, and glowing skin through proper care, nutrition, and lifestyle habits. When skin is healthy, it appears smooth, radiant, and free from major issues. When imbalanced, it can lead to acne, dryness, dullness, and irritation.",
+
+  "description": "Skin health is a combination of internal wellness and external care. The skin is the largest organ of the body and plays a crucial role in protecting against environmental damage, regulating temperature, and maintaining hydration.Healthy skin depends on multiple factors such as diet, hydration, hormones, hygiene, sleep, stress levels, and environmental exposure like pollution and sunlight. When these factors are well-balanced, the skin maintains its natural glow and elasticity.However, poor lifestyle habits such as unhealthy eating, lack of sleep, dehydration, and excessive stress can disrupt this balance. This may lead to common skin problems like acne, dryness, oiliness, pigmentation, irritation, and premature aging.\n\nA proper skincare routine is essential for maintaining skin health. This includes cleansing to remove dirt and impurities, moisturizing to maintain hydration, and protecting the skin from harmful UV rays using sunscreen. Choosing suitable skincare products according to your skin type is equally important.\nIn addition to external care, nourishing the body from within is key. A balanced diet rich in vitamins, minerals, antioxidants, and healthy fats helps repair and rejuvenate the skin. Drinking enough water keeps the skin hydrated and flushes out toxins.\nGood sleep and stress management also play a major role in skin health. Lack of sleep can cause dullness and dark circles, while stress can trigger breakouts and sensitivity.\nIn simple terms, skin health is about maintaining a balance between proper skincare, healthy eating, hydration, and a disciplined lifestyle to achieve naturally glowing, strong, and problem-free skin.",
+  "symptoms": [
+    "Acne and breakouts",
+    "Dry or flaky skin",
+    "Excess oiliness",
+    "Dull or uneven skin tone",
+    "Dark spots or pigmentation",
+    "Redness or irritation",
+    "Premature wrinkles or fine lines"
+  ],
+
+  "remedies": [
+    "Follow a proper skincare routine (cleanse, moisturize, protect)",
+    "Drink plenty of water to stay hydrated",
+    "Eat a balanced and nutrient-rich diet",
+    "Use sunscreen daily",
+    "Avoid harsh chemicals on skin",
+    "Maintain proper hygiene",
+    "Get enough sleep",
+    "Manage stress effectively"
+  ],
+
+  "foods_to_eat": [
+    "Fruits rich in Vitamin C",
+    "Leafy green vegetables",
+    "Nuts and seeds",
+    "Healthy fats (avocado, olive oil)",
+    "Whole grains",
+    "Water-rich foods (cucumber, watermelon)",
+    "Protein-rich foods"
+  ],
+
+  "foods_to_avoid": [
+    "Excess sugar and sweets",
+    "Junk and processed food",
+    "Deep fried food",
+    "Excess dairy (if it triggers acne)",
+    "Carbonated and sugary drinks",
+    "Highly spicy food"
+  ]
+}

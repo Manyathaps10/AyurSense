@@ -1,0 +1,70 @@
+{
+  "name": "Slow Surya Namaskar",
+  "sanskrit": "Surya Namaskar",
+
+  "intro": "Slow Surya Namaskar (Sun Salutation) is a gentle and mindful sequence of yoga poses performed in a slow and controlled manner. Unlike the traditional fast-paced version, this variation focuses on deep breathing, body awareness, and smooth transitions between poses. It helps in warming up the entire body while promoting relaxation and balance.\n\nThis sequence combines forward bends, backward bends, and stretching movements that improve flexibility, strength, and coordination. Practicing it slowly allows the body to fully experience each posture, making it ideal for beginners and those seeking a calm, meditative yoga session.\n\nRegular practice of Slow Surya Namaskar improves blood circulation, boosts energy levels, and enhances overall physical and mental well-being. It also helps in reducing stress, improving focus, and creating a sense of inner calm and mindfulness.",
+
+  "steps": [
+    {
+      "text": "Stand straight with your feet together and hands in prayer position (Pranamasana)."
+    },
+    {
+      "text": "Inhale and raise your arms overhead, gently arching your back (Hasta Uttanasana)."
+    },
+    {
+      "text": "Exhale and bend forward, bringing your hands towards your feet (Uttanasana)."
+    },
+    {
+      "text": "Inhale and step one leg back into a lunge position (Ashwa Sanchalanasana)."
+    },
+    {
+      "text": "Hold your breath and step back into plank position."
+    },
+    {
+      "text": "Lower your body down slowly keeping elbows close (Ashtanga Namaskar)."
+    },
+    {
+      "text": "Inhale and lift your chest into Cobra Pose (Bhujangasana)."
+    },
+    {
+      "text": "Exhale and lift your hips into an inverted V shape (Adho Mukha Svanasana)."
+    },
+    {
+      "text": "Inhale and bring one leg forward into lunge position."
+    },
+    {
+      "text": "Exhale and bend forward again (Uttanasana)."
+    },
+    {
+      "text": "Inhale and raise your arms up, gently arching back."
+    },
+    {
+      "text": "Exhale and return to prayer position."
+    }
+  ],
+
+  "benefits": [
+    "Improves overall body flexibility and strength",
+    "Enhances blood circulation and oxygen flow",
+    "Boosts energy levels and reduces fatigue",
+    "Supports weight management and metabolism",
+    "Strengthens muscles and joints",
+    "Improves posture and body alignment",
+    "Calms the mind and reduces stress",
+    "Enhances focus and concentration",
+    "Promotes better digestion",
+    "Balances mind and body coordination"
+  ],
+
+  "avoid": [
+    "You have severe back pain or spinal injuries",
+    "You are suffering from high blood pressure or heart conditions",
+    "You have recent surgery or serious joint issues",
+    "You feel dizziness or weakness during practice",
+    "You have wrist, knee, or shoulder injuries",
+    "You are pregnant (consult a professional before practice)",
+    "You experience discomfort in any pose"
+  ],
+
+  "video": "https://www.youtube.com/embed/aJb1AWMc-64"
+}

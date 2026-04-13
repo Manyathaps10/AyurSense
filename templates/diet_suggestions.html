@@ -3,619 +3,514 @@
 
 <style>
 
-body{
-background: linear-gradient(to right,#fff7f4,#ffffff);
+.wrapper {
+    width: 100%;              /* 🔥 full width */
+    min-height: 80vh;
+
+    background: url("/static/images/diet_bg.png") no-repeat center center/cover;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* OVERLAY */
+.wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(6px);
+    z-index: 0;
+}
+
+/* MAIN WRAPPER */
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    position: relative;
+    z-index: 2;
+}
+
+/* GLASS CARD */
+.main-card {
+    width: 600px;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 35px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    text-align: center;
 }
 
 /* TITLE */
-.page-title{
-text-align:center;
-font-weight:900;
-color:#b23b3b;
-font-size:40px;
-margin-top:30px;
-margin-bottom:40px;
+.main-card h2 {
+    color: #2e7d32;
+    margin-bottom: 25px;
 }
 
-/* LAYOUT FIXED */
-.diet-wrapper{
-display:flex;
-gap:35px;
-align-items:stretch;
+/* OPTIONS */
+.option-btn {
+    width: 100%;
+    padding: 16px;
+    margin: 12px 0;
+    border-radius: 15px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #c8e6c9, #e8f5e9);
+    transition: all 0.3s ease;
 }
 
-/* Responsive */
-@media(max-width:768px){
-.diet-wrapper{
-flex-direction:column;
-}
+.option-btn:hover {
+    transform: scale(1.03);
+    background: linear-gradient(135deg, #a5d6a7, #c8e6c9);
 }
 
-/* PANELS */
-.panel{
-flex:1;
-background:white;
-padding:35px;
-border-radius:25px;
-box-shadow:0 20px 45px rgba(0,0,0,0.06);
-
-/* ⭐ IMPORTANT FIX */
-height:650px;
-display:flex;
-flex-direction:column;
-overflow:hidden;
+.option-btn.active {
+    background: #2e7d32;
+    color: white;
 }
 
-/* RESULT PANEL SCROLL ENABLE */
-#dietResult{
-background: linear-gradient(145deg,#ffffff,#fff3ef);
-overflow-y:auto;
-padding-right:10px;
+/* INNER */
+.inner-card {
+    display: none;
+    margin-top: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
 }
 
-/* Scrollbar */
-#dietResult::-webkit-scrollbar{
-width:6px;
+/* INPUT */
+select, input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #ccc;
 }
 
-#dietResult::-webkit-scrollbar-thumb{
-background:#b23b3b;
-border-radius:10px;
+/* BUTTON */
+.btn-main {
+    padding: 10px 25px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
-/* Labels */
-label{
-font-weight:600;
-margin-top:15px;
+.btn-main:hover {
+    background: #1b5e20;
 }
 
-/* Button */
-.generate-btn{
-background:linear-gradient(135deg,#b23b3b,#8e2f2f);
-color:white;
-border:none;
-padding:14px 28px;
-border-radius:30px;
-margin-top:20px;
-width:100%;
-font-weight:600;
-transition:0.3s;
+/* RESULT */
+.result-card {
+    max-width: 900px;
+    margin: 30px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
 }
 
-.generate-btn:hover{
-transform:translateY(-3px);
+/* RESULT GLASS CARD */
+.result-card {
+    width: 900px;
+    margin: 30px auto;
+    padding: 30px;
+
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(18px);
+    border-radius: 25px;
+
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+
+    position: relative;
+    z-index: 2;
 }
 
-/* Meal Cards */
-.meal-card{
-background:#fff1ee;
-padding:18px;
-border-radius:15px;
-margin-bottom:15px;
-transition:0.3s;
+/* GRID */
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 15px;
 }
 
-.meal-card:hover{
-transform:translateY(-3px);
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
+/* BOXES */
+.result-box {
+    background: rgba(255,255,255,0.7);
+    padding: 15px;
+    border-radius: 12px;
+    transition: 0.3s;
 }
 
-.meal-card h6{
-margin-bottom:5px;
-color:#b23b3b;
+.result-box:hover {
+    transform: scale(1.03);
 }
 
-.diet-condition-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:25px;
+.result-card:hover {
+    box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+}
+.symptom-box {
+    max-height: 220px;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    text-align: left;
 }
 
-.condition-card{
-background:white;
-padding:25px;
-border-radius:20px;
-box-shadow:0 15px 35px rgba(0,0,0,0.05);
-transition:0.3s;
+.chip {
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: #e8f5e9;
+    cursor: pointer;
+    border: 1px solid #c8e6c9;
+    font-size: 13px;
 }
 
-.condition-card:hover{
-transform:translateY(-5px);
+.chip.selected {
+    background: #2e7d32;
+    color: white;
 }
 
-.condition-card h5{
-color:#b23b3b;
-margin-bottom:15px;
+label {
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+    font-weight: 600;
+    color: #2e7d32;
+}
+select[multiple] {
+    height: 120px;
+}
+.allergy-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
 }
 
-.condition-card ul{
-padding-left:18px;
+.chip {
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: #e8f5e9;
+    cursor: pointer;
+    border: 1px solid #c8e6c9;
+    font-size: 13px;
 }
 
 </style>
 
+<div class="wrapper">
 
-<div class="container py-4">
+    <div class="main-card">
 
-<h1 class="page-title">
-Personalized Ayurvedic Diet Planner
-</h1>
+        <h2>🌿 Select Your Condition</h2>
 
-<div class="diet-wrapper">
+        <!-- OPTIONS -->
+        <button class="option-btn" onclick="showSection('disease', this)">
+            📋 Select Known Condition
+        </button>
 
-<!-- LEFT PANEL -->
-<div class="panel">
+        <button class="option-btn" onclick="showSection('quiz', this)">
+            🧠 Diagnose My Condition
+        </button>
 
-<h4>Create Your Diet Plan</h4>
+        <button class="option-btn" onclick="showSection('fitness', this)">
+            🌿 Improve My Wellness
+        </button>
 
-<label>Dominant Dosha</label>
-<select id="dosha" class="form-control">
-<option value="">Select Dosha</option>
-<option value="vata">Vata</option>
-<option value="pitta">Pitta</option>
-<option value="kapha">Kapha</option>
+        <!-- DISEASE -->
+        <div id="disease" class="inner-card">
+            <select id="diseaseSelect">
+                <option value="">-- Select Disease --</option>
+                {% for d in diseases %}
+                <option value="{{ d }}">{{ d }}</option>
+                {% endfor %}
+            </select>
+
+            <button class="btn-main" onclick="analyzeDisease()">Continue</button>
+        </div>
+
+        <!-- QUIZ -->
+        <div id="quiz" class="inner-card">
+
+         <h3>Select your symptoms</h3>
+
+<div class="symptom-box">
+
+{% for s in symptoms %}
+<div class="chip" onclick="toggleChip(this)" data-value="{{ s }}">
+    {{ s }}
+</div>
+{% endfor %}
+
+</div>
+
+<select id="stress">
+    <option value="">Select Stress Level</option>
+    <option value="low">Low</option>
+    <option value="medium">Medium</option>
+    <option value="high">High</option>
 </select>
 
-<label>Health Goal</label>
-<select id="goal" class="form-control">
-<option value="">Select Goal</option>
-<option value="weight">Weight Management</option>
-<option value="immunity">Boost Immunity</option>
-<option value="stress">Reduce Stress</option>
-<option value="digestion">Improve Digestion</option>
-<option value="detox">Detox Body</option>
-<option value="skin">Skin Glow</option>
+<select id="sleep">
+    <option value="">Select Sleep Pattern</option>
+    <option value="good">Good</option>
+    <option value="disturbed">Disturbed</option>
+    <option value="poor">Poor</option>
 </select>
 
-<label>Energy Level</label>
-<select id="energy" class="form-control">
-<option value="">Select Energy</option>
-<option value="low">Low</option>
-<option value="medium">Medium</option>
-<option value="high">High</option>
-</select>
+<button class="btn-main" onclick="submitSymptoms()">Continue</button>
 
-<label>Meal Intensity</label>
-<select id="intensity" class="form-control">
-<option value="">Select Plan Type</option>
-<option value="light">Light Meals</option>
-<option value="balanced">Balanced Diet</option>
-<option value="detailed">Full Ayurvedic Routine</option>
-</select>
+      </div>
 
-<button class="generate-btn" onclick="generateDiet()">
-Generate My Plan
-</button>
+   <div id="fitness" class="inner-card">
+
+   <label>Select Allergies (if any)</label>
+
+<div class="allergy-box">
+
+    <div class="chip" onclick="toggleAllergy(this)" data-value="dairy">Dairy</div>
+    <div class="chip" onclick="toggleAllergy(this)" data-value="gluten">Gluten</div>
+    <div class="chip" onclick="toggleAllergy(this)" data-value="nuts">Nuts</div>
+    <div class="chip" onclick="toggleAllergy(this)" data-value="soy">Soy</div>
+    <div class="chip" onclick="toggleAllergy(this)" data-value="spicy">Spicy</div>
 
 </div>
 
-<!-- RIGHT PANEL -->
-<div class="panel">
-
-<div id="dietResult">
-
-<h5 style="color:#9b2c2c;font-weight:700;">
-Your Diet Plan Will Appear Here
-</h5>
-
-<p>
-Select all options and click generate to see your personalized Ayurvedic meal plan.
-</p>
+    <button class="btn-main" onclick="getWellnessDiet()">
+        Continue
+    </button>
 
 </div>
 
-</div>
+    </div>
+    <div id="output"></div>
 
 </div>
-</div>
-
-<!-- ================================= -->
-<!-- HEALTH CONDITION DIET PLANS -->
-<!-- ================================= -->
-
-<div class="container mt-5">
-
-<h2 style="text-align:center;color:#145a3b;font-weight:800;margin-bottom:30px;">
-Diet Plans By Health Condition
-</h2>
-
-
-<style>
-
-.condition-container{
-max-width:850px;
-margin:auto;
-}
-
-.condition-row{
-background:white;
-padding:18px 22px;
-margin-bottom:12px;
-border-radius:12px;
-box-shadow:0 5px 18px rgba(0,0,0,0.05);
-cursor:pointer;
-transition:0.25s;
-}
-
-.condition-row:hover{
-background:#fff4f0;
-}
-
-.condition-name{
-font-weight:700;
-color:#b23b3b;
-font-size:17px;
-}
-
-.condition-plan{
-display:none;
-margin-top:12px;
-padding-top:12px;
-border-top:1px solid #eee;
-color:#444;
-line-height:1.6;
-}
-
-.see-more-btn{
-margin-top:20px;
-background:#145a3b;
-color:white;
-border:none;
-padding:10px 28px;
-border-radius:25px;
-font-weight:600;
-display:block;
-margin-left:auto;
-margin-right:auto;
-}
-.read-article-btn{
-
-background:#b23b3b;
-color:white;
-border:none;
-padding:8px 20px;
-border-radius:20px;
-font-size:14px;
-cursor:pointer;
-
-}
-
-.read-article-btn:hover{
-
-background:#8e2f2f;
-
-}
-
-
-</style>
-
-
-<div class="condition-container">
-
-
-<!-- WEIGHT -->
-<div class="condition-row" onclick="togglePlan(this)">
-<div class="condition-name">⚖ Weight Loss Diet</div>
-
-<div class="condition-plan">
-Morning: Warm lemon water<br>
-Breakfast: Vegetable poha<br>
-Lunch: Millet roti + sabzi<br>
-Snack: Green tea + nuts<br>
-Dinner: Vegetable soup<br><br>
-<a href="{{ url_for('diet_article', condition='weight') }}">
-<button class="read-article-btn">
-Read Full Article →
-</button>
-</a>
-</div>
-</div>
-
-
-<!-- IMMUNITY -->
-<div class="condition-row" onclick="togglePlan(this)">
-<div class="condition-name">🛡 Immunity Boost Diet</div>
-
-<div class="condition-plan">
-Morning: Haldi water<br>
-Breakfast: Fruits + soaked almonds<br>
-Lunch: Dal + rice + sabzi<br>
-Snack: Tulsi tea<br>
-Dinner: Khichdi<br><br>
-<a href="{{ url_for('diet_article', condition='weight') }}">
-<button class="read-article-btn">
-Read Full Article →
-</button>
-</a>
-</div>
-</div>
-
-
-<!-- STRESS -->
-<div class="condition-row" onclick="togglePlan(this)">
-<div class="condition-name">🧠 Stress Relief Diet</div>
-
-<div class="condition-plan">
-Morning: Warm milk + nutmeg<br>
-Breakfast: Oats<br>
-Lunch: Khichdi<br>
-Snack: Chamomile tea<br>
-Dinner: Light sabzi + roti<br><br>
-<a href="{{ url_for('diet_article', condition='weight') }}">
-<button class="read-article-btn">
-Read Full Article →
-</button>
-</a>
-</div>
-</div>
-
-
-<!-- DIGESTION -->
-<div class="condition-row" onclick="togglePlan(this)">
-<div class="condition-name">🍛 Digestion Diet</div>
-
-<div class="condition-plan">
-Morning: Jeera water<br>
-Breakfast: Papaya<br>
-Lunch: Moong dal khichdi<br>
-Snack: Buttermilk<br>
-Dinner: Vegetable soup<br><br>
-<a href="{{ url_for('diet_article', condition='weight') }}">
-<button class="read-article-btn">
-Read Full Article →
-</button>
-</a>
-</div>
-</div>
-
-
-
-<!-- MORE CONDITIONS -->
-<div id="moreConditions" style="display:none;">
-
-
-<div class="condition-row" onclick="togglePlan(this)">
-<div class="condition-name">✨ Skin Glow Diet</div>
-
-<div class="condition-plan">
-Morning: Aloe vera juice<br>
-Breakfast: Fruits<br>
-Lunch: Green vegetables<br>
-Snack: Coconut water<br>
-Dinner: Light khichdi<br><br>
-<a href="{{ url_for('diet_article', condition='weight') }}">
-<button class="read-article-btn">
-Read Full Article →
-</button>
-</a>
-</div>
-</div>
-
-
-<div class="condition-row" onclick="togglePlan(this)">
-<div class="condition-name">🩸 Diabetes Diet</div>
-
-<div class="condition-plan">
-Morning: Methi water<br>
-Breakfast: Sprouts<br>
-Lunch: Multigrain roti + sabzi<br>
-Snack: Nuts<br>
-Dinner: Soup<br><br>
-<a href="{{ url_for('diet_article', condition='weight') }}">
-<button class="read-article-btn">
-Read Full Article →
-</button>
-</a>
-</div>
-</div>
-
-
-<div class="condition-row" onclick="togglePlan(this)">
-<div class="condition-name">🌸 PCOS Diet</div>
-
-<div class="condition-plan">
-Morning: Cinnamon water<br>
-Breakfast: Oats + seeds<br>
-Lunch: Brown rice + sabzi<br>
-Snack: Herbal tea<br>
-Dinner: Light soup<br><br>
-<a href="{{ url_for('diet_article', condition='weight') }}">
-<button class="read-article-btn">
-Read Full Article →
-</button>
-</a>
-</div>
-</div>
-
-
-<div class="condition-row" onclick="togglePlan(this)">
-<div class="condition-name">🦋 Thyroid Diet</div>
-
-<div class="condition-plan">
-Morning: Lemon water<br>
-Breakfast: Fruits<br>
-Lunch: Sabzi + roti<br>
-Snack: Green tea<br>
-Dinner: Khichdi<br><br>
-<a href="{{ url_for('diet_article', condition='weight') }}">
-<button class="read-article-btn">
-Read Full Article →
-</button>
-</a>
-</div>
-</div>
-
-
-</div>
-
-
-<button onclick="toggleMore()" id="seeBtn" class="see-more-btn">
-See More Diet Plans ↓
-</button>
-
-
-</div>
-</div>
-
 
 
 <script>
 
-function generateDiet(){
+function showSection(id, btn){
+    document.querySelectorAll(".inner-card").forEach(e => e.style.display="none");
+    document.querySelectorAll(".option-btn").forEach(e => e.classList.remove("active"));
 
-let dosha=document.getElementById("dosha").value;
-let goal=document.getElementById("goal").value;
-let energy=document.getElementById("energy").value;
-let intensity=document.getElementById("intensity").value;
-
-if(!dosha || !goal || !energy || !intensity){
-document.getElementById("dietResult").innerHTML =
-"<h5 style='color:#b23b3b;'>Please select all options.</h5>";
-return;
+    document.getElementById(id).style.display = "block";
+    btn.classList.add("active");
 }
 
-let plan={};
+async function analyzeDisease(){
+    let disease = document.getElementById("diseaseSelect").value;
 
-/* DOSHA BASE */
+    if(!disease){
+        alert("Select disease first");
+        return;
+    }
 
-if(dosha==="vata"){
-plan={
-morning:"Warm water + soaked almonds",
-breakfast:"Oats with ghee & dates",
-lunch:"Vegetable khichdi",
-snack:"Herbal tea + nuts",
-dinner:"Soft roti + vegetable curry",
-tips:"Eat warm, freshly cooked meals."
-};
+    let res = await fetch("/analyze", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({disease})
+    });
+
+    let data = await res.json();
+    showResult(data);
 }
 
-if(dosha==="pitta"){
-plan={
-morning:"Coriander infused water",
-breakfast:"Sweet fruits + coconut water",
-lunch:"Jeera rice + lauki + moong dal",
-snack:"Buttermilk + cucumber",
-dinner:"Light khichdi",
-tips:"Avoid spicy & fried foods."
-};
+function submitSymptoms(){
+
+    console.log("clicked");
+
+    let selected = document.querySelectorAll(".chip.selected");
+
+    if(selected.length === 0){
+        alert("Select symptoms");
+        return;
+    }
+
+    let symptoms = [...selected].map(el => el.dataset.value).join(", ");
+
+    let stress = document.getElementById("stress").value;
+    let sleep = document.getElementById("sleep").value;
+
+    if(!stress || !sleep){
+        alert("Select stress and sleep");
+        return;
+    }
+
+    fetch("/analyze", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({
+            symptoms: symptoms,
+            stress: stress,
+            sleep: sleep
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+
+        if(data.predictions){
+            showDiagnosisResult(data);
+        } else {
+            showResult(data);
+        }
+    });
 }
 
-if(dosha==="kapha"){
-plan={
-morning:"Warm lemon honey water",
-breakfast:"Light poha",
-lunch:"Millet roti + green vegetables",
-snack:"Green tea",
-dinner:"Clear vegetable soup",
-tips:"Avoid heavy & oily foods."
-};
+function getWellnessDiet(){
+
+    let selected = document.querySelectorAll(".allergy-box .chip.selected");
+    let allergies = [...selected].map(el => el.dataset.value);
+
+    let plan = {
+
+        Monday: "Morning: Warm water + lemon<br>Breakfast: Oats<br>Lunch: Roti + Dal<br>Dinner: Khichdi",
+
+        Tuesday: "Morning: Detox water<br>Breakfast: Poha<br>Lunch: Roti + Rajma<br>Dinner: Soup",
+
+        Wednesday: "Morning: Warm water<br>Breakfast: Upma<br>Lunch: Roti + Chole<br>Dinner: Dal",
+
+        Thursday: "Morning: Lemon water<br>Breakfast: Dalia<br>Lunch: Roti + Veg<br>Dinner: Khichdi",
+
+        Friday: "Morning: Warm water<br>Breakfast: Fruits<br>Lunch: Roti + Paneer<br>Dinner: Soup",
+
+        Saturday: "Morning: Detox drink<br>Breakfast: Idli<br>Lunch: Roti + Dal<br>Dinner: Sabzi",
+
+        Sunday: "Morning: Warm water<br>Breakfast: Smoothie<br>Lunch: Roti + Curry<br>Dinner: Light khichdi"
+    };
+
+    // 🔥 APPLY ALLERGIES
+    for(let day in plan){
+
+        if(allergies.includes("dairy")){
+            plan[day] = plan[day].replace("Paneer", "Tofu");
+        }
+
+        if(allergies.includes("gluten")){
+            plan[day] = plan[day].replaceAll("Roti", "Rice / Millet roti");
+        }
+
+        if(allergies.includes("nuts")){
+        }
+
+        if(allergies.includes("soy")){
+        }
+
+        if(allergies.includes("spicy")){
+        }
+    }
+
+    // 🔥 OUTPUT
+    let html = `<div class="result-card">
+        <h2>🌿 7-Day Wellness Diet Plan</h2>
+    `;
+
+    for(let day in plan){
+        html += `
+        <div class="result-box" style="margin-top:10px;">
+            <b>${day}</b><br>${plan[day]}
+        </div>
+        `;
+    }
+
+    html += `</div>`;
+
+    document.getElementById("output").innerHTML = html;
 }
 
-/* GOAL MODIFIER */
+function showResult(data){
 
-if(goal==="weight"){
-plan.dinner="Vegetable soup before 7PM";
-plan.tips+=" Focus on portion control.";
+    let html = `
+    <div class="result-card">
+
+        <h2>${data.Disease}</h2>
+
+        <div class="result-grid">
+
+            <div class="result-box"><b>Symptoms</b><br>${data.Symptoms}</div>
+            <div class="result-box"><b>Severity</b><br>${data.Severity}</div>
+
+            <div class="result-box"><b>Tests</b><br>${data.Tests}</div>
+            <div class="result-box"><b>Duration</b><br>${data.Duration}</div>
+
+            <div class="result-box"><b>Risk Factors</b><br>${data.Risk}</div>
+            <div class="result-box"><b>Environment Factors</b><br>${data.Environmental}</div>
+
+            <div class="result-box"><b>Herbs</b><br>${data.Herbs}</div>
+            <div class="result-box"><b>Formulation</b><br>${data.Formulation}</div>
+
+            <div class="result-box"><b>Remedies</b><br>${data.Remedies}</div>
+            <div class="result-box"><b>Prevention</b><br>${data.Prevention}</div>
+
+            <div class="result-box"><b>Prognosis</b><br>${data.Prognosis}</div>
+            <div class="result-box"><b>Complications</b><br>${data.Complications}</div>
+
+        </div>
+
+        <h3 style="margin-top:20px;">🥗 Diet Recommendation</h3>
+        <div class="result-box">${data.Diet}</div>
+
+        <h3 style="margin-top:15px;">🧑‍⚕️ Patient Advice</h3>
+        <div class="result-box">${data.Patient}</div>
+
+    </div>
+    `;
+
+    document.getElementById("output").innerHTML = html;
 }
 
-if(goal==="immunity"){
-plan.snack="Tulsi ginger tea + fruits";
-plan.tips+=" Include turmeric daily.";
+function showDiagnosisResult(data){
+
+    let html = `<h2>🧠 Possible Conditions</h2>`;
+
+    data.predictions.forEach((d, i) => {
+
+        // 🔥 COLOR LOGIC YAHAN
+        let color = d.confidence === "High" ? "green" :
+                    d.confidence === "Medium" ? "orange" : "red";
+
+        html += `
+        <div class="result-card">
+
+            <h3>${i+1}. ${d.Disease}</h3>
+
+            <p style="color:${color}; font-weight:bold;">
+                Confidence: ${d.confidence}
+            </p>
+
+            <p><b>Symptoms:</b> ${d.Symptoms}</p>
+            <p><b>Severity:</b> ${d.Severity}</p>
+            <p><b>Tests:</b> ${d.Tests}</p>
+            <p><b>Diet:</b> ${d.Diet}</p>
+            <p><b>Risk Factors:</b> ${d.Risk}</p>
+            <p><b>Environment Factors:</b> ${d.Environmental}</p>
+
+        </div>
+        `;
+    });
+
+    document.getElementById("output").innerHTML = html;
 }
 
-if(goal==="stress"){
-plan.snack="Chamomile tea";
-plan.tips+=" Reduce caffeine intake.";
+function toggleChip(el){
+    el.classList.toggle("selected");
 }
-
-if(goal==="digestion"){
-plan.lunch="Moong dal khichdi";
-plan.tips+=" Eat at fixed timings.";
+function toggleAllergy(el){
+    el.classList.toggle("selected");
 }
-
-if(goal==="detox"){
-plan.morning="Warm detox herbal drink";
-plan.tips+=" Add leafy greens.";
-}
-
-if(goal==="skin"){
-plan.snack="Coconut water + soaked raisins";
-plan.tips+=" Stay hydrated.";
-}
-
-/* ENERGY */
-
-if(energy==="low"){
-plan.snack+=" + Dates";
-}
-
-if(energy==="high"){
-plan.lunch+=" + Extra protein dal";
-}
-
-/* INTENSITY */
-
-if(intensity==="light"){
-plan.dinner="Simple vegetable soup";
-}
-
-if(intensity==="detailed"){
-plan.snack+=" + Evening herbal infusion";
-plan.tips+=" Follow proper sleep cycle.";
-}
-
-/* DISPLAY */
-
-document.getElementById("dietResult").innerHTML=`
-<h4 style="color:#9b2c2c;font-weight:800;margin-bottom:20px;">
-Your Personalized Ayurvedic Diet Plan
-</h4>
-
-<div class="meal-card"><h6>Morning</h6><p>${plan.morning}</p></div>
-<div class="meal-card"><h6>Breakfast</h6><p>${plan.breakfast}</p></div>
-<div class="meal-card"><h6>Lunch</h6><p>${plan.lunch}</p></div>
-<div class="meal-card"><h6>Evening Snack</h6><p>${plan.snack}</p></div>
-<div class="meal-card"><h6>Dinner</h6><p>${plan.dinner}</p></div>
-<div class="meal-card"><h6>Lifestyle Tip</h6><p>${plan.tips}</p></div>
-`;
-
-}
-
 </script>
-<script>
-
-function togglePlan(el){
-
-let plan = el.querySelector(".condition-plan");
-
-plan.style.display =
-plan.style.display==="block" ? "none":"block";
-
-}
-
-
-function toggleMore(){
-
-let more = document.getElementById("moreConditions");
-
-let btn = document.getElementById("seeBtn");
-
-if(more.style.display==="none"){
-
-more.style.display="block";
-btn.innerText="See Less ↑";
-
-}
-else{
-
-more.style.display="none";
-btn.innerText="See More Diet Plans ↓";
-
-}
-
-}
-
-</script>
-
 
 {% endblock %}

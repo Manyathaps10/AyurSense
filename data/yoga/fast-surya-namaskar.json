@@ -1,0 +1,70 @@
+{
+  "name": "Fast Surya Namaskar",
+  "sanskrit": "Surya Namaskar (Dynamic Flow)",
+
+  "intro": "Fast Surya Namaskar is a dynamic and energetic sequence of 12 yoga postures performed in a continuous flow with synchronized breathing. Unlike the traditional slow-paced Surya Namaskar, this faster variation increases heart rate, boosts metabolism, and provides a full-body workout. It combines stretching, strength, and cardio, making it highly effective for improving overall fitness and stamina.\n\nThis practice activates multiple muscle groups including the core, arms, legs, and back while also enhancing flexibility and coordination. The rhythmic movement helps improve blood circulation and oxygen flow throughout the body, leaving you feeling energized and refreshed. Fast Surya Namaskar is especially beneficial for those looking to burn calories, build endurance, and improve cardiovascular health.\n\nRegular practice not only strengthens the body but also sharpens mental focus and reduces stress. It creates a balance between physical activity and breath control, making it a powerful routine for both physical and mental well-being. However, it is important to maintain proper form even at a faster pace to avoid injuries and maximize benefits.",
+
+  "steps": [
+    {
+      "text": "Start in prayer position (Pranamasana) with hands joined."
+    },
+    {
+      "text": "Raise your arms up and slightly bend backward (Hasta Uttanasana)."
+    },
+    {
+      "text": "Bend forward and touch your feet (Uttanasana)."
+    },
+    {
+      "text": "Take one leg back into a lunge position (Ashwa Sanchalanasana)."
+    },
+    {
+      "text": "Step the other leg back into plank position."
+    },
+    {
+      "text": "Lower your body to the ground (Ashtanga Namaskar)."
+    },
+    {
+      "text": "Lift your chest into Cobra Pose (Bhujangasana)."
+    },
+    {
+      "text": "Raise your hips into an inverted V shape (Adho Mukha Svanasana)."
+    },
+    {
+      "text": "Bring one leg forward into lunge position."
+    },
+    {
+      "text": "Bring the other leg forward and bend down (Uttanasana)."
+    },
+    {
+      "text": "Raise your arms up and slightly arch back."
+    },
+    {
+      "text": "Return to prayer position."
+    }
+  ],
+
+  "benefits": [
+    "Boosts metabolism and helps in weight loss",
+    "Improves cardiovascular health and stamina",
+    "Strengthens muscles of the whole body",
+    "Enhances flexibility and body coordination",
+    "Improves blood circulation and oxygen supply",
+    "Increases energy levels and reduces fatigue",
+    "Helps in detoxifying the body through sweating",
+    "Sharpens focus and mental alertness",
+    "Reduces stress and promotes overall well-being",
+    "Improves digestion and hormonal balance"
+  ],
+
+  "avoid": [
+    "You have heart problems or high blood pressure",
+    "You are pregnant",
+    "You have severe back pain or spinal disorders",
+    "You have joint pain, especially in wrists, knees, or shoulders",
+    "You feel dizziness or weakness during fast movements",
+    "You are recovering from surgery or injury",
+    "You are a beginner without prior practice (start slow first)"
+  ],
+
+  "video": "https://www.youtube.com/embed/aJb1AWMc-64"
+}

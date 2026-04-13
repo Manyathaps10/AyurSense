@@ -1,0 +1,47 @@
+{
+  "name": "Digestive Health",
+  "symptom_type": "weak",
+  "title": "Digestive Health Relief Guide",
+  "introduction": "Digestive health plays a vital role in overall well-being. In Ayurveda, strong digestion (Agni) is considered the foundation of good health. When digestion is balanced, it supports energy, immunity and mental clarity. When disturbed, it can lead to bloating, acidity and discomfort.",
+
+  "description": "Digestive health refers to how efficiently the body breaks down food, absorbs nutrients and eliminates waste. In Ayurveda, this process is governed by 'Agni' (digestive fire). A balanced Agni ensures proper digestion, metabolism and nourishment of the body.\nModern lifestyle factors such as irregular eating habits, overeating, consumption of processed food, stress and lack of physical activity can weaken digestion. When digestion becomes weak, toxins (Ama) start accumulating in the body, leading to issues like bloating, acidity, gas and heaviness.\n\nPoor digestion not only affects the stomach but also impacts energy levels, skin health and mental clarity. Over time, it can lead to chronic digestive disorders if not managed properly.\nAyurveda focuses on improving digestion through natural methods like mindful eating, use of digestive spices, warm meals and maintaining a regular routine. Strengthening Agni helps in better nutrient absorption, improved metabolism and overall health.\nA balanced digestive system brings lightness, energy and comfort, helping the body function efficiently and stay disease-free.",
+
+  "symptoms": [
+    "Bloating and gas",
+    "Acidity or heartburn",
+    "Indigestion",
+    "Constipation",
+    "Loss of appetite",
+    "Nausea or discomfort",
+    "Fatigue after eating"
+  ],
+
+  "remedies": [
+    "Drink warm water or jeera (cumin) water daily",
+    "Eat meals at regular timings",
+    "Include ginger and digestive spices in food",
+    "Avoid overeating and eat slowly",
+    "Practice light yoga or walking after meals",
+    "Use Triphala for gentle detox and digestion support",
+    "Reduce stress through meditation",
+    "Prefer freshly cooked warm meals"
+  ],
+
+  "foods_to_eat": [
+    "Khichdi and light meals",
+    "Warm soups and stews",
+    "Ginger, jeera and ajwain",
+    "Cooked vegetables",
+    "Buttermilk (chaas)",
+    "Ripe fruits like papaya"
+  ],
+
+  "foods_to_avoid": [
+    "Cold and refrigerated food",
+    "Excess oily and fried food",
+    "Processed and junk food",
+    "Carbonated drinks",
+    "Overeating or heavy meals",
+    "Eating late at night"
+  ]
+}

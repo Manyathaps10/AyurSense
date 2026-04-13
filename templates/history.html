@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container py-5" style="max-width:900px;">
+  <h2 class="text-center mb-4">📊 Your Dosha History</h2>
+
+  {% if data %}
+  <div class="table-responsive">
+    <table class="table table-bordered text-center align-middle">
+      <thead class="table-success">
+        <tr>
+          <th>Date</th>
+          <th>Dominant</th>
+          <th>Vata</th>
+          <th>Pitta</th>
+          <th>Kapha</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in data %}
+        <tr>
+          <td>{{ row[4][:10] }}</td>
+          <td><b>{{ row[3] }}</b></td>
+          <td>{{ row[0] }}%</td>
+          <td>{{ row[1] }}%</td>
+          <td>{{ row[2] }}%</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <p class="text-center text-muted">No history yet. Take quiz first.</p>
+  {% endif %}
+
+  <div class="text-center mt-4">
+    <a href="{{ url_for('quiz') }}" class="btn btn-success">Take Quiz</a>
+  </div>
+</div>
+
+{% endblock %}

@@ -63,19 +63,47 @@ margin:auto;
 }
 
 .pose-list li{
-margin-bottom:10px;
+display:flex;
+align-items:center;
+cursor:pointer;
+padding:10px 12px;
+border-radius:10px;
+transition:all 0.25s ease;
+background:#f9fdfb;
+border:1px solid #e0eee8;
+margin-bottom:8px;
 }
 
-.planner-result{
-background:#f3fbf7;
-padding:20px;
-border-radius:15px;
-border-left:4px solid #145a3b;
-font-size:15px;
+/* Hover effect */
+.pose-list li:hover{
+background:#e6f4ee;
+transform:translateX(5px);
+color:#145a3b;
+font-weight:600;
 }
 
+.pose-list li:active{
+transform:scale(0.97);
+}
+.pose-list{
+list-style:none;
+padding-left:0;
+}
+.pose-list li::before{
+content:"👉";
+margin-right:8px;
+transition:0.2s;
+}
 
-
+.pose-list li:hover::before{
+transform:translateX(3px);
+}
+.pose-list a{
+text-decoration:none;
+color:inherit;
+display:block;
+width:100%;
+}
 
 </style>
 
@@ -104,15 +132,12 @@ Discover yoga routines designed according to Ayurvedic body types and daily fitn
 <p>Focuses on grounding, calming nervous system and improving sleep.</p>
 
 <ul class="pose-list">
-<li>Child Pose</li>
-<li>Forward Fold</li>
-<li>Cat Cow Stretch</li>
-<li>Slow Surya Namaskar</li>
+<li><a href="/pose-detail/child-pose">Child Pose</a></li>
+<li><a href="/pose-detail/forward-fold">Forward Fold</a></li>
+<li><a href="/pose-detail/cat-cow-stretch">Cat Cow Stretch</a></li>
+<li><a href="/pose-detail/slow-surya-namaskar">Slow Surya Namaskar</a></li>
 </ul>
 
-<a href="{{ url_for('yoga_article', type='vata') }}">
-<button class="tab-btn active">Read Full Guide</button>
-</a>
 </div>
 
 
@@ -121,15 +146,12 @@ Discover yoga routines designed according to Ayurvedic body types and daily fitn
 <p>Helps reduce body heat, stress and inflammation.</p>
 
 <ul class="pose-list">
-<li>Moon Salutation</li>
-<li>Seated Twist</li>
-<li>Sheetali Breathing</li>
-<li>Legs Up Wall Pose</li>
+<li><a href="/pose-detail/moon-salutation">Moon Salutation</a></li>
+<li><a href="/pose-detail/seated-twist">Seated Twist</a></li>
+<li><a href="/pose-detail/sheetali-breathing">Sheetali Breathing</a></li>
+<li><a href="/pose-detail/legs-up-wall-pose">Legs Up Wall Pose</a></li>
 </ul>
 
-<a href="{{ url_for('yoga_article', type='pitta') }}">
-<button class="tab-btn active">Read Full Guide</button>
-</a>
 </div>
 
 
@@ -138,15 +160,12 @@ Discover yoga routines designed according to Ayurvedic body types and daily fitn
 <p>Boosts metabolism and removes body heaviness.</p>
 
 <ul class="pose-list">
-<li>Surya Namaskar Fast</li>
-<li>Warrior Pose</li>
-<li>Chair Pose</li>
-<li>Back Bends</li>
+<li><a href="/pose-detail/fast-surya-namaskar">Fast Surya Namaskar</a></li>
+<li><a href="/pose-detail/warrior-pose">Warrior Pose</a></li>
+<li><a href="/pose-detail/chair-pose">Chair Pose</a></li>
+<li><a href="/pose-detail/back-bend-pose">Back Bend Pose</a></li>
 </ul>
 
-<a href="{{ url_for('yoga_article', type='kapha') }}">
-<button class="tab-btn active">Read Full Guide</button>
-</a>
 </div>
 
 
@@ -155,23 +174,20 @@ Discover yoga routines designed according to Ayurvedic body types and daily fitn
 <p>General flexibility, strength and posture improvement.</p>
 
 <ul class="pose-list">
-<li>Mountain Pose</li>
-<li>Plank</li>
-<li>Cobra Pose</li>
-<li>Bridge Pose</li>
+<li><a href="/pose-detail/mountain-pose">Mountain Pose</a></li>
+<li><a href="/pose-detail/plank">Plank</a></li>
+<li><a href="/pose-detail/cobra-pose">Cobra Pose</a></li>
+<li><a href="/pose-detail/bridge-pose">Bridge Pose</a></li>
 </ul>
 
-<a href="{{ url_for('yoga_article', type='general') }}">
-<button class="tab-btn active">Read Full Guide</button>
-</a>
 </div>
 
 </div>
 
-<!-- ⭐ SMART DAILY YOGA PLANNER -->
+<!-- ⭐ DAILY YOGA PLANNER -->
 <div class="content-box mt-5">
 
-<h4>⭐ Smart Daily Yoga Planner</h4>
+<h4>⭐ Daily Yoga Planner</h4>
 <p class="text-muted">Select your condition and get instant yoga suggestion.</p>
 
 <div class="row mt-3">
@@ -272,7 +288,6 @@ document.getElementById("planResult").innerHTML=html;
 });
 
 }
-
 </script>
 
 

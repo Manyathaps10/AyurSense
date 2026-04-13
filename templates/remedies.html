@@ -97,7 +97,7 @@ Heal Naturally with Ayurvedic Remedies
 <div class="card-box">
 <h4>🌿 Vata Balance</h4>
 <p>Supports nervous system balance, improves sleep, stabilizes digestion and reduces anxiety.</p>
-<a href="{{ url_for('dosha_article', dosha='vata') }}">
+<a href="{{ url_for('dosha_detail', name='vata') }}">
 <button class="read-btn">Know More</button>
 </a>
 </div>
@@ -105,7 +105,7 @@ Heal Naturally with Ayurvedic Remedies
 <div class="card-box">
 <h4>🔥 Pitta Balance</h4>
 <p>Controls body heat, reduces acidity, improves skin health and manages stress overload.</p>
-<a href="{{ url_for('dosha_article', dosha='pitta') }}">
+<a href="{{ url_for('dosha_detail', name='pitta') }}">
 <button class="read-btn">Know More</button>
 </a>
 </div>
@@ -113,7 +113,7 @@ Heal Naturally with Ayurvedic Remedies
 <div class="card-box">
 <h4>💧 Kapha Balance</h4>
 <p>Boosts metabolism, supports weight balance, improves respiratory strength and energy.</p>
-<a href="{{ url_for('dosha_article', dosha='kapha') }}">
+<a href="{{ url_for('dosha_detail', name='kapha') }}">
 <button class="read-btn">Know More</button>
 </a>
 </div>
@@ -130,7 +130,7 @@ Natural Remedies By Health Condition
 <div class="card-box">
 <h5>🧠 Stress & Anxiety</h5>
 <p>Brahmi tea, Ashwagandha, meditation and warm oil massage therapy.</p>
-<a href="{{ url_for('disease_article', disease='stress') }}">
+<a href="{{ url_for('disease_article', name='stress') }}">
 <button class="read-btn">Know More</button>
 </a>
 </div>
@@ -138,7 +138,7 @@ Natural Remedies By Health Condition
 <div class="card-box">
 <h5>🍛 Digestive Health</h5>
 <p>Jeera water, ginger support, warm meals and Triphala cleansing.</p>
-<a href="{{ url_for('disease_article', disease='digestion') }}">
+<a href="{{ url_for('disease_article', name='digestive') }}">
 <button class="read-btn">Know More</button>
 </a>
 </div>
@@ -146,7 +146,7 @@ Natural Remedies By Health Condition
 <div class="card-box">
 <h5>🌙 Sleep Health</h5>
 <p>Nutmeg milk, calming herbal tea, meditation and breathing exercises.</p>
-<a href="{{ url_for('disease_article', disease='sleep') }}">
+<a href="{{ url_for('disease_article', name='sleep') }}">
 <button class="read-btn">Know More</button>
 </a>
 </div>
@@ -154,14 +154,13 @@ Natural Remedies By Health Condition
 <div class="card-box">
 <h5>🛡 Immunity Support</h5>
 <p>Haldi milk, tulsi tea, sunlight exposure and seasonal fruits.</p>
-<a href="{{ url_for('disease_article', disease='immunity') }}">
+<a href="{{ url_for('disease_article', name='immunity') }}">
 <button class="read-btn">Know More</button>
 </a>
 </div>
 
 </div>
 
-<!-- MORE CONDITIONS -->
 <div id="moreConditions" style="display:none; margin-top:30px;">
 
 <div class="disease-grid">
@@ -170,7 +169,7 @@ Natural Remedies By Health Condition
 <div class="card-box">
 <h5>⚖ Weight Management</h5>
 <p>Kapha balancing diet, morning warm water and daily yoga.</p>
-<a href="{{ url_for('disease_article', disease='weight') }}">
+<a href="{{ url_for('disease_article', name='weight') }}">
 <button class="read-btn">Know More</button>
 </a>
 </div>
@@ -178,81 +177,15 @@ Natural Remedies By Health Condition
 <div class="card-box">
 <h5>✨ Skin Health</h5>
 <p>Neem support, hydration, detox herbs and seasonal fruits.</p>
-<a href="{{ url_for('disease_article', disease='skin') }}">
+<a href="{{ url_for('disease_article', name='skin') }}">
 <button class="read-btn">Know More</button>
 </a>
 </div>
-
-<div class="card-box">
-<h5>❤️ Heart Wellness</h5>
-<p>Arjuna herb support, walking routine and light diet.</p>
-<a href="{{ url_for('disease_article', disease='heart') }}">
-<button class="read-btn">Know More</button>
-</a>
-</div>
-
-<div class="card-box">
-<h5>🧘 Hormonal Balance</h5>
-<p>Shatavari support, yoga, stress control and sleep balance.</p>
-<a href="{{ url_for('disease_article', disease='hormone') }}">
-<button class="read-btn">Know More</button>
-</a>
-</div>
-
-<!-- NEW CONDITIONS START -->
 
 <div class="card-box">
 <h5>🦴 Joint Pain</h5>
 <p>Turmeric milk, oil massage, gentle yoga therapy.</p>
-<a href="{{ url_for('disease_article', disease='joint') }}">
-<button class="read-btn">Know More</button>
-</a>
-</div>
-
-<div class="card-box">
-<h5>🩸 Blood Purification</h5>
-<p>Neem juice, Triphala detox and herbal cleansing drinks.</p>
-<a href="{{ url_for('disease_article', disease='blood') }}">
-<button class="read-btn">Know More</button>
-</a>
-</div>
-
-<div class="card-box">
-<h5>🌬 Respiratory Health</h5>
-<p>Tulsi tea, steam inhalation and breathing exercises.</p>
-<a href="{{ url_for('disease_article', disease='lungs') }}">
-<button class="read-btn">Know More</button>
-</a>
-</div>
-
-<div class="card-box">
-<h5>🧬 Thyroid Balance</h5>
-<p>Balanced iodine diet, yoga and stress management.</p>
-<a href="{{ url_for('disease_article', disease='thyroid') }}">
-<button class="read-btn">Know More</button>
-</a>
-</div>
-
-<div class="card-box">
-<h5>🍬 Diabetes Support</h5>
-<p>Methi seeds, karela juice, controlled carb diet.</p>
-<a href="{{ url_for('disease_article', disease='diabetes') }}">
-<button class="read-btn">Know More</button>
-</a>
-</div>
-
-<div class="card-box">
-<h5>👁 Eye Health</h5>
-<p>Triphala wash, carrot juice, eye yoga exercises.</p>
-<a href="{{ url_for('disease_article', disease='eyes') }}">
-<button class="read-btn">Know More</button>
-</a>
-</div>
-
-<div class="card-box">
-<h5>🧠 Memory Boost</h5>
-<p>Brahmi, Shankhpushpi, meditation and good sleep.</p>
-<a href="{{ url_for('disease_article', disease='memory') }}">
+<a href="{{ url_for('disease_article', name='joint') }}">
 <button class="read-btn">Know More</button>
 </a>
 </div>
@@ -260,15 +193,83 @@ Natural Remedies By Health Condition
 <div class="card-box">
 <h5>😷 Cold & Cough</h5>
 <p>Haldi milk, ginger tea, steam therapy.</p>
-<a href="{{ url_for('disease_article', disease='cold') }}">
+<a href="{{ url_for('disease_article', name='cold') }}">
+<button class="read-btn">Know More</button>
+</a>
+</div>
+
+<!-- <div class="card-box">
+<h5>❤️ Heart Wellness</h5>
+<p>Arjuna herb support, walking routine and light diet.</p>
+<a href="{{ url_for('disease_article', name='heart') }}">
 <button class="read-btn">Know More</button>
 </a>
 </div>
 
 <div class="card-box">
+<h5>🧘 Hormonal Balance</h5>
+<p>Shatavari support, yoga, stress control and sleep balance.</p>
+<a href="{{ url_for('disease_article', name='hormone') }}">
+<button class="read-btn">Know More</button>
+</a>
+</div>
+
+
+
+<div class="card-box">
+<h5>🩸 Blood Purification</h5>
+<p>Neem juice, Triphala detox and herbal cleansing drinks.</p>
+<a href="{{ url_for('disease_article', name='blood') }}">
+<button class="read-btn">Know More</button>
+</a>
+</div>
+
+<div class="card-box">
+<h5>🌬 Respiratory Health</h5>
+<p>Tulsi tea, steam inhalation and breathing exercises.</p>
+<a href="{{ url_for('disease_article', name='lungs') }}">
+<button class="read-btn">Know More</button>
+</a>
+</div>
+
+<div class="card-box">
+<h5>🧬 Thyroid Balance</h5>
+<p>Balanced iodine diet, yoga and stress management.</p>
+<a href="{{ url_for('disease_article', name='thyroid') }}">
+<button class="read-btn">Know More</button>
+</a>
+</div>
+
+<div class="card-box">
+<h5>🍬 Diabetes Support</h5>
+<p>Methi seeds, karela juice, controlled carb diet.</p>
+<a href="{{ url_for('disease_article', name='diabetes') }}">
+<button class="read-btn">Know More</button>
+</a>
+</div>
+
+<div class="card-box">
+<h5>👁 Eye Health</h5>
+<p>Triphala wash, carrot juice, eye yoga exercises.</p>
+<a href="{{ url_for('disease_article', name='eyes') }}">
+<button class="read-btn">Know More</button>
+</a>
+</div>
+
+<div class="card-box">
+<h5>🧠 Memory Boost</h5>
+<p>Brahmi, Shankhpushpi, meditation and good sleep.</p>
+<a href="{{ url_for('disease_article', name='memory') }}">
+<button class="read-btn">Know More</button>
+</a>
+</div>
+
+
+
+<div class="card-box">
 <h5>🌸 Women Wellness</h5>
 <p>Shatavari, iron rich diet, stress control.</p>
-<a href="{{ url_for('disease_article', disease='women') }}">
+<a href="{{ url_for('disease_article', name='women') }}">
 <button class="read-btn">Know More</button>
 </a>
 </div>
@@ -276,20 +277,10 @@ Natural Remedies By Health Condition
 <div class="card-box">
 <h5>🧔 Hair Health</h5>
 <p>Amla juice, bhringraj oil massage and nutrition.</p>
-<a href="{{ url_for('disease_article', disease='hair') }}">
+<a href="{{ url_for('disease_article', name='hair') }}">
 <button class="read-btn">Know More</button>
 </a>
-</div>
-
-<div class="card-box">
-<h5>🧂 Acidity Relief</h5>
-<p>Fennel seeds, coconut water, cooling diet.</p>
-<a href="{{ url_for('disease_article', disease='acidity') }}">
-<button class="read-btn">Know More</button>
-</a>
-</div>
-
-<!-- NEW CONDITIONS END -->
+</div> -->
 
 </div>
 </div>

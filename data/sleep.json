@@ -1,0 +1,47 @@
+{
+  "name": "Sleep Health",
+  "symptom_type": "imbalance",
+  "title": "Sleep Health Relief Guide",
+  "introduction": "Sleep health is essential for overall physical and mental well-being. In Ayurveda, proper sleep (Nidra) is considered one of the three pillars of life. Good sleep restores energy, improves immunity and supports emotional balance. Poor sleep can lead to fatigue, stress and various health issues.",
+
+  "description": "Sleep health refers to the quality, duration and consistency of sleep that allows the body and mind to function properly. In Ayurveda, Nidra (sleep) is one of the three fundamental pillars of life, along with diet (Ahara) and lifestyle (Brahmacharya).\nProper sleep helps in repairing the body, improving brain function, strengthening immunity and maintaining hormonal balance. It also supports memory, concentration and emotional stability.\nModern lifestyle factors such as excessive screen time, stress, irregular sleep schedules, caffeine intake and lack of physical activity can disturb natural sleep patterns. Poor sleep can result in fatigue, irritability, lack of focus and weakened immunity.\n\nOver time, chronic sleep disturbance can lead to serious health issues like anxiety, depression and metabolic disorders.\nAyurveda recommends natural ways to improve sleep such as maintaining a regular sleep schedule, calming the mind before bedtime, avoiding heavy meals at night and creating a peaceful sleep environment.\nBalanced sleep brings relaxation, mental clarity and overall vitality, helping the body stay refreshed and energized.",
+
+  "symptoms": [
+    "Difficulty falling asleep (insomnia)",
+    "Frequent waking during night",
+    "Feeling tired even after sleep",
+    "Daytime sleepiness",
+    "Irritability and mood swings",
+    "Lack of focus and concentration",
+    "Dark circles under eyes"
+  ],
+
+  "remedies": [
+    "Maintain a regular sleep schedule (sleep and wake at same time)",
+    "Avoid screen time before bedtime",
+    "Drink warm milk before sleep",
+    "Practice meditation and deep breathing",
+    "Create a calm and dark sleeping environment",
+    "Do light yoga or stretching in the evening",
+    "Avoid caffeine and heavy meals at night",
+    "Use relaxing oils for head massage (Abhyanga)"
+  ],
+
+  "foods_to_eat": [
+    "Warm milk with nutmeg or turmeric",
+    "Light dinners like khichdi or soups",
+    "Bananas and almonds",
+    "Herbal teas like chamomile or tulsi",
+    "Whole grains like oats",
+    "Ghee in small quantity"
+  ],
+
+  "foods_to_avoid": [
+    "Caffeine (coffee, tea) at night",
+    "Heavy and spicy food before sleep",
+    "Processed and junk food",
+    "Sugary snacks late at night",
+    "Cold drinks before bed",
+    "Late night eating habits"
+  ]
+}
