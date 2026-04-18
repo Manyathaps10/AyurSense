@@ -16,34 +16,38 @@
             </div>
 
             <!-- Login Form -->
-            <form method="POST" action="{{ url_for('login') }}">
-              <div class="mb-3">
-                <label for="email" class="form-label fw-semibold"
-                  >Email</label
-                >
-                <input
-                  type="text"
-                  class="form-control rounded-pill"
-                  id="email"
-                  name="email"
-                  placeholder="Enter your email address"
-                  required
-                />
-              </div>
+           <form method="POST" action="{{ url_for('login') }}" autocomplete="on">
 
-              <div class="mb-3">
-                <label for="password" class="form-label fw-semibold"
-                  >Password</label
-                >
-                <input
-                  type="password"
-                  class="form-control rounded-pill"
-                  id="password"
-                  name="password"
-                  placeholder="Enter your password"
-                  required
-                />
-              </div>
+  <!-- hidden username field (IMPORTANT trick) -->
+  <input type="text" name="username" autocomplete="username" style="opacity:0; position:absolute;">
+
+ <form method="POST" action="{{ url_for('login') }}" autocomplete="on">
+
+  <!-- hidden username for browser detection -->
+  <input type="text" name="username" autocomplete="username"
+         style="opacity:0; position:absolute;">
+
+  <div class="mb-3">
+    <label>Email</label>
+    <input
+      type="email"
+      name="email"
+      class="form-control"
+      autocomplete="email"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label>Password</label>
+    <input
+      type="password"
+      name="password"
+      class="form-control"
+      autocomplete="current-password"
+      required
+    />
+  </div>
 
               <div
                 class="d-flex justify-content-between align-items-center mb-3"
@@ -60,7 +64,7 @@
                     Remember Me
                   </label>
                 </div>
-                <a href="#" class="text-success text-decoration-none"
+                <a href="{{ url_for('forgot_password') }}" class="text-success text-decoration-none"
                   >Forgot Password?</a
                 >
               </div>
@@ -77,9 +81,9 @@
 
             <!-- Social Login -->
             <div class="d-flex justify-content-center gap-3 mb-3">
-              <button class="btn btn-google">
-                <i class="fa-brands fa-google"></i>
-              </button>
+              <button type="button" id="googleLogin" class="btn btn-google">
+  <i class="fa-brands fa-google"></i>
+</button>
             </div>
 
             <!-- Register Link -->
@@ -97,5 +101,50 @@
     </div>
   </div>
 </section>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCRxM7YreMB9BaF-dWJTDcU-_PoKcqFeQY",
+    authDomain: "ayursense-84424.firebaseapp.com",
+    projectId: "ayursense-84424",
+    appId: "1:288725288592:web:b55345e632fad60b5cba15"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  document.getElementById("googleLogin").addEventListener("click", () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+
+        // 🔥 Flask ko data bhejna
+        fetch("/google-login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: user.displayName,
+            email: user.email
+          }),
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            window.location.href = "/"; // same as normal login
+          }
+        });
+
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  });
+</script>
 
 {% endblock %}

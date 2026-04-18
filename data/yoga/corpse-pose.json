@@ -1,0 +1,49 @@
+{
+  "name": "Corpse Pose",
+  "sanskrit": "Shavasana",
+
+  "intro": "Corpse Pose (Shavasana) is a deeply relaxing yoga posture that allows the body and mind to completely rest and rejuvenate. In this pose, the body lies flat on the ground in a comfortable, neutral position, encouraging total physical stillness and mental calmness. It is often practiced at the end of a yoga session to integrate the benefits of all preceding poses.\n\nShavasana helps activate the parasympathetic nervous system, which promotes relaxation, reduces stress, and lowers heart rate. By focusing on slow, natural breathing, the body releases accumulated tension from muscles and joints. This pose also enhances awareness and mindfulness, allowing practitioners to connect deeply with their inner state.\n\nRegular practice of Corpse Pose helps improve concentration, reduce anxiety, and promote better sleep. It is especially beneficial for individuals experiencing stress, fatigue, or mental exhaustion. Despite its simplicity, Shavasana is considered one of the most important poses in yoga for achieving complete relaxation and balance.",
+
+  "steps": [
+    {
+      "text": "Lie flat on your back with your legs extended comfortably."
+    },
+    {
+      "text": "Place your arms slightly away from your body with palms facing upward."
+    },
+    {
+      "text": "Allow your feet to fall naturally outward."
+    },
+    {
+      "text": "Close your eyes and relax your entire body."
+    },
+    {
+      "text": "Focus on slow, natural breathing and remain still."
+    }
+  ],
+
+  "benefits": [
+    "Relieves stress and anxiety",
+    "Calms the nervous system",
+    "Promotes deep relaxation and mental clarity",
+    "Reduces fatigue and restores energy",
+    "Improves concentration and mindfulness",
+    "Supports better sleep quality",
+    "Lowers heart rate and blood pressure",
+    "Helps release muscle tension",
+    "Enhances overall mental and emotional balance",
+    "Integrates benefits of yoga practice"
+  ],
+
+  "avoid": [
+    "You feel discomfort lying flat on your back (use support if needed)",
+    "You have severe back pain (modify with cushions)",
+    "You experience dizziness while lying down",
+    "You have breathing difficulties (consult a doctor)",
+    "You are recovering from recent surgery (seek guidance)",
+    "You feel anxiety when staying still for long periods",
+    "You are in a very cold environment without proper support"
+  ],
+
+  "video": "https://www.youtube.com/embed/KKjSuILqsRo"
+}

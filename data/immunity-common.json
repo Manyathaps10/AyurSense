@@ -1,0 +1,118 @@
+{
+  "title": "Low Immunity (Weak Immune System)",
+  "subtitle": "Detailed Ayurvedic understanding, causes, symptoms and natural immunity boosting methods",
+
+  "image": "/static/images/immunity-common.jpg",
+
+  "introduction": "Low immunity, also known as a weakened immune system, refers to the body’s reduced ability to fight infections, viruses, and diseases. In Ayurveda, immunity is described as 'Ojas', which represents the body’s vital energy, strength, and resistance against illness. Strong Ojas ensures good health, energy, and longevity, while weak Ojas leads to frequent illness and low vitality.\n\nImmunity is closely linked to digestion (Agni). When digestion is strong, nutrients are properly absorbed and transformed into energy, which supports immune strength. However, when digestion becomes weak, toxins known as Ama accumulate in the body, weakening immunity.\n\nModern lifestyle factors such as poor diet, stress, lack of sleep, and sedentary habits further reduce immunity. Ayurveda focuses on strengthening digestion, nourishing the body, and maintaining balance to naturally improve immune function.",
+
+  "what_happens_in_body": "When immunity becomes weak, the body loses its natural defense mechanism against harmful pathogens like bacteria and viruses. Poor digestion leads to toxin (Ama) buildup, which blocks body channels and reduces the efficiency of immune responses.\n\nAt the same time, nutrient absorption decreases, leading to deficiencies that weaken the body further. Stress and poor lifestyle habits disturb hormonal balance and increase inflammation in the body. Over time, this makes the body more vulnerable to infections, fatigue, and slow recovery from illness.\n\nAyurveda explains that when Ojas is depleted, the body becomes weak, energy levels drop, and the ability to maintain internal balance reduces significantly.",
+
+  "causes": {
+    "intro": "Low immunity can develop due to several lifestyle, dietary, and environmental factors. The main causes include:",
+
+    "points": [
+      {
+        "title": "Poor diet",
+        "desc": "Lack of nutritious food, excessive junk food, and processed meals reduce the body's ability to get essential vitamins and minerals needed for immune function."
+      },
+      {
+        "title": "Weak digestion",
+        "desc": "Poor digestive fire (Agni) leads to improper nutrient absorption and toxin buildup, which weakens immunity."
+      },
+      {
+        "title": "Chronic stress",
+        "desc": "Long-term stress increases cortisol levels, which suppress immune function and reduce the body's ability to fight infections."
+      },
+      {
+        "title": "Lack of sleep",
+        "desc": "Insufficient or poor-quality sleep prevents the body from repairing and regenerating, weakening immune strength."
+      },
+      {
+        "title": "Sedentary lifestyle",
+        "desc": "Lack of physical activity reduces circulation and slows down metabolic processes, affecting immune health."
+      },
+      {
+        "title": "Frequent illness or medications",
+        "desc": "Repeated infections or excessive use of medications can weaken the immune system over time."
+      }
+    ],
+
+    "conclusion": "All these factors reduce the body’s natural defense system and lead to weakened immunity."
+  },
+
+  "symptoms": {
+    "intro": "Low immunity affects overall health and makes the body more prone to illnesses. Symptoms may appear gradually and worsen over time.",
+
+    "common_intro": "Common symptoms include:",
+
+    "points": [
+      {
+        "title": "Frequent infections",
+        "desc": "Catching colds, coughs, or infections repeatedly due to weak immune defense."
+      },
+      {
+        "title": "Slow recovery",
+        "desc": "Taking longer than usual to recover from illnesses or injuries."
+      },
+      {
+        "title": "Fatigue",
+        "desc": "Constant tiredness and lack of energy due to poor body strength."
+      },
+      {
+        "title": "Digestive issues",
+        "desc": "Weak digestion, bloating, or irregular bowel movements affecting nutrient absorption."
+      },
+      {
+        "title": "Allergies",
+        "desc": "Increased sensitivity to environmental factors like dust, pollen, or certain foods."
+      }
+    ],
+
+    "additional": "In severe cases, low immunity may lead to chronic health conditions and frequent health complications.",
+
+    "conclusion": "Ignoring these symptoms can lead to long-term health issues and reduced overall vitality."
+  },
+
+  "long_term_effects": "If immunity remains weak for a long time, the body becomes highly vulnerable to infections and diseases. It can lead to chronic fatigue, frequent illnesses, and reduced physical and mental performance. Over time, weak immunity may contribute to serious health conditions and reduced life quality. Ayurveda emphasizes strengthening immunity early to prevent long-term health complications.",
+
+  "natural_remedies": "Ayurveda offers powerful natural remedies to boost immunity. Drinking warm water helps flush out toxins and improve digestion. Herbal ingredients like turmeric, ginger, tulsi, and amla are known for their immunity-boosting properties.\n\nRegular consumption of herbal teas, maintaining proper hydration, and including antioxidant-rich foods strengthen the body naturally. Practices like oil pulling and herbal tonics (like chyawanprash) also help improve immunity.\n\nManaging stress, getting proper rest, and maintaining a balanced lifestyle are equally important for strengthening immune function.",
+
+  "diet_recommendation": "A nutritious and balanced diet is essential for improving immunity. Include fresh fruits, vegetables, whole grains, nuts, and seeds in your meals. Foods rich in vitamins and antioxidants help strengthen the immune system.\n\nAvoid processed food, excessive sugar, and cold or stale food as they weaken digestion. Warm, freshly cooked meals are easier to digest and support better nutrient absorption. Maintaining regular meal timings also helps improve overall health.",
+
+  "yoga_and_lifestyle": {
+    "intro": "Yoga and lifestyle practices play a crucial role in strengthening immunity by improving circulation, reducing stress, and enhancing overall body function.",
+
+    "poses": [
+      {
+        "name": "Surya Namaskar",
+        "image": "/static/images/surya.png",
+        "desc": "A dynamic yoga sequence that improves circulation, boosts metabolism, and strengthens the immune system.",
+        "url": "/pose-detail/slow-surya-namaskar"
+      },
+      {
+        "name": "Bhujangasana",
+        "image": "/static/images/cobra-pose.png",
+        "desc": "This pose opens the chest, improves lung capacity, and enhances oxygen flow, which supports immune health.",
+        "url": "/pose-detail/cobra-pose"
+      },
+      {
+        "name": "Viparita Karani",
+        "image": "/static/images/legs_up_wall.png",
+        "desc": "A relaxing pose that improves blood circulation and reduces stress, helping the body recover and strengthen immunity.",
+        "url": "/pose-detail/legs-up-wall-pose"
+      }
+    ],
+
+    "lifestyle": [
+      "Maintain a regular daily routine and sleep schedule.",
+      "Engage in physical activity or yoga regularly.",
+      "Manage stress through meditation and breathing exercises.",
+      "Stay hydrated and maintain overall hygiene."
+    ]
+  },
+
+  "recovery_time": "With proper diet, lifestyle changes, and Ayurvedic practices, immunity can improve within a few weeks. Long-term strength depends on consistency and maintaining healthy habits.",
+
+  "conclusion": "Immunity is the foundation of overall health and well-being. By strengthening digestion, following a balanced diet, and maintaining a healthy lifestyle, the body’s natural defense system can be enhanced. Ayurveda provides a holistic approach to building strong immunity and preventing diseases naturally."
+}

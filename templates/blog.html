@@ -2,87 +2,80 @@
 {% block content %}
 
 <div class="container py-5">
-  <h2 class="mb-4 text-success text-center">AyurSense Blog</h2>
-  <div class="row" id="blog-list">
-    <!-- Blog cards will be injected here -->
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="blogModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header bg-success text-white">
-        <h5 class="modal-title" id="modalTitle"></h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body" id="modalContent"></div>
-      <div class="modal-footer">
-        <small class="text-muted" id="modalAuthor"></small>
-      </div>
-    </div>
-  </div>
+  <h2 class="mb-4 fw-bold text-success text-center">AyurSense Blogs</h2>
+  <div class="row" id="blog-list"></div>
 </div>
 
 <script>
-const blogs = [
-  {
-    title: "Ayurveda for Modern Lifestyle: Balancing Body and Mind Naturally",
-    author: "Dr. Sharma",
-    date: "2025-10-22",
-    snippet: "Learn how to improve your digestion naturally using Ayurvedic methods...",
-    content: "Full blog content about digestion here. Tips include drinking warm water, using ginger, etc...",
-    image: "/static/images/digestion.jpg"
-  },
-  {
-    title: "Daily Routine According to Ayurveda",
-    author: "Manya Thapliyal",
-    date: "2025-10-20",
-    snippet: "Ayurveda emphasizes the importance of daily routine or Dinacharya...",
-    content: "Full blog content about daily routine: wake up early, oil massage, yoga, meditation...",
-    image: "/static/images/daily_routine.jpg"
-  },
-  {
-    title: "Herbs That Boost Immunity",
-    author: "Dr. Mehta",
-    date: "2025-10-18",
-    snippet: "Discover top Ayurvedic herbs that strengthen your immunity naturally...",
-    content: "Full blog content about herbs: Tulsi, Ashwagandha, Turmeric, etc...",
-    image: "/static/images/herbs.jpg"
-  }
-];
+document.addEventListener("DOMContentLoaded", function () {
 
-const blogList = document.getElementById("blog-list");
+  const blogList = document.getElementById("blog-list");
 
-blogs.forEach(blog => {
-  const card = document.createElement("div");
-  card.className = "col-md-4 mb-4";
-  card.innerHTML = `
-    <div class="card h-100 shadow-sm hover-shadow" style="cursor:pointer;">
-      <img src="${blog.image}" class="card-img-top" alt="${blog.title}" style="height:200px; object-fit:cover;">
-      <div class="card-body d-flex flex-column">
-        <h5 class="card-title">${blog.title}</h5>
-        <p class="card-text">${blog.snippet}</p>
-        <p class="text-muted mb-2" style="font-size:0.9rem;">By ${blog.author} | ${blog.date}</p>
-       <button class="btn btn-success mt-auto" onclick="window.location.href='/blog/${blog.title.replace(/\s+/g,'-').toLowerCase()}'">
-  Read More
-</button>
+  const blogs = [
+    {
+      title: "What is Ayurveda A Beginners Guide",
+      author: "Manya Thapliyal",
+      date: "2025-10-22",
+      image: "/static/images/ayurveda.jpg",
+      snippet: "Curious about Ayurveda? Discover how this ancient science balances your body, mind, and lifestyle...........",
+      slug: "what-is-ayurveda-a-beginners-guide"
+    },
+    {
+      title: "Ayurvedic Herbs for Strong and Healthy Hair",
+      author: "Dr. Mansi Sharma",
+      date: "2025-10-20",
+      image: "/static/images/ayurvedic_herbs.jpg",
+      snippet: "Tired of hair fall and dull hair? Explore powerful Ayurvedic herbs like Amla and Bhringraj............",
+      slug: "ayurvedic-herbs-for-strong-and-healthy-hair"
+    },
+    {
+      title: "Daily Routine According to Ayurveda",
+      author: "Prashant Bisht",
+      date: "2025-10-18",
+      image: "/static/images/daily_routine.jpg",
+      snippet: "Want more energy and better health? Learn how a simple Ayurvedic daily routine can transform your day............",
+      slug: "daily-routine-according-to-ayurveda"
+    }
+  ];
 
+  blogs.forEach(blog => {
+
+    const card = document.createElement("div");
+    card.className = "col-md-4 mb-4";
+
+    card.innerHTML = `
+      <div class="card h-100 shadow-sm">
+        
+        <img src="${blog.image}" 
+             class="card-img-top" 
+             style="height:200px; object-fit:cover;">
+
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title fw-bold">${blog.title}</h5>
+
+          <p class="card-text"style="font-style: italic;">${blog.snippet}</p>
+
+          <p class="text-muted mb-2" style="font-size:0.9rem;">
+            By ${blog.author} | ${blog.date}
+          </p>
+          
+          <a href="/blog/${blog.slug}" class="btn btn-success mt-auto">
+            Read More
+          </a>
+
+        </div>
+        
       </div>
-    </div>
-  `;
-  blogList.appendChild(card);
+
+    `;
+
+    blogList.appendChild(card);
+  });
+
 });
 
-function showBlogModal(slug) {
-  const blog = blogs.find(b => b.title.replace(/\s+/g,'-').toLowerCase() === slug);
-  if(blog){
-    document.getElementById("modalTitle").innerText = blog.title;
-    document.getElementById("modalContent").innerText = blog.content;
-    document.getElementById("modalAuthor").innerText = `By ${blog.author} | ${blog.date}`;
-    const modal = new bootstrap.Modal(document.getElementById("blogModal"));
-    modal.show();
-  }
+function getSnippet(content) {
+  return content.split(" ").slice(0, 18).join(" ") + "...";
 }
 </script>
 

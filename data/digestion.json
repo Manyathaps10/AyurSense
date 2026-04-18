@@ -120,17 +120,21 @@
     {
       "name": "Vajrasana",
       "image": "/static/images/vajra.png",
-      "desc": "This is one of the best yoga poses for digestion and can even be practiced after meals. It improves blood flow to the digestive organs and helps the stomach process food more efficiently."
+      "desc": "This is one of the best yoga poses for digestion and can even be practiced after meals. It improves blood flow to the digestive organs and helps the stomach process food more efficiently.",
+      "url": "/pose-detail/thunderbolt-pose"
     },
     {
       "name": "Pawanmuktasana",
       "image": "/static/images/pawan.png",
-      "desc": "This pose helps release trapped gas in the digestive tract. It gently massages the intestines and improves bowel movement."
+      "desc": "This pose helps release trapped gas in the digestive tract. It gently massages the intestines and improves bowel movement.",
+      "url": "/pose-detail/gas-release-pose"
     },
     {
       "name": "Cat–Cow Pose",
       "image": "/static/images/cat_cow.png",
-      "desc": "Cat–Cow movement stimulates abdominal organs and improves digestion. It also reduces stomach tension and improves spinal flexibility."
+      "desc": "Cat–Cow movement stimulates abdominal organs and improves digestion. It also reduces stomach tension and improves spinal flexibility.",
+      "url": "/pose-detail/cat-cow-stretch"
+
     }
   ],
 

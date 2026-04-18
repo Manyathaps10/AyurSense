@@ -1,0 +1,118 @@
+{
+  "title": "Sleep Issues (Insomnia)",
+  "subtitle": "Detailed Ayurvedic understanding, causes, symptoms and natural healing methods",
+
+  "image": "/static/images/sleep-common.jpg",
+
+  "introduction": "Sleep issues, commonly referred to as insomnia, are one of the most common problems in today’s fast-paced and stressful lifestyle. Many people struggle with falling asleep, staying asleep, or waking up feeling tired. In Ayurveda, sleep disturbances are primarily linked to an imbalance of Vata dosha, which governs the nervous system, movement, and mental activity. When Vata becomes aggravated, it leads to restlessness, excessive thinking, and instability of the mind.\n\nPitta dosha can also play a role, especially when there is excess heat in the body or an overactive mind, leading to waking up during the night. Poor sleep not only affects physical energy but also mental clarity, emotional balance, and overall health. Ayurveda considers proper sleep (Nidra) as one of the three pillars of health, along with diet and lifestyle. Therefore, improving sleep is essential for maintaining long-term wellness.\n\nInstead of relying on temporary solutions, Ayurveda focuses on identifying the root cause of sleep disturbances and restoring balance through natural methods such as diet, lifestyle changes, relaxation techniques, and herbal support.",
+
+  "what_happens_in_body": "When sleep is disturbed, the body and mind fail to enter a deep state of rest and repair. Normally, during sleep, the body recovers, tissues repair, and the brain processes information. However, when Vata dosha is aggravated, it causes irregular nerve activity, leading to continuous thoughts and difficulty in calming the mind.\n\nAt the same time, stress hormones like cortisol remain elevated, keeping the body in a state of alertness even at night. This prevents the natural transition into deep sleep. Poor digestion also contributes to toxin (Ama) buildup, which blocks the body’s natural channels and affects brain function.\n\nAs a result, the sleep cycle becomes irregular, leading to frequent waking, shallow sleep, or difficulty falling asleep. Over time, this lack of proper rest affects energy levels, mood, concentration, and overall health.",
+
+  "causes": {
+    "intro": "Sleep issues can develop due to a combination of physical, mental, and lifestyle-related factors. The most common causes include:",
+
+    "points": [
+      {
+        "title": "Stress and overthinking",
+        "desc": "Constant thinking, worrying about the future, or replaying situations in the mind keeps the brain active at night and prevents relaxation, making it difficult to fall asleep."
+      },
+      {
+        "title": "Irregular sleep schedule",
+        "desc": "Sleeping and waking up at different times every day disturbs the body’s internal clock (circadian rhythm), leading to difficulty in maintaining a stable sleep pattern."
+      },
+      {
+        "title": "Excess screen time",
+        "desc": "Using mobile phones, laptops, or watching TV before bedtime exposes the eyes to blue light, which suppresses melatonin production and delays sleep onset."
+      },
+      {
+        "title": "Poor diet",
+        "desc": "Eating heavy, spicy, oily, or late-night meals disturbs digestion and creates discomfort, which interferes with sleep quality."
+      },
+      {
+        "title": "Lack of physical activity",
+        "desc": "A sedentary lifestyle reduces natural tiredness, making it harder for the body to feel ready for sleep."
+      },
+      {
+        "title": "Caffeine consumption",
+        "desc": "Consumption of tea, coffee, or energy drinks, especially in the evening, stimulates the nervous system and delays sleep."
+      }
+    ],
+
+    "conclusion": "All these factors disturb the balance of the nervous system and body rhythm, ultimately leading to sleep disorders."
+  },
+
+  "symptoms": {
+    "intro": "Sleep issues can affect both physical and mental health. Symptoms may start mildly but can worsen over time if not addressed properly.",
+
+    "common_intro": "Common symptoms include:",
+
+    "points": [
+      {
+        "title": "Difficulty falling asleep",
+        "desc": "Taking a long time to fall asleep even when feeling tired, often due to an active or restless mind."
+      },
+      {
+        "title": "Frequent waking",
+        "desc": "Waking up multiple times during the night and struggling to fall back asleep."
+      },
+      {
+        "title": "Early morning awakening",
+        "desc": "Waking up too early and being unable to return to sleep, leading to insufficient rest."
+      },
+      {
+        "title": "Daytime fatigue",
+        "desc": "Feeling tired, sleepy, or lacking energy throughout the day due to poor sleep quality."
+      },
+      {
+        "title": "Irritability",
+        "desc": "Mood swings, frustration, and reduced patience caused by lack of proper rest."
+      }
+    ],
+
+    "additional": "In severe cases, sleep deprivation may lead to headaches, poor concentration, memory issues, and reduced productivity.",
+
+    "conclusion": "If ignored, these symptoms can gradually develop into chronic insomnia and affect overall health."
+  },
+
+  "long_term_effects": "Chronic sleep issues can have serious long-term effects on both mental and physical health. Lack of proper sleep weakens immunity, making the body more prone to infections. It also affects brain function, leading to poor concentration, memory problems, and reduced decision-making ability.\n\nOver time, sleep deprivation increases stress levels and may contribute to anxiety and depression. It also disrupts hormonal balance, affecting metabolism, weight management, and overall energy levels. Ayurveda emphasizes that long-term sleep imbalance can disturb all doshas and lead to various chronic health conditions.",
+
+  "natural_remedies": "Ayurveda provides effective natural remedies to improve sleep quality. Drinking warm milk with a pinch of turmeric or nutmeg before bedtime helps relax the body and mind. Herbal remedies like ashwagandha, brahmi, and chamomile tea are known for their calming properties.\n\nApplying warm oil (such as coconut or sesame oil) on the scalp and feet before sleeping helps calm the nervous system. Practicing deep breathing exercises (Pranayama) and meditation helps slow down thoughts and prepare the mind for rest.\n\nCreating a relaxing bedtime routine, such as dim lighting, avoiding noise, and maintaining a calm environment, signals the body that it is time to sleep.",
+
+  "diet_recommendation": "Diet plays a crucial role in improving sleep. Light and easily digestible meals should be consumed at night. Avoid heavy, spicy, fried, and processed foods before bedtime. Include calming foods like warm milk, ghee, nuts, bananas, and herbal drinks in your diet.\n\nEating dinner at least 2–3 hours before sleep allows proper digestion and prevents discomfort. Maintaining regular meal timings also helps regulate the body’s internal clock and supports better sleep patterns.",
+
+  "yoga_and_lifestyle": {
+    "intro": "Yoga and relaxation practices are highly effective in improving sleep by calming the nervous system and reducing mental stress.",
+
+    "poses": [
+      {
+        "name": "Viparita Karani",
+        "image": "/static/images/legs_up_wall.png",
+        "desc": "This restorative pose improves blood circulation, relaxes the body, and reduces fatigue, making it easier to fall asleep.",
+        "url": "/pose-detail/legs-up-wall-pose"
+      },
+      {
+        "name": "Balasana (Child Pose)",
+        "image": "/static/images/child_pose.png",
+        "desc": "This pose gently relaxes the body, reduces tension, and helps calm the mind before bedtime.",
+        "url": "/pose-detail/child-pose"
+      },
+      {
+        "name": "Shavasana",
+        "image": "/static/images/shavasana.png",
+        "desc": "A deep relaxation pose that allows the body to completely unwind and prepares it for restful sleep.",
+        "url": "/pose-detail/corpse-pose"
+      }
+    ],
+
+    "lifestyle": [
+      "Maintain a fixed sleep and wake-up time every day.",
+      "Avoid screen usage at least 1 hour before bedtime.",
+      "Create a calm, dark, and quiet sleeping environment.",
+      "Practice meditation, deep breathing, or relaxation techniques daily."
+    ]
+  },
+
+  "recovery_time": "With consistent lifestyle changes, proper diet, and regular relaxation practices, sleep quality can improve within a few weeks. Long-term recovery depends on maintaining a stable routine and reducing stress triggers.",
+
+  "conclusion": "Sleep is one of the most important pillars of health. Ignoring sleep issues can lead to serious physical and mental health problems. By following Ayurvedic principles, maintaining a balanced lifestyle, and practicing yoga and relaxation techniques, it is possible to restore natural sleep patterns and achieve deep, restful sleep."
+}

@@ -4,10 +4,20 @@ import google.generativeai as genai
 import json
 import joblib
 import pickle
+import sqlite3
 
 DB_NAME = "ayursense.db"
-import os
 
+# conn = sqlite3.connect("responses.db")
+# c = conn.cursor()
+
+# # jo id delete karni hai wo yaha likh
+# c.execute("DELETE FROM responses WHERE id=2")
+
+# conn.commit()
+# conn.close()
+
+# print("Deleted successfully ✅")
 quiz_model = None
 model = None
 vectorizer = None
@@ -71,7 +81,7 @@ except Exception:
 import sqlite3
 from flask import (
     Flask, render_template, request, redirect, url_for,
-    session, flash, make_response, g,jsonify
+    session, flash, make_response, g,jsonify,abort
 )
 
 # 🔥 Extract all symptoms from dataset
@@ -720,6 +730,26 @@ def get_confidence(score):
     else:
         return "Low"
 
+import sqlite3
+
+def init_responses_db():
+    conn = sqlite3.connect("responses.db")
+    c = conn.cursor()
+
+    c.execute('''
+    CREATE TABLE IF NOT EXISTS responses (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        email TEXT,
+        message TEXT,
+        type TEXT
+    )
+    ''')
+
+    conn.commit()
+    conn.close()
+
+init_responses_db()
 
 # -------------------- LOAD USER BEFORE EACH REQUEST --------------------
 @app.before_request
@@ -739,7 +769,15 @@ def load_user_from_token():
 # -------------------- ROUTES --------------------
 @app.route('/')
 def index():
-    return render_template('index.html')
+    conn = sqlite3.connect("responses.db")
+    c = conn.cursor()
+
+    c.execute("SELECT name, email, message, type FROM responses ORDER BY id DESC")
+    data = c.fetchall()
+
+    conn.close()
+
+    return render_template("index.html", testimonials=data)
 
 
 @app.route('/about')
@@ -799,7 +837,7 @@ def login():
         if user and verify_password(user[3], password_input):
             session['user'] = user[1]
             resp = make_response(redirect(url_for('index')))
-            if remember:
+            if remember == "1":
                 token, expires_at = create_remember_token(user[0])
                 expires_dt = datetime.fromisoformat(expires_at)
                 resp.set_cookie(
@@ -972,6 +1010,13 @@ def result():
 def blog():
     return render_template("blog.html")
 
+@app.route("/blog/<slug>")
+def blog_detail(slug):
+    try:
+        return render_template(f"blogs/{slug}.html")
+    except:
+        return "Blog not found", 404
+
 
 @app.route('/logout')
 def logout():
@@ -987,16 +1032,17 @@ def logout():
 
 
 
-@app.route("/contact", methods=["GET", "POST"])
+@app.route("/contact")
 def contact():
-    if request.method == "POST":
-        name = request.form.get("name")
-        email = request.form.get("email")
-        message = request.form.get("message")
-        print(f"New Contact Message:\nName: {name}\nEmail: {email}\nMessage: {message}\n")
-        flash(f"Thank you, {name}! Your message has been received.", "success")
-        return redirect(url_for("contact"))
-    return render_template("contact.html")
+    conn = sqlite3.connect("responses.db")
+    c = conn.cursor()
+
+    c.execute("SELECT name, email, message, type FROM responses ORDER BY id DESC")
+    data = c.fetchall()
+
+    conn.close()
+
+    return render_template("contact.html", testimonials=data)
 
 
 # ---- Quick env debug ----
@@ -1330,6 +1376,124 @@ def get_pose_data(pose):
     
     return data
 
+@app.route("/more_problems")
+def more_problems():
+    return render_template("more_problems.html")
+
+from flask import request, redirect
+
+@app.route("/submit-form", methods=["POST"])
+def submit_form():
+    name = request.form["name"]
+    email = request.form["email"]
+    message = request.form["message"]
+    type_ = request.form["type"]
+
+    conn = sqlite3.connect("responses.db")
+    c = conn.cursor()
+
+    c.execute("INSERT INTO responses (name, email, message, type) VALUES (?, ?, ?, ?)",
+              (name, email, message, type_))
+
+    conn.commit()
+    conn.close()
+
+    return redirect("/contact")
+
+@app.route("/testimonials")
+def all_testimonials():
+    conn = sqlite3.connect("responses.db")
+    c = conn.cursor()
+
+    c.execute("SELECT name, email, message, type FROM responses ORDER BY id DESC")
+    data = c.fetchall()
+
+    conn.close()
+
+    return render_template("testimonials.html", testimonials=data)
+
+@app.route('/google-login', methods=['POST'])
+def google_login():
+    data = request.get_json()
+    name = data.get('name')
+    email = data.get('email')
+
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+
+    # check user
+    cursor.execute("SELECT id, name FROM users WHERE email = ?", (email,))
+    user = cursor.fetchone()
+
+    if not user:
+        # new user insert
+        cursor.execute(
+            "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
+            (name, email, "google_user")
+        )
+        conn.commit()
+
+    # 🔥 SAME AS YOUR LOGIN
+    session['user'] = name
+
+    conn.close()
+
+    flash('Login successful!', 'success')
+
+    return {"success": True}
+
+@app.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form.get('email')
+
+        conn = sqlite3.connect(DB_NAME)
+        cursor = conn.cursor()
+        cursor.execute("SELECT id FROM users WHERE email = ?", (email,))
+        user = cursor.fetchone()
+        conn.close()
+
+        if user:
+            token = secrets.token_urlsafe(32)
+
+            # token store karo (temporary)
+            session['reset_token'] = token
+            session['reset_email'] = email
+
+            reset_link = f"http://127.0.0.1:5000/reset-password/{token}"
+
+            print("RESET LINK:", reset_link)  
+
+            flash("Reset link sent to your email", "info")
+        else:
+            flash("Email not found", "danger")
+
+    return render_template('forgot_password.html')
+
+@app.route('/reset-password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+
+    if token != session.get('reset_token'):
+        return "Invalid or expired token ❌"
+
+    if request.method == 'POST':
+        new_password = request.form.get('password')
+
+        hashed_pw = bcrypt.generate_password_hash(new_password).decode("utf-8")
+
+        conn = sqlite3.connect(DB_NAME)
+        cursor = conn.cursor()
+        cursor.execute(
+            "UPDATE users SET password = ? WHERE email = ?",
+            (hashed_pw, session.get('reset_email'))
+        )
+        conn.commit()
+        conn.close()
+
+        flash("Password updated successfully!", "success")
+        return redirect(url_for('login'))
+
+    return render_template('reset_password.html')
 
 if __name__ == '__main__':
     init_db()   

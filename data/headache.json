@@ -1,0 +1,118 @@
+{
+  "title": "Frequent Headaches",
+  "subtitle": "Ayurvedic causes, symptoms and natural relief methods",
+
+  "image": "/static/images/headache.jpg",
+
+  "introduction": "Frequent headaches are a common yet often ignored health problem that can significantly affect daily life, focus, and productivity. In Ayurveda, headaches are mainly associated with an imbalance of Vata and Pitta dosha. These doshas influence the nervous system, circulation, and mental state, and when disturbed, they can trigger recurring pain in the head region.\n\nModern lifestyle factors such as stress, irregular eating habits, excessive screen exposure, and lack of proper sleep further aggravate this imbalance. Ayurveda does not treat headaches as just a symptom but looks at the root cause, including digestion, mental health, and lifestyle patterns. By restoring balance in the body through natural methods, it is possible to reduce both the intensity and frequency of headaches.",
+
+  "what_happens_in_body": "When Vata and Pitta dosha become imbalanced, they disturb the normal functioning of the nervous system and blood circulation in the head. Vata imbalance causes dryness, tension, and irregular nerve signals, while Pitta imbalance leads to heat, inflammation, and sensitivity.\n\nAt the same time, poor digestion can lead to the formation of toxins known as Ama. These toxins circulate in the bloodstream and block channels in the body, especially those connected to the head and brain. This blockage leads to pressure, heaviness, and pain.\n\nOver time, repeated stress, poor posture, and mental fatigue worsen the condition, making headaches more frequent and intense. Ayurveda emphasizes that unless the root imbalance is corrected, temporary relief will not provide long-term healing.",
+
+  "causes": {
+    "intro": "Frequent headaches can occur due to a combination of physical, mental, and lifestyle-related factors. The most common causes include:",
+
+    "points": [
+      {
+        "title": "Stress and anxiety",
+        "desc": "Continuous mental pressure and emotional stress increase tension in the nervous system, which directly contributes to headache development."
+      },
+      {
+        "title": "Lack of sleep",
+        "desc": "Irregular or insufficient sleep disrupts brain recovery and increases sensitivity to pain, making headaches more likely."
+      },
+      {
+        "title": "Dehydration",
+        "desc": "Not drinking enough water reduces fluid balance in the body, affecting brain function and leading to headaches."
+      },
+      {
+        "title": "Poor diet",
+        "desc": "Skipping meals, eating processed food, or consuming excessive spicy and oily food disturbs dosha balance and digestion."
+      },
+      {
+        "title": "Excess screen time",
+        "desc": "Long hours in front of screens strain the eyes and create tension in the head and neck region."
+      },
+      {
+        "title": "Hormonal imbalance",
+        "desc": "Hormonal fluctuations, especially in women, can trigger frequent headaches and migraines."
+      }
+    ],
+
+    "conclusion": "All these factors contribute to dosha imbalance and toxin buildup, which ultimately lead to recurring headaches."
+  },
+
+  "symptoms": {
+    "intro": "The symptoms of frequent headaches can vary depending on the underlying cause and dosha imbalance. Recognizing these symptoms early helps in managing the condition effectively.",
+
+    "common_intro": "Common symptoms include:",
+
+    "points": [
+      {
+        "title": "Throbbing or dull pain",
+        "desc": "Pain may occur on one or both sides of the head and can range from mild discomfort to severe intensity."
+      },
+      {
+        "title": "Sensitivity to light",
+        "desc": "Bright lights and screens may worsen the pain and create discomfort."
+      },
+      {
+        "title": "Nausea",
+        "desc": "Some headaches are accompanied by a feeling of nausea or even vomiting in severe cases."
+      },
+      {
+        "title": "Neck stiffness",
+        "desc": "Tension often spreads to the neck and shoulders, causing stiffness and restricted movement."
+      },
+      {
+        "title": "Fatigue",
+        "desc": "Low energy levels and mental exhaustion are common during frequent headaches."
+      }
+    ],
+
+    "additional": "In chronic cases, headaches may become more frequent and last longer, affecting work performance and daily activities.",
+
+    "conclusion": "If these symptoms are ignored, they can develop into chronic migraines or long-term neurological issues."
+  },
+
+  "long_term_effects": "If frequent headaches are not managed properly, they can gradually turn into chronic migraines. This can significantly impact daily life by reducing concentration, productivity, and emotional well-being. Continuous pain may also lead to sleep disturbances and increased stress levels, creating a cycle that worsens the condition. Over time, mental clarity decreases, and overall quality of life is affected.",
+
+  "natural_remedies": "Ayurveda offers effective natural remedies to manage and reduce headaches. Staying hydrated by drinking enough water throughout the day is essential. Applying cooling oils such as coconut oil or Brahmi oil on the scalp can calm the nervous system. Herbal remedies like ginger, tulsi, and peppermint help reduce pain naturally.\n\nPractices like Nasya therapy (application of medicated oil in the nose) are known to clear channels in the head and provide relief. Simple lifestyle changes such as reducing stress, avoiding triggers, and maintaining a balanced routine play a major role in long-term healing.",
+
+  "diet_recommendation": "A proper diet is essential in managing headaches. Fresh, light, and easily digestible food should be preferred. Avoid excessive spicy, oily, and processed foods as they aggravate Pitta dosha. Include cooling foods like cucumber, coconut water, and seasonal fruits in your diet. Eating meals on time and avoiding long gaps between meals helps maintain energy levels and prevents headaches.",
+
+  "yoga_and_lifestyle": {
+    "intro": "Yoga and relaxation techniques play a vital role in reducing headaches by calming the nervous system and improving blood circulation to the brain.",
+
+    "poses": [
+      {
+        "name": "Balasana (Child Pose)",
+        "image": "/static/images/child_pose.png",
+        "desc": "This pose gently stretches the body and relaxes the nervous system. It is highly effective in reducing stress and relieving tension-related headaches.",
+        "url": "/pose-detail/child-pose"
+      },
+      {
+        "name": "Adho Mukha Svanasana",
+        "image": "/static/images/downward_dog.png",
+        "desc": "This inversion pose improves blood flow to the brain, reduces fatigue, and helps relieve pressure in the head.",
+        "url": "/pose-detail/downward-dog-pose"
+      },
+      {
+        "name": "Shavasana",
+        "image": "/static/images/shavasana.png",
+        "desc": "A deep relaxation pose that calms the mind, reduces stress, and helps prevent frequent headaches when practiced regularly.",
+        "url": "/pose-detail/corpse-pose"
+      }
+    ],
+
+    "lifestyle": [
+      "Maintain a proper sleep routine with 7–8 hours of rest.",
+      "Limit screen time and take regular breaks.",
+      "Practice meditation and breathing exercises daily.",
+      "Stay hydrated and maintain a balanced daily routine."
+    ]
+  },
+
+  "recovery_time": "With consistent lifestyle changes, proper diet, and stress management, frequent headaches can be significantly reduced within a few weeks. Long-term improvement depends on maintaining balance in daily habits and avoiding triggers.",
+
+  "conclusion": "Frequent headaches are not just a temporary discomfort but a signal of imbalance in the body. By understanding the root cause and following Ayurvedic principles, it is possible to achieve long-lasting relief. A combination of proper diet, lifestyle, yoga, and natural remedies can help restore balance and improve overall well-being."
+}

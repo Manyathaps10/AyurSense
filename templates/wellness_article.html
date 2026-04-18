@@ -237,13 +237,11 @@ height:300px;
 
 <p>{{ article.natural_remedies }}</p>
 
-<a href="{{ url_for('remedies') }}#{{ article.natural_remedies_link }}">
-
+{#<a href="{{ article.buttons.remedy.url }}">
 <button class="read-article-btn">
-Explore Natural Remedies for Poor Digestion →
+{{ article.buttons.remedy.text }}
 </button>
-
-</a>
+</a> #}
 
 </div>
 
@@ -254,11 +252,11 @@ Explore Natural Remedies for Poor Digestion →
 
 <p>{{ article.diet_recommendation }}</p>
 
-<a href="{{ url_for('condition') }}#{{ article.diet_link }}">
+{# <a href="{{ url_for('condition') }}#{{ article.diet_link }}">
 
-<button class="read-article-btn">
+ <button class="read-article-btn">
 View Digestion Diet Plan →
-</button>
+</button> #}
 
 </a>
 
@@ -286,7 +284,7 @@ View Digestion Diet Plan →
 
 <br>
 
-<a href="{{ url_for('yoga_exercises') }}">
+<a href="{{ pose.url }}">
 <button class="read-article-btn">
 Know More and See Pose Video →
 </button>

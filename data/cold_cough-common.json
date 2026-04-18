@@ -1,0 +1,118 @@
+{
+  "title": "Cold and Cough",
+  "subtitle": "Detailed Ayurvedic understanding, causes, symptoms and natural healing methods",
+
+  "image": "/static/images/cold_cough-common.jpg",
+
+  "introduction": "Cold and cough are among the most common health issues that affect people of all ages, especially during seasonal changes. In Ayurveda, these conditions are mainly associated with an imbalance of Kapha dosha, which governs mucus, stability, and lubrication in the body. When Kapha becomes aggravated, it leads to excess mucus production, congestion, and heaviness in the respiratory system.\n\nExposure to cold weather, weak immunity, improper diet, and poor lifestyle habits can further worsen the condition. Ayurveda does not just focus on relieving symptoms but aims to eliminate the root cause by balancing doshas, improving digestion, and strengthening immunity.\n\nCold and cough are often considered early signals that the body’s defense system is weak or imbalanced. Therefore, timely care and natural remedies are essential for quick recovery and prevention of complications.",
+
+  "what_happens_in_body": "When Kapha dosha becomes aggravated, it leads to the accumulation of mucus in the respiratory tract. This blocks airways and causes symptoms such as congestion, coughing, and difficulty breathing. The body's natural response is to expel this mucus through coughing and sneezing.\n\nAt the same time, weak digestion leads to toxin (Ama) buildup, which further reduces the body's ability to fight infections. The immune system becomes less effective, making the body more vulnerable to viruses and bacteria.\n\nInflammation in the throat and nasal passages causes irritation, leading to continuous coughing and discomfort. Over time, if not managed properly, it can lead to more severe respiratory conditions.",
+
+  "causes": {
+    "intro": "Cold and cough can develop due to various environmental and lifestyle factors. The main causes include:",
+
+    "points": [
+      {
+        "title": "Exposure to cold weather",
+        "desc": "Sudden changes in temperature or exposure to cold air can aggravate Kapha and lead to congestion."
+      },
+      {
+        "title": "Weak immunity",
+        "desc": "A weak immune system makes the body more susceptible to infections and slows recovery."
+      },
+      {
+        "title": "Consumption of cold foods",
+        "desc": "Cold drinks, ice cream, and refrigerated foods increase mucus production and worsen symptoms."
+      },
+      {
+        "title": "Poor diet",
+        "desc": "Heavy, oily, and processed foods weaken digestion and contribute to toxin buildup."
+      },
+      {
+        "title": "Lack of rest",
+        "desc": "Insufficient sleep weakens the body’s natural healing ability."
+      },
+      {
+        "title": "Pollution and allergens",
+        "desc": "Dust, smoke, and allergens irritate the respiratory system and trigger coughing."
+      }
+    ],
+
+    "conclusion": "These factors disturb Kapha balance and weaken immunity, leading to cold and cough."
+  },
+
+  "symptoms": {
+    "intro": "Cold and cough primarily affect the respiratory system and can cause discomfort in daily activities. Symptoms may vary in intensity depending on the severity of the condition.",
+
+    "common_intro": "Common symptoms include:",
+
+    "points": [
+      {
+        "title": "Runny or blocked nose",
+        "desc": "Excess mucus production leads to nasal congestion or continuous discharge."
+      },
+      {
+        "title": "Coughing",
+        "desc": "Persistent coughing helps clear mucus but can cause throat irritation."
+      },
+      {
+        "title": "Sore throat",
+        "desc": "Inflammation and irritation in the throat cause pain and discomfort."
+      },
+      {
+        "title": "Sneezing",
+        "desc": "Frequent sneezing is a natural response to clear nasal passages."
+      },
+      {
+        "title": "Fatigue",
+        "desc": "Low energy levels due to the body fighting infection."
+      }
+    ],
+
+    "additional": "In some cases, mild fever, headache, and body aches may also be present.",
+
+    "conclusion": "If symptoms persist, they may develop into more serious respiratory conditions."
+  },
+
+  "long_term_effects": "If cold and cough are not treated properly, they can lead to complications such as sinus infections, bronchitis, or weakened immunity. Repeated infections can reduce the body’s resistance and make it more prone to illnesses. Chronic respiratory issues may also affect overall energy levels and quality of life.",
+
+  "natural_remedies": "Ayurveda offers effective natural remedies to relieve cold and cough. Drinking warm water throughout the day helps reduce mucus and flush out toxins. Herbal remedies such as ginger, tulsi, honey, and turmeric are highly beneficial in relieving symptoms.\n\nSteam inhalation helps clear nasal passages and reduce congestion. Herbal teas made with ginger and black pepper provide relief from throat irritation. Maintaining warmth and avoiding cold exposure are important for faster recovery.",
+
+  "diet_recommendation": "Diet plays a crucial role in recovery from cold and cough. Warm, light, and easily digestible foods should be consumed. Soups, herbal teas, and cooked vegetables are beneficial.\n\nAvoid cold, fried, and heavy foods as they increase mucus production. Spices like ginger, turmeric, and black pepper help improve digestion and reduce Kapha. Maintaining regular eating habits supports faster healing.",
+
+  "yoga_and_lifestyle": {
+    "intro": "Yoga and lifestyle practices help improve respiratory health, boost immunity, and reduce symptoms of cold and cough.",
+
+    "poses": [
+      {
+        "name": "Bhujangasana",
+        "image": "/static/images/cobra-pose.png",
+        "desc": "This pose opens the chest, improves lung capacity, and helps clear respiratory pathways.",
+        "url": "/pose-detail/cobra-pose"
+      },
+      {
+        "name": "Cat–Cow Pose",
+        "image": "/static/images/cat_cow.png",
+        "desc": "This movement improves breathing and reduces chest congestion.",
+        "url": "/pose-detail/cat-cow-stretch"
+      },
+      {
+        "name": "Vajrasana",
+        "image": "/static/images/vajra.png",
+        "desc": "This pose improves digestion and supports immunity, helping the body recover faster.",
+        "url": "/pose-detail/thunderbolt-pose"
+      }
+    ],
+
+    "lifestyle": [
+      "Drink warm fluids regularly to reduce mucus.",
+      "Avoid cold exposure and keep the body warm.",
+      "Take proper rest to support recovery.",
+      "Practice steam inhalation and maintain hygiene."
+    ]
+  },
+
+  "recovery_time": "With proper care, diet, and Ayurvedic remedies, cold and cough can improve within a few days to a week. Consistency in lifestyle and immunity support helps prevent recurrence.",
+
+  "conclusion": "Cold and cough are common but manageable conditions. By following Ayurvedic principles, improving immunity, and maintaining proper lifestyle habits, these conditions can be treated effectively and prevented naturally."
+}

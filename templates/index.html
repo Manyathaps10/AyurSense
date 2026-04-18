@@ -252,18 +252,18 @@
   <div class="problem-card problem-headache">
     <h5>🤕 Frequent Headaches</h5>
     <p>Do you suffer from recurring headaches or migraines?</p>
-    <a href="/wellness/headache" class="btn btn-light-red">Get Suggestions</a>
+    <a href="{{ url_for('condition_article', name='headache') }}" class="btn btn-light-red">Get Suggestions</a>
   </div>
 
   <div class="problem-card problem-stress">
     <h5>💨 Stress & Anxiety</h5>
     <p>Do you feel stressed easily and find it hard to stay calm?</p>
-    <a href="/wellness/stress" class="btn btn-light-purple">Get Suggestions</a>
+    <a href="{{ url_for('condition_article', name='stress-common') }}" class="btn btn-light-purple">Get Suggestions</a>
   </div>
 
   <!-- Bottom CTA -->
   <div class="text-center mt-4">
-    <a href="#" class="btn btn-dark btn-lg">
+    <a href="{{ url_for('more_problems') }}" class="btn btn-dark btn-lg">
       Explore More Problems
     </a>
   </div>
@@ -276,51 +276,54 @@
 <section class="blog-section py-5">
   <div class="container">
     <div class="text-center mb-5">
-      <h2 class="section-title">Latest from the Blog</h2>
+      <h2 class="section-title fw-bold">Latest from the Blog</h2>
       <p class="section-subtitle">Simple tips and insights for better health and wellness.</p>
     </div>
 
     <div class="row">
-      <!-- Blog Post 1 -->
+      
+      <!-- Blog 1 -->
       <div class="col-md-4 mb-4">
-        <div class="blog-card text-only">
+        <div class="blog-card text-only h-100">
           <div class="blog-content p-3">
-            <h5>5 Herbs to Boost Your Immunity</h5>
-            <p>Discover natural herbs that strengthen your immune system and keep seasonal illnesses away.</p>
-            <a href="#" class="read-more">Read More →</a>
+            <h5 class="fw-bold">What is Ayurveda? A Beginner’s Guide</h5>
+            <p>Curious about Ayurveda? Discover how this ancient science balances your body, mind, and lifestyle...........</p>
+            <a href="/blog/what-is-ayurveda-a-beginners-guide" class="read-more">Read More →</a>
           </div>
         </div>
       </div>
 
-      <!-- Blog Post 2 -->
+      <!-- Blog 2 -->
       <div class="col-md-4 mb-4">
-        <div class="blog-card text-only">
+        <div class="blog-card text-only h-100">
           <div class="blog-content p-3">
-            <h5>Morning Yoga for Energy</h5>
-            <p>Start your day with simple yoga poses that energize the body and calm the mind.</p>
-            <a href="#" class="read-more">Read More →</a>
+            <h5 class="fw-bold">Ayurvedic Herbs for Strong and Healthy Hair</h5>
+            <p>Tired of hair fall and dull hair? Explore powerful Ayurvedic herbs like Amla and Bhringraj............</p>
+            <a href="/blog/ayurvedic-herbs-for-strong-and-healthy-hair" class="read-more">Read More →</a>
           </div>
         </div>
       </div>
 
-      <!-- Blog Post 3 -->
+      <!-- Blog 3 -->
       <div class="col-md-4 mb-4">
-        <div class="blog-card text-only">
+        <div class="blog-card text-only h-100">
           <div class="blog-content p-3">
-            <h5>Detox Your Body Naturally</h5>
-            <p>Simple Ayurvedic rituals to cleanse your body and boost your digestion effectively.</p>
-            <a href="#" class="read-more">Read More →</a>
+            <h5 class="fw-bold">Daily Routine According to Ayurveda</h5>
+            <p>Want more energy and better health? Learn how a simple Ayurvedic daily routine can transform your day............</p>
+            <a href="/blog/daily-routine-according-to-ayurveda" class="read-more">Read More →</a>
           </div>
         </div>
       </div>
+
     </div>
-
-    <!-- View All Button -->
+  </div>
+  <!-- View All Button -->
     <div class="text-center mt-4">
-      <a href="#" class="btn btn-outline-dark btn-lg">View All Articles</a>
+      <a href="/blog" class="btn btn-outline-dark btn-lg">View All Articles</a>
     </div>
   </div>
 </section>
+
 
 <section class="testimonials py-5">
   <div class="container">
@@ -329,162 +332,179 @@
       <p class="section-subtitle">Real experiences from people who embraced the wellness journey.</p>
     </div>
 
-    <div class="row">
-      <!-- Testimonial 1 -->
-      <div class="col-md-4 mb-4">
-        <div class="testimonial-card p-4 h-100">
-          <p class="testimonial-text">
-            “I started following the daily Ayurvedic tips here, and I feel lighter, more energetic, and calm.”
+ <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+  
+  <div class="carousel-inner">
+
+    {% for t in testimonials %}
+    {% if t[3].strip().lower() == "testimonial" %}
+
+    <div class="carousel-item {% if loop.index == 1 %}active{% endif %}">
+      
+      <div class="d-flex justify-content-center">
+        <div class="p-4 shadow-sm rounded text-center" style="max-width:600px;">
+
+          <p class="fst-italic">
+            “{{ t[2] }}”
           </p>
-          <div class="d-flex align-items-center mt-3">
-            <img src="https://i.pravatar.cc/50?img=12" class="rounded-circle me-3" alt="User">
-            <div>
-              <h6 class="mb-0">Riya Sharma</h6>
-              <small>Software Engineer</small>
-            </div>
-          </div>
+
+          <strong>{{ t[0] }}</strong>
+
         </div>
       </div>
 
-      <!-- Testimonial 2 -->
-      <div class="col-md-4 mb-4">
-        <div class="testimonial-card p-4 h-100">
-          <p class="testimonial-text">
-            “The remedies and diet suggestions were simple yet effective. My digestion has improved a lot!”
-          </p>
-          <div class="d-flex align-items-center mt-3">
-            <img src="https://i.pravatar.cc/50?img=7" class="rounded-circle me-3" alt="User">
-            <div>
-              <h6 class="mb-0">Amit Verma</h6>
-              <small>Teacher</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Testimonial 3 -->
-      <div class="col-md-4 mb-4">
-        <div class="testimonial-card p-4 h-100">
-          <p class="testimonial-text">
-            “I never thought Ayurveda could be this easy to adopt in daily life. This site made it possible.”
-          </p>
-          <div class="d-flex align-items-center mt-3">
-            <img src="https://i.pravatar.cc/50?img=20" class="rounded-circle me-3" alt="User">
-            <div>
-              <h6 class="mb-0">Sneha Kapoor</h6>
-              <small>Designer</small>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
+
+    {% endif %}
+    {% endfor %}
+
+  </div>
+
+  <!-- Controls -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+
+  <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+
+</div>
+</div>
 
     <!-- Slider Controls (optional if you want carousel) -->
     <div class="text-center mt-4">
-      <a href="#" class="btn btn-outline-dark">Read More Testimonials</a>
+      <a href="/testimonials" class="btn btn-outline-dark">Read More Testimonials</a>
     </div>
   </div>
 </section>
 
 <section class="faq-section py-5">
   <div class="container">
+
+    <!-- Heading -->
     <div class="text-center mb-5">
       <h2 class="section-title">Frequently Asked Questions</h2>
-      <p class="section-subtitle">Find quick answers to common queries about Ayurveda and wellness.</p>
+      <p class="section-subtitle">
+        Find quick answers to common queries about Ayurveda and wellness.
+      </p>
     </div>
 
+    <!-- ACCORDION START -->
     <div class="accordion" id="faqAccordion">
-    <!-- Q1 -->
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="faqHeading1">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="false">
-        🌿 What is Ayurveda and how does it help?
-      </button>
-    </h2>
-    <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-      <div class="accordion-body">
-        Ayurveda is an ancient system of natural healing focusing on balance of body, mind, and spirit. 
-        It uses herbs, diet, and lifestyle practices to improve health naturally.
+
+      <!-- Q1 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq1">
+            💡 Is Ayurveda suitable for beginners?
+          </button>
+        </h2>
+        <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Ayurveda is very beginner-friendly. You can start with simple habits like warm water, proper meals, and basic routines.
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
       <!-- Q2 -->
       <div class="accordion-item">
-        <h2 class="accordion-header" id="faqHeading2">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-            🍵 Are the remedies safe for everyone?
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq2">
+            ⏳ How long does it take to see results?
           </button>
         </h2>
         <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
           <div class="accordion-body">
-            Yes, most remedies are natural and safe. However, for chronic conditions or medications, consult a qualified practitioner before following suggestions.
+            Results vary depending on consistency. Some people notice improvements within a few weeks.
           </div>
         </div>
       </div>
 
       <!-- Q3 -->
       <div class="accordion-item">
-        <h2 class="accordion-header" id="faqHeading3">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-            🧘 How accurate are the lifestyle suggestions?
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq3">
+            🔬 Is Ayurveda scientifically proven?
           </button>
         </h2>
         <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
           <div class="accordion-body">
-            Suggestions are based on Ayurvedic principles and general wellness practices. They provide guidance for a healthier lifestyle but are not a medical prescription.
+            Many Ayurvedic practices are supported by research, especially herbal remedies and lifestyle habits.
           </div>
         </div>
       </div>
 
       <!-- Q4 -->
       <div class="accordion-item">
-        <h2 class="accordion-header" id="faqHeading4">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
-            📱 Do I need to sign up for using the site?
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq4">
+            🥗 Do I need to follow a strict diet?
           </button>
         </h2>
         <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
           <div class="accordion-body">
-            No, you can explore tips, blogs, and common problems freely. Signing up helps save your progress and personalized wellness journey.
+            No strict diet is required. Ayurveda focuses on balance and natural food choices.
           </div>
         </div>
       </div>
+
+      <!-- 🔽 HIDDEN EXTRA FAQs -->
+      <div id="extraFAQs" style="display: none;">
+
+        <!-- Q5 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq5">
+              ⚠️ Can I follow these tips along with medicines?
+            </button>
+          </h2>
+          <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Yes, most tips are natural and safe, but if you are on medication or have a medical condition, it’s better to consult a doctor.
+            </div>
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq6">
+              🌅 What is the best time to follow an Ayurvedic routine?
+            </button>
+          </h2>
+          <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Morning is considered the best time to start Ayurvedic practices, but consistency matters more than timing.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
-  </div>
-  <!-- More Questions CTA -->
-<div class="text-center mt-5">
-  <h5 class="mb-3">Still have more questions?</h5>
-  <a href="#" class="btn btn-outline-success btn-lg">Explore More FAQs</a>
-  <p class="mt-2">
-    or <a href="#" class="contact-link">contact us directly</a>
-  </p>
-</div>
+    <!-- ACCORDION END -->
 
-</section>
+    <!-- BUTTON -->
+    <div class="text-center mt-5">
+      <h5 class="mb-3">Still have more questions?</h5>
 
-<section class="newsletter-section py-5">
-  <div class="container text-center">
-    <h2 class="section-title">Stay Connected</h2>
-    <p class="section-subtitle">
-      Get weekly wellness tips, Ayurvedic remedies, and lifestyle insights straight to your inbox.
-    </p>
+      <button class="btn btn-outline-success btn-lg" onclick="showMoreFAQs(this)">
+        Explore More FAQs
+      </button>
 
-    <form class="newsletter-form d-flex justify-content-center mt-4">
-      <input 
-        type="email" 
-        class="form-control newsletter-input" 
-        placeholder="Enter your email address" 
-        required
-      >
-      <button type="submit" class="btn btn-success newsletter-btn">Subscribe</button>
-    </form>
+      <p class="mt-2">
+        or <a href="/contact" class="contact-link">contact us directly</a>
+      </p>
+    </div>
 
-    <small class="text-muted d-block mt-3">
-      We respect your privacy. Unsubscribe anytime.
-    </small>
   </div>
 </section>
 
+<script>
+function showMoreFAQs() {
+  document.getElementById("extraFAQs").style.display = "block";
+}
+</script>
 
 {% endblock %}

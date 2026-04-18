@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container py-5">
+  <h2 class="text-center mb-5 fw-bold text-success">Testimonials 🌿</h2>
+
+  <div class="row">
+    {% for t in testimonials %}
+
+    {% if t[3].strip().lower() == "testimonial" %}
+
+    <div class="col-md-4 mb-4">
+      <div class="p-4 shadow-sm rounded h-100">
+
+        <p class="fst-italic">
+          “{{ t[2] }}”
+        </p>
+
+        <strong>{{ t[0] }}</strong>
+
+      </div>
+    </div>
+
+    {% endif %}
+
+    {% endfor %}
+  </div>
+
+</div>
+
+{% endblock %}

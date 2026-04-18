@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+
+  <div class="text-center mb-5">
+    <h2 class="fw-bold text-success">Explore More Problems</h2>
+    <p class="text-muted">
+      Discover more common wellness issues and find simple Ayurvedic solutions.
+    </p>
+  </div>
+
+  <div class="row">
+
+    <!-- LEFT COLUMN -->
+    <div class="col-md-6">
+
+      <div class="problem-card problem-sleep">
+        <h5>😴 Sleep Issues</h5>
+        <p>Do you struggle with falling asleep or staying asleep?</p>
+        <a href="{{ url_for('condition_article', name='sleep-common') }}" class="btn btn-light-blue">
+          Get Suggestions
+        </a>
+      </div>
+
+      <div class="problem-card problem-immunity">
+        <h5>🛡️ Low Immunity</h5>
+        <p>Do you fall sick frequently or feel low resistance?</p>
+        <a href="{{ url_for('condition_article', name='immunity-common') }}" class="btn btn-light-green">
+          Get Suggestions
+        </a>
+      </div>
+
+    </div>
+
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-md-6">
+
+      <div class="problem-card problem-weight">
+        <h5>⚖️ Weight Issues</h5>
+        <p>Are you facing difficulty in managing your weight?</p>
+        <a href="{{ url_for('condition_article', name='weight-common') }}" class="btn btn-light-orange">
+          Get Suggestions
+        </a>
+      </div>
+
+      <div class="problem-card problem-cold">
+        <h5>🤧 Cold & Cough</h5>
+        <p>Are you experiencing frequent cold or throat irritation?</p>
+        <a href="{{ url_for('condition_article', name='cold_cough-common') }}" class="btn btn-light-blue">
+          Get Suggestions
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}
